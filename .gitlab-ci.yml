@@ -1,0 +1,50 @@
+include:
+  - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
+
+image: $CI_REGISTRY/code-ops/poetry-docker:1.1-py3.9
+
+default:
+  tags:
+    - DOCKER
+
+variables:
+    http_proxy: $CODE_PROXY
+    https_proxy: $CODE_PROXY
+    no_proxy: $CODE_NO_PROXY
+    POETRY_HTTP_BASIC_MKDOCS_USERNAME: gitlab-ci-token
+    POETRY_HTTP_BASIC_MKDOCS_PASSWORD: $CI_JOB_TOKEN
+
+build-mkdocs:
+  stage: test
+  image: cr.siemens.com/code-ops/poetry-docker:1.1-py3.9
+  script:
+    - poetry install --no-root
+    - poetry run mkdocs build --strict ${CI_MERGE_REQUEST_IID+--no-directory-urls}
+  artifacts:
+    expire_in: 3h
+    paths:
+      - site/
+  tags:
+    - DOCKER
+
+.deploy-mkdocs:
+  stage: deploy
+  image: busybox:1.35.0
+  script:
+    - mv site/ public/
+  artifacts:
+    paths:
+      - public/
+
+review:
+  extends: .deploy-mkdocs
+  environment:
+    name: review/${CI_MERGE_REQUEST_PROJECT_PATH}/${CI_MERGE_REQUEST_IID}
+    url: https://${CI_PROJECT_NAMESPACE}.${CI_PAGES_DOMAIN}/-/${CI_PROJECT_NAME}/-/jobs/${CI_JOB_ID}/artifacts/public/index.html
+  rules:
+    - if: '$CI_MERGE_REQUEST_IID'
+
+pages:
+  extends: .deploy-mkdocs
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

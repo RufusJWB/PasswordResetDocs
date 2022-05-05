@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "docs-theme-demo"
+version = "0.1.0"
+description = "Demonstrate how to use MkDocs and Siemens docs-theme"
+authors = ["Code Ops <ops.code.ch@siemens.com>"]
+license = "Siemens Inner Source License 1.4"
+
+[[tool.poetry.source]]
+name = "mkdocs"
+url = "https://code.siemens.com/api/v4/projects/64538/packages/pypi/simple/"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+mkdocs = "^1.1"
+mkdocs-code-siemens-code-docs-theme = "^2.1.0"
+mike = "^1.1.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

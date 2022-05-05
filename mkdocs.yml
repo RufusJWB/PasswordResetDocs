@@ -1,0 +1,56 @@
+site_name: Docs Theme Quickstart
+
+theme:
+  name: 'code-siemens-code-docs-theme'
+  include_search_page: false
+  search_index_only: true
+  language: en
+  palette:
+   - scheme: default
+     primary: teal
+     accent: teal
+  features:
+   - navigation.tabs
+   - navigation.sections
+   - navigation.expand
+   - page.toc
+
+nav:
+  - Home: 
+    - Introduction: index.md
+    - About: about.md
+    - Team: team.md
+    - FAQ: FAQ.md
+
+extra:
+  community:
+    community_button_text: 'Join the community'
+    community_button_default_href: 'https://code.siemens.com/'
+  links:
+    - name: 'code'
+      value: 'https://code.siemens.com/code-examples/docs-theme-quickstart'
+    - name: 'issues'
+      value: 'https://code.siemens.com/code-examples/docs-theme-quickstart/-/issues'
+    - name: 'milestones'
+      value: 'https://code.siemens.com/code-examples/docs-theme-quickstart/-/milestones'
+
+markdown_extensions:
+  - plantuml_markdown:
+      server: https://code.siemens.com/api/plantuml
+  - pymdownx.highlight:
+      linenums: true
+      linenums_style: pymdownx-inline
+      guess_lang: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.tasklist
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.tabbed
+  - pymdownx.details
+  - admonition
+  - pymdownx.tilde
