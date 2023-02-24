@@ -40,6 +40,18 @@ To work locally with this project, you'll have to follow the steps below:
 
 1. Fork, clone or download this project
 1. Install [Python](https://www.python.org/) and [Python Poetry](https://python-poetry.org/)
+
+1. Configure poetry login credentials to work with code.siemens.com. 
+   You will need a personal access token for your account.
+   You can learn how to create one in the [Personal Access Tokens](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token) documentation.
+
+   After you have a token (it will start with `CSC-`)
+   you have to configure the registry authentication. Run this in command line
+
+   ```shell-session
+   poetry config http-basic.mkdocs __token__ <your token>
+   ```
+
 1. Install dependencies: `poetry install --no-root`
 1. Preview your project: `poetry run mkdocs serve`, then available at `http://127.0.0.1:8000`
 1. Modify content, live reloading will reflect your changes immediately
