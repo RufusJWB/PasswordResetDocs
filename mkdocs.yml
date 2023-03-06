@@ -34,6 +34,9 @@ extra:
     - name: 'milestones'
       value: 'https://code.siemens.com/code-examples/docs-theme-quickstart/-/milestones'
 
+extra_javascript:
+  - https://cdn.siemens-web.com/js/mermaid/8.12.0/mermaid.min.js
+
 markdown_extensions:
   - plantuml_markdown:
       server: https://code.siemens.com/api/plantuml
