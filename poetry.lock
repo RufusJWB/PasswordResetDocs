@@ -740,4 +740,4 @@ reference = "mkdocs"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "84cd3ed40ad8d4a769f2fbf55b926b40bfb7d00e0e6d01beb589aca9d8c9707d"
+content-hash = "13c3bc83585cb55d16aa0c7d5f95c2109cc9824949c86938f1c203ea7add29f0"
