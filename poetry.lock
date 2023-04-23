@@ -346,14 +346,14 @@ reference = "mkdocs"
 
 [[package]]
 name = "mkdocs-code-siemens-code-docs-theme"
-version = "4.0.0"
+version = "4.0.1"
 description = "The official code.siemens.io theme for MkDocs."
 category = "main"
 optional = false
 python-versions = ">=3.8.0"
 files = [
-    {file = "mkdocs-code-siemens-code-docs-theme-4.0.0.tar.gz", hash = "sha256:150ac91a600d942bb4712e6405d3343eff28350c0f84f98108dd255d204f289f"},
-    {file = "mkdocs_code_siemens_code_docs_theme-4.0.0-py3-none-any.whl", hash = "sha256:636a8943459ddbd53c1e50709d46817d4fba976f4ed9fea02b39ae3845d88a40"},
+    {file = "mkdocs-code-siemens-code-docs-theme-4.0.1.tar.gz", hash = "sha256:2f660dfcba929688a33b95898c695b9c15d23e1a8e865ca0894e2b081623bef1"},
+    {file = "mkdocs_code_siemens_code_docs_theme-4.0.1-py3-none-any.whl", hash = "sha256:6d6c8f28defd3062530ddae5ee8f634797bc9795c8f59dbafa024e12eb912e3d"},
 ]
 
 [package.dependencies]
@@ -740,4 +740,4 @@ reference = "mkdocs"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "13c3bc83585cb55d16aa0c7d5f95c2109cc9824949c86938f1c203ea7add29f0"
+content-hash = "9178b58fddaaffd1150b3b6849979c2f06e4857ddcee5311716c6bf334db9d25"
