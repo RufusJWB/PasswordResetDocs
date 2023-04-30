@@ -432,13 +432,13 @@ reference = "mkdocs"
 
 [[package]]
 name = "plantuml-markdown"
-version = "3.8.3"
+version = "3.9.1"
 description = "A PlantUML plugin for Markdown"
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "plantuml_markdown-3.8.3-py3-none-any.whl", hash = "sha256:bc74ee154a5ea9bb31a607f1373da0884e0cd9e6b2460af721e303ead949314b"},
+    {file = "plantuml_markdown-3.9.1-py3-none-any.whl", hash = "sha256:f2055579f89eac73047b55bf828b20e46ad0ce8ea91146ad88c727032c4f0602"},
 ]
 
 [package.dependencies]
