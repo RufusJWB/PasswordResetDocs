@@ -25,6 +25,10 @@ Follow the link below to create a new MkDocs project based on this template:
 
    ![Remove fork](https://code.siemens.com/code-examples/docs-theme-quickstart/uploads/b55141bb592d043352a66183068aab21/project-settings-remove-fork.png)
 
+   > **Note**: You must have Owner permissions of the forked project to be able to remove the fork
+   > relationship. If someone else forked the project and you are doing this after the fact, you
+   > might not be able to see this option in your project settings.
+
 ## First use
 
 If you want to see your GitLab Pages before making any changes, you need to trigger the pipeline one time to get it deployed.  
