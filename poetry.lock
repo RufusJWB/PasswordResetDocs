@@ -268,13 +268,13 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4)", "ghp-imp
 
 [[package]]
 name = "mkdocs-code-siemens-code-docs-theme"
-version = "6.0.0"
+version = "6.2.0"
 description = "The official code.siemens.io theme for MkDocs."
 optional = false
 python-versions = ">=3.8.0"
 files = [
-    {file = "mkdocs-code-siemens-code-docs-theme-6.0.0.tar.gz", hash = "sha256:264ac294d511d4ffe75884cccda08b42f6a73bee51a71202151a48c46b5d5bbe"},
-    {file = "mkdocs_code_siemens_code_docs_theme-6.0.0-py3-none-any.whl", hash = "sha256:a909553968a4b1e615757b9b1d2d383072600b92b8e2fb16e8c83bcfeebde60a"},
+    {file = "mkdocs-code-siemens-code-docs-theme-6.2.0.tar.gz", hash = "sha256:da37187da8a0e9775efab54257a4ef9c7d476e4c0e949f156d54dd875a2ff1aa"},
+    {file = "mkdocs_code_siemens_code_docs_theme-6.2.0-py3-none-any.whl", hash = "sha256:acc015d4bde903062109bc55c48c8a11193a3674af8a24024e95374189151a35"},
 ]
 
 [package.dependencies]
@@ -669,4 +669,4 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=4.6)", "pytest-black (
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "de04d36e98929bf17d6a72d68b66faf3a2b96be703262233a5f18e3e538ee212"
+content-hash = "7ff5f97f24776964e0f29018084cb467e9a8a4a00379e040c0b14c5d099b9770"
