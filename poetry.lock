@@ -268,13 +268,13 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4)", "ghp-imp
 
 [[package]]
 name = "mkdocs-code-siemens-code-docs-theme"
-version = "6.2.0"
+version = "6.2.1"
 description = "The official code.siemens.io theme for MkDocs."
 optional = false
 python-versions = ">=3.8.0"
 files = [
-    {file = "mkdocs-code-siemens-code-docs-theme-6.2.0.tar.gz", hash = "sha256:da37187da8a0e9775efab54257a4ef9c7d476e4c0e949f156d54dd875a2ff1aa"},
-    {file = "mkdocs_code_siemens_code_docs_theme-6.2.0-py3-none-any.whl", hash = "sha256:acc015d4bde903062109bc55c48c8a11193a3674af8a24024e95374189151a35"},
+    {file = "mkdocs-code-siemens-code-docs-theme-6.2.1.tar.gz", hash = "sha256:10fa1a30adf89645e88225aa3037e16a449e84406d934258affaa94b134ec848"},
+    {file = "mkdocs_code_siemens_code_docs_theme-6.2.1-py3-none-any.whl", hash = "sha256:e6ae9478aa4f1b6fe9dbb7bf6d8c6ced7f9e3770cc5be79fdd6bcad55bee48b0"},
 ]
 
 [package.dependencies]
@@ -338,12 +338,12 @@ pyparsing = ">=2.0.2"
 
 [[package]]
 name = "plantuml-markdown"
-version = "3.9.1"
+version = "3.9.2"
 description = "A PlantUML plugin for Markdown"
 optional = false
 python-versions = "*"
 files = [
-    {file = "plantuml_markdown-3.9.1-py3-none-any.whl", hash = "sha256:f2055579f89eac73047b55bf828b20e46ad0ce8ea91146ad88c727032c4f0602"},
+    {file = "plantuml_markdown-3.9.2-py3-none-any.whl", hash = "sha256:5adbe2de83beb94e300ff026f2469b007166bccd2c1da882181ee3defc08326d"},
 ]
 
 [package.dependencies]
