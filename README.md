@@ -34,7 +34,7 @@ Follow the link below to create a new MkDocs project based on this template:
 If you want to see your GitLab Pages before making any changes, you need to trigger the pipeline one time to get it deployed.  
 In your project's left sidebar, go to **CI/CD > Pipelines** and press the `Run pipeline` button.
 
-If the pipeline passed with `Job succeeded`, you can find the URL under **Settings > Pages**  in the `Access pages` field. 
+If the pipeline passed with `Job succeeded`, you can find the URL under **Deploy > Pages**  in the `Access pages` field. 
 
 From now on, you can start editing your documentation and deploy your site using Siemens branding.
 
