@@ -60,6 +60,8 @@ To work locally with this project, you'll have to follow the steps below:
 1. Preview your project: `poetry run mkdocs serve`, then available at `http://127.0.0.1:8000`
 1. Modify content, live reloading will reflect your changes immediately
 1. Generate the website: `poetry run mkdocs build` (optional)
+1. (Optional) Remember to keep your theme dependency up to date. Use [renovate-bot](https://code.siemens.io/ci/renovate-bot/)
+    to automate it or regularly run `poetry add --source mkdocs mkdocs-code-siemens-code-docs-theme@latest`.
 
 ## Learn more
 
