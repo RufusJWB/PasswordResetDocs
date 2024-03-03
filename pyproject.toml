@@ -12,8 +12,8 @@ priority = "explicit"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-mkdocs-code-siemens-code-docs-theme = {version = "^7.1.0", source = "mkdocs"}
-plantuml-markdown = "^3.5.3"
+mkdocs-code-siemens-code-docs-theme = {version = "^7.2.0", source = "mkdocs"}
+plantuml-markdown = "^3.9.3"
 
 [build-system]
 requires = ["poetry>=0.12"]
