@@ -2,7 +2,7 @@ include:
   - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
 
 default:
-  image: $CI_REGISTRY/code-ops/poetry-docker:1.7-py3.11
+  image: $CI_REGISTRY/code-ops/poetry-docker:1.8-py3.11
   tags:
     - DOCKER
 
