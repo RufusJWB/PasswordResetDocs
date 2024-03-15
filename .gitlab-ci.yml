@@ -26,6 +26,11 @@ build-mkdocs:
     - DOCKER
 
 .deploy-mkdocs:
+  variables:
+    # We only need the artifacts from the build-mkdocs job -> no need to clone the repository
+    GIT_STRATEGY: none
+  dependencies: 
+    - build-mkdocs
   stage: deploy
   image: busybox:1.36.1
   script:
