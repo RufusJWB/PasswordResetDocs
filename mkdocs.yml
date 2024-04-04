@@ -18,6 +18,8 @@ theme:
    - navigation.footer
    - page.toc
 
+# For larger sites, or when publishing content to the Siemens Developer Portal, we recommend using the mkdocs-literate-nav plugin as an alternative to standard navigation.
+# You can find more information in the README.
 nav:
   - Home:
     - Introduction: index.md

@@ -6,6 +6,7 @@ This project provides a minimal template for code.siemens.io websites using the 
 * Website deployment using Gitlab Pages
 * Review deployment for visual feedback in Merge Requests
 * _(optional)_: basic [renovate](https://docs.renovatebot.com/) configuration to keep your project fresh (requires setup)
+* _(optional)_: comes with pre-installed plugins commonly used at Siemens (e.g. `plantuml-markdown`, `mkdocs-literate-nav`)
 
 ## Create a new project
 
@@ -62,6 +63,19 @@ To work locally with this project, you'll have to follow the steps below:
 1. Generate the website: `poetry run mkdocs build` (optional)
 1. (Optional) Remember to keep your theme dependency up to date. Use [renovate-bot](https://code.siemens.io/ci/renovate-bot/)
     to automate it or regularly run `poetry add --source mkdocs mkdocs-code-siemens-code-docs-theme@latest`.
+
+## Recommendations
+
+### Navigation
+
+When building large sites or aggregating multiple sites together, as an alternative to standard MkDocs navigation configured in `mkdocs.yml`
+we recommend using the [mkdocs-literate-nav plugin](https://github.com/oprypin/mkdocs-literate-nav), which is installed with this quickstart template by default.
+
+This plugin will make your life easier by defining your navigation in Markdown rather than in the YAML configuration file.
+It also distributes navigation to the corresponding documentation folders and allows specifying it in a more granular way.
+**Using this plugin is highly recommended if you want to push your content to the [Siemens Developer Portal](https://developer.internal.siemens.com/).**
+
+You can find more details on configuring navigation this way in the documentation for the [mkdocs-literate-nav plugin](https://github.com/oprypin/mkdocs-literate-nav).
 
 ## Learn more
 
