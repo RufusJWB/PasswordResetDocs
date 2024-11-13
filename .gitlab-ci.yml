@@ -29,7 +29,7 @@ build-mkdocs:
   variables:
     # We only need the artifacts from the build-mkdocs job -> no need to clone the repository
     GIT_STRATEGY: none
-  dependencies: 
+  dependencies:
     - build-mkdocs
   stage: deploy
   image: busybox:1.37.0
@@ -41,9 +41,28 @@ build-mkdocs:
 
 review:
   extends: .deploy-mkdocs
+  after_script:
+    - |
+      printArtifactsUrl() {
+        # Warning: wildcard SSL cert will fail if subdomain contains a dot, like in
+        # personal repos if your username has a dot. Do not use personal repos
+        # for anything remotely serious, create a Gitlab group instead.
+        SUBDOMAIN="$CI_PROJECT_ROOT_NAMESPACE"
+
+        # Support artifacts path for Gitlab subgroups, trim
+        # CI_PROJECT_ROOT_NAMESPACE from CI_PROJECT_PATH.
+        PATH="${CI_PROJECT_PATH#${CI_PROJECT_ROOT_NAMESPACE}/}"
+
+        echo "https://${SUBDOMAIN}.${CI_PAGES_DOMAIN}/-/${PATH}/-/jobs/${CI_JOB_ID}/artifacts"
+      }
+    - REVIEW_URL="$(printArtifactsUrl)/public/index.html"
+    - echo "REVIEW_URL=$REVIEW_URL" >> review.env
+  artifacts:
+    reports:
+      dotenv: review.env
   environment:
     name: review/${CI_MERGE_REQUEST_PROJECT_PATH}/${CI_MERGE_REQUEST_IID}
-    url: https://${CI_PROJECT_NAMESPACE}.${CI_PAGES_DOMAIN}/-/${CI_PROJECT_NAME}/-/jobs/${CI_JOB_ID}/artifacts/public/index.html
+    url: $REVIEW_URL
   rules:
     - if: '$CI_MERGE_REQUEST_IID'
 
