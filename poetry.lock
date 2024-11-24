@@ -347,18 +347,18 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4)", "ghp-imp
 
 [[package]]
 name = "mkdocs-code-siemens-code-docs-theme"
-version = "7.4.2"
+version = "7.4.3"
 description = "The official code.siemens.io theme for MkDocs."
 optional = false
 python-versions = ">=3.8.0"
 files = [
-    {file = "mkdocs_code_siemens_code_docs_theme-7.4.2-py3-none-any.whl", hash = "sha256:84e97d565b930002e64353d2b756f30feb881de7f7ecbcc2e0c6092dd4249e3f"},
-    {file = "mkdocs_code_siemens_code_docs_theme-7.4.2.tar.gz", hash = "sha256:c64b7220587bd13aeb02c8ecbd58378e821b71faa8acd88b6299a84570091aa9"},
+    {file = "mkdocs_code_siemens_code_docs_theme-7.4.3-py3-none-any.whl", hash = "sha256:6af45d687c05c5b3e86a936840ecc144f6a9e7dcfa7170f0a821dec086b0b573"},
+    {file = "mkdocs_code_siemens_code_docs_theme-7.4.3.tar.gz", hash = "sha256:a11ab6d136a204fee2f0c685bc963021011dbfe3b316081fa4f542dbc383a2f8"},
 ]
 
 [package.dependencies]
 mkdocs = ">=1.6.1"
-mkdocs-material = "9.5.43"
+mkdocs-material = "9.5.44"
 
 [package.extras]
 licenses = ["cyclonedx-bom (>=3.11.7,<4)"]
@@ -401,13 +401,13 @@ mkdocs = ">=1.0.3"
 
 [[package]]
 name = "mkdocs-material"
-version = "9.5.43"
+version = "9.5.44"
 description = "Documentation that simply works"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "mkdocs_material-9.5.43-py3-none-any.whl", hash = "sha256:4aae0664c456fd12837a3192e0225c17960ba8bf55d7f0a7daef7e4b0b914a34"},
-    {file = "mkdocs_material-9.5.43.tar.gz", hash = "sha256:83be7ff30b65a1e4930dfa4ab911e75780a3afc9583d162692e434581cb46979"},
+    {file = "mkdocs_material-9.5.44-py3-none-any.whl", hash = "sha256:47015f9c167d58a5ff5e682da37441fc4d66a1c79334bfc08d774763cacf69ca"},
+    {file = "mkdocs_material-9.5.44.tar.gz", hash = "sha256:f3a6c968e524166b3f3ed1fb97d3ed3e0091183b0545cedf7156a2a6804c56c0"},
 ]
 
 [package.dependencies]
