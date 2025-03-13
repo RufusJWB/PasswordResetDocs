@@ -2,28 +2,23 @@ include:
   - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
 
 default:
-  image: $CI_REGISTRY/code-ops/poetry-docker:1.8-py3.11
+  image: ghcr.io/astral-sh/uv:0.6.6-python3.12-bookworm-slim
   tags:
-    - DOCKER
+    - DOCKER-AARCH64
 
 variables:
     http_proxy: $CODE_PROXY
     https_proxy: $CODE_PROXY
     no_proxy: $CODE_NO_PROXY
-    POETRY_HTTP_BASIC_MKDOCS_USERNAME: gitlab-ci-token
-    POETRY_HTTP_BASIC_MKDOCS_PASSWORD: $CI_JOB_TOKEN
 
 build-mkdocs:
   stage: test
   script:
-    - poetry install --no-root
-    - poetry run mkdocs build --strict ${CI_MERGE_REQUEST_IID+--no-directory-urls}
+    - uv run mkdocs build --strict ${CI_MERGE_REQUEST_IID+--no-directory-urls}
   artifacts:
     expire_in: 3h
     paths:
       - site/
-  tags:
-    - DOCKER
 
 .deploy-mkdocs:
   variables:
