@@ -35,7 +35,7 @@ Follow the link below to create a new MkDocs project based on this template:
 If you want to see your GitLab Pages before making any changes, you need to trigger the pipeline one time to get it deployed.  
 In your project's left sidebar, go to **CI/CD > Pipelines** and press the `Run pipeline` button.
 
-If the pipeline passed with `Job succeeded`, you can find the URL under **Deploy > Pages**  in the `Access pages` field. 
+If the pipeline passed with `Job succeeded`, you can find the URL under **Deploy > Pages**  in the `Access pages` field.
 
 From now on, you can start editing your documentation and deploy your site using Siemens branding.
 
@@ -44,25 +44,16 @@ From now on, you can start editing your documentation and deploy your site using
 To work locally with this project, you'll have to follow the steps below:
 
 1. Fork, clone or download this project
-1. Install [Python](https://www.python.org/) and [Python Poetry](https://python-poetry.org/)
-
-1. Configure poetry login credentials to work with code.siemens.com. 
-   You will need a personal access token for your account.
-   You can learn how to create one in the [Personal Access Tokens](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token) documentation.
-
-   After you have a token (it will start with `CSC-`)
-   you have to configure the registry authentication. Run this in command line
-
-   ```shell-session
-   poetry config http-basic.mkdocs __token__ <your token>
-   ```
-
-1. Install dependencies: `poetry install --no-root`
-1. Preview your project: `poetry run mkdocs serve`, then available at `http://127.0.0.1:8000`
+1. Install [uv](https://docs.astral.sh/uv/)
+1. Connect to the intranet (only required when downloading the `docs-theme`)
+1. Preview your project: `uv run mkdocs serve`, then available at `http://127.0.0.1:8000`
 1. Modify content, live reloading will reflect your changes immediately
-1. Generate the website: `poetry run mkdocs build` (optional)
-1. (Optional) Remember to keep your theme dependency up to date. Use [renovate-bot](https://code.siemens.io/ci/renovate-bot/)
-    to automate it or regularly run `poetry add --source mkdocs mkdocs-code-siemens-code-docs-theme@latest`.
+1. Generate the website: `uv run mkdocs build` (optional)
+1. (Optional) Remember to keep your theme dependencies up to date.
+   Use `uv lock --upgrade` to get patches and minor version upgrades.
+   To upgrade major versions look at the [releases of the Siemens `docs-theme`](https://code.siemens.com/code-ops/docs-theme/-/releases)
+   and set a new version constraint by running `uv add mkdocs-code-siemens-code-docs-theme>=NEW_MAJOR_VERSION,<NEXT_MAJOR_VERSION`.
+   or automate all updates via [renovate-bot](https://code.siemens.io/ci/renovate-bot/).
 
 ## Recommendations
 
