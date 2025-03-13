@@ -7,9 +7,11 @@ default:
     - DOCKER-AARCH64
 
 variables:
-    http_proxy: $CODE_PROXY
-    https_proxy: $CODE_PROXY
-    no_proxy: $CODE_NO_PROXY
+  http_proxy: $CODE_PROXY
+  https_proxy: $CODE_PROXY
+  no_proxy: $CODE_NO_PROXY
+  UV_LINK_MODE: copy
+  UV_LOCKED: 'true'
 
 build-mkdocs:
   stage: test
