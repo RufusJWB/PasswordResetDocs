@@ -1,21 +1,23 @@
-[tool.poetry]
+[project]
 name = "docs-theme-demo"
 version = "0.1.0"
 description = "Demonstrate how to use MkDocs and Siemens docs-theme"
-authors = ["Code Ops <ops.code.ch@siemens.com>"]
-license = "Siemens Inner Source License 1.4"
+authors = [{ name = "code.siemens.com team", email = "ops.code.ch@siemens.com" }]
+requires-python = "~=3.8"
+license = "LicenseRef-Siemens-Inner-Source-License-1.4"
+dependencies = [
+    "mkdocs-code-siemens-code-docs-theme>=7.5.0,<8",
+    "plantuml-markdown>=3.11.1,<4",
+    "mkdocs-literate-nav>=0.6.1,<0.7",
+]
 
-[[tool.poetry.source]]
+[tool.uv]
+package = false
+
+[[tool.uv.index]]
 name = "mkdocs"
 url = "https://code.siemens.com/api/v4/projects/64538/packages/pypi/simple/"
-priority = "explicit"
+explicit = true
 
-[tool.poetry.dependencies]
-python = "^3.8"
-mkdocs-code-siemens-code-docs-theme = {version = "^7.2.0", source = "mkdocs"}
-plantuml-markdown = "^3.9.3"
-mkdocs-literate-nav = "^0.6.1"
-
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+[tool.uv.sources]
+mkdocs-code-siemens-code-docs-theme = { index = "mkdocs" }
