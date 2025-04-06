@@ -2,7 +2,7 @@ include:
   - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
 
 default:
-  image: ghcr.io/astral-sh/uv:0.6.6-python3.12-bookworm-slim
+  image: ghcr.io/astral-sh/uv:0.6.12-python3.12-bookworm-slim
   tags:
     - DOCKER-AARCH64
 
