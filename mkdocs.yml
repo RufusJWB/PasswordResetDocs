@@ -54,9 +54,9 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-  - admonition
+  - pymdownx.blocks.admonition
   - footnotes
-  - pymdownx.details
+  - pymdownx.blocks.details
   - pymdownx.snippets
   - pymdownx.tabbed
   - pymdownx.tasklist

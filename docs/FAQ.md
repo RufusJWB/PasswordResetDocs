@@ -12,10 +12,15 @@ See [funding](https://code.siemens.io/docs/faq/#costs) for more details.
 
 ## How can I add notes or warnings to my website?
 
-!!! info
+/// admonition
+You can use [admonitions](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/admonition/)
+to emphasize content or messages.
+///
 
-    You can use [admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions)
-    to emphasize content or messages.
+/// details | Or you can use details
+You can use [details](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/plugins/details/)
+to hide content or messages.
+///
 
 ## How do I add code snippets to my website?
 
