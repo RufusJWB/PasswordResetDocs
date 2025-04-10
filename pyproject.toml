@@ -6,7 +6,7 @@ authors = [{ name = "code.siemens.com team", email = "ops.code.ch@siemens.com" }
 requires-python = "~=3.8"
 license = "LicenseRef-Siemens-Inner-Source-License-1.4"
 dependencies = [
-    "mkdocs-code-siemens-code-docs-theme>=7.5.0,<8",
+    "mkdocs-code-siemens-code-docs-theme>=7.6.0,<8",
     "plantuml-markdown>=3.11.1,<4",
     "mkdocs-literate-nav>=0.6.1,<0.7",
 ]

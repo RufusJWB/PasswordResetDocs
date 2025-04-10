@@ -3,14 +3,20 @@ site_name: Docs Theme Quickstart
 theme:
   name: 'code-siemens-code-docs-theme'
   palette:
-    - scheme: dark
+    - media: "(prefers-color-scheme)"
       toggle:
-        icon: material/weather-sunny
+        icon: siemens/element/element-theme-auto
         name: Switch to light mode
-    - scheme: light
+    - media: "(prefers-color-scheme: light)"
+      scheme: light
       toggle:
-        icon: material/weather-night
+        icon: siemens/element/element-sun
         name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: dark
+      toggle:
+        icon: siemens/element/element-economy
+        name: Switch to system theme
   features:
    - navigation.tabs
    - navigation.sections
