@@ -2,7 +2,8 @@ include:
   - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
 
 default:
-  image: ghcr.io/astral-sh/uv:0.9.18-python3.12-bookworm-slim
+  image: ghcr.io/astral-sh/uv:0.9.18-python3.14-trixie-slim@sha256:7f16e9bf6f391128aabfe478efd7cf5c3ed670131b10bf39afd72bf944ee39e3
+  interruptible: true
   tags:
     - DOCKER-AARCH64
 
@@ -65,5 +66,6 @@ review:
 
 pages:
   extends: .deploy-mkdocs
+  interruptible: false
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
