@@ -2,7 +2,7 @@ include:
   - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
 
 default:
-  image: ghcr.io/astral-sh/uv:0.9.18-python3.14-trixie-slim@sha256:7f16e9bf6f391128aabfe478efd7cf5c3ed670131b10bf39afd72bf944ee39e3
+  image: ghcr.io/astral-sh/uv:0.9.24-python3.14-trixie-slim@sha256:74c8df9ac14ce953241bc94b5fc2f8b06d4303bab57e9dacccfd787b1b482cb9
   interruptible: true
   tags:
     - DOCKER-AARCH64
