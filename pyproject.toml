@@ -3,10 +3,10 @@ name = "docs-theme-demo"
 version = "0.1.0"
 description = "Demonstrate how to use MkDocs and Siemens docs-theme"
 authors = [{ name = "code.siemens.com team", email = "ops.code.ch@siemens.com" }]
-requires-python = "~=3.8"
+requires-python = ">=3.10,<4"
 license = "LicenseRef-Siemens-Inner-Source-License-1.4"
 dependencies = [
-    "mkdocs-code-siemens-code-docs-theme>=7.6.0,<8",
+    "mkdocs-code-siemens-code-docs-theme>=8,<9",
     "plantuml-markdown>=3.11.1,<4",
     "mkdocs-literate-nav>=0.6.1,<0.7",
 ]
