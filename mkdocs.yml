@@ -1,4 +1,4 @@
-site_name: Docs Theme Quickstart
+site_name: Password reset
 
 theme:
   name: 'code-siemens-code-docs-theme'
@@ -17,18 +17,10 @@ theme:
       toggle:
         icon: siemens/element/element-economy
         name: Switch to system theme
-  features:
-   - navigation.tabs
-   - navigation.sections
-   - navigation.expand
-   - navigation.footer
-   - page.toc
 
-# For larger sites, or when publishing content to the Siemens Developer Portal, we recommend using the mkdocs-literate-nav plugin as an alternative to standard navigation.
-# You can find more information in the README.
 nav:
   - Home:
-    - Introduction: index.md
+    - Password reset: index.md
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -38,11 +30,7 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+
   - pymdownx.blocks.admonition
   - footnotes
   - pymdownx.blocks.details
