@@ -32,10 +32,8 @@ This will bring you to this page where you can select passwordless methods to au
 
 If you are sucessfully able to sign-in, then [request a new password in MyIT (requires authentication)](https://myit.siemens.com/myitportal?id=sc_cat_item&table=sc_cat_item&sys_id=29738742c3025ad423c3dc4c0501311c). The necessary steps are documented in [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit).
 
-!!! success
-
-    You should now be able get a new password.
-
+/// admonition | You should now be able get a new password.
+    type: success
 
 ## Assisted process
 
@@ -53,10 +51,8 @@ If successful, the manager (or super-requester) should see the MyIT landing page
 
 ![Success](./Act%20on%20behalf%203.png "Banner shown")
 
-!!! success
-
-    Now the manager can follow [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit) to reset your password.
-
+/// admonition | Now the manager can follow [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit) to reset your password.
+    type: success 
 
 ### The Emergency password reset process
 
@@ -64,6 +60,3 @@ If the manager can't be reached there is an emergency process that can be perfor
 
 /// admonition | Don't call the help desk
     type: warning
-
-Whatever happens: Don't call the help desk!
-///
