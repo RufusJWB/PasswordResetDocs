@@ -18,18 +18,23 @@ The best way to proceed, which works in most cases, is to click on `Sign in anot
 
 ![Sign in another way](./Signinanotherway.png "Alternative sign in")
 
-This will bring you to this page where you can select passwordless methods to authenticate.
-- Select `Face, fingerprint, PIN or security key` if you have:
-  - Windows Hello for Business on your managed Windows device
-  - Hello for Mac (automatically rolled out on all managed MacOS devices)
-  - A Passkey on your smartphone
-  - A physical Passkey/FIDO2 security key (e.g. Yubikey)
-- Select `Approve a request on my Microsoft Authenticator app` if you have have setup passwordless signin in your `Microsoft Authenticator` mobile app.
-- Select `Use a certificate or smart card` if you have have a company badge/smartcard with the golden chip and valid PKI certifcates on it. Please note Virtual Smartcard (VSC) is not suppored.
+This will bring you to this page where you can select passwordless methods to authenticate:
+- Select `Face, fingerprint, PIN or security key` if you have:  
+  - Windows Hello for Business on your managed Windows device  
+  - Hello for Mac (automatically rolled out on all managed MacOS devices)  
+  - A Passkey on your smartphone  
+  - A physical Passkey/FIDO2 security key (e.g. Yubikey)  
+- Select `Approve a request on my Microsoft Authenticator app` if you have have setup passwordless signin in your `Microsoft Authenticator` mobile app.  
+- Select `Use a certificate or smart card` if you have have a company badge/smartcard with the golden chip and valid PKI certifcates on it. Please note Virtual Smartcard (VSC) is not suppored.  
 
 ![Chose another method to signin](./methods.png "Go passwordless")
 
 If you are sucessfully able to sign-in, then [request a new password in MyIT (requires authentication)](https://myit.siemens.com/myitportal?id=sc_cat_item&table=sc_cat_item&sys_id=29738742c3025ad423c3dc4c0501311c). The necessary steps are documented in [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit).
+
+!!! success
+
+    You should now be able get a new password.
+
 
 ## Assisted process
 
@@ -45,9 +50,12 @@ In the following dialog your manager (or super-requester) must select you by cli
 
 If successful, the manager (or super-requester) should see the MyIT landing page with a banner informing them about a successful impersonation.
 
-![Success](./Act%20on%20behalf%203.png "Banner shown").
+![Success](./Act%20on%20behalf%203.png "Banner shown")
 
-Now the manager can follow [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit) to reset your password.
+!!! success
+
+    Now the manager can follow [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit) to reset your password.
+
 
 ### The Emergency password reset process
 
