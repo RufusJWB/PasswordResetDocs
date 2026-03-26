@@ -28,10 +28,10 @@ The best way to proceed, which works in most cases, is to click on `Sign in anot
 This will bring you to this page where you can select passwordless methods to authenticate:
 
 - Select `Face, fingerprint, PIN or security key` if you have:
-  - Windows Hello for Business on your managed Windows device
-  - Hello for Mac (automatically rolled out on all managed macOS devices)
-  - A passkey on your smartphone
-  - A physical passkey / FIDO2 security key (e.g. YubiKey)
+    - Windows Hello for Business on your managed Windows device
+    - Hello for Mac (automatically rolled out on all managed macOS devices)
+    - A passkey on your smartphone
+    - A physical passkey / FIDO2 security key (e.g. YubiKey)
 
 - Select `Approve a request on my Microsoft Authenticator app` if you have set up passwordless sign-in in your `Microsoft Authenticator` mobile app.
 
@@ -64,7 +64,7 @@ If successful, the manager (or super-requester) should see the MyIT landing page
 ![Success](./Act%20on%20behalf%203.png "Banner shown")
 
 /// admonition | Done
-    type: success 
+    type: success
 
 Now the manager can follow [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit) to reset your password.
 ///
