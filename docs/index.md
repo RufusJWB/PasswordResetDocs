@@ -62,9 +62,21 @@ If successful, the manager (or super-requester) should see the MyIT landing page
 Now the manager can follow [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit) to reset your password.
 ///
 
+/// admonition | Please setup passwordless
+    type: tip
+
+In order to avoid forgetting or using your password in the future, please [setup passwordless as described here (requires authentication)](https://www.siemens.com/passwordless).
+///
+
 ### The Emergency password reset process
 
 If the manager can't be reached there is an emergency process that can be performed by typically two colleagues in your department. This process is documented in this [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/agm/en/emergency-password-reset).
+
+/// admonition | Please setup passwordless
+    type: tip
+
+In order to avoid forgetting or using your password in the future, please [setup passwordless as described here (requires authentication)](https://www.siemens.com/passwordless).
+///
 
 /// admonition | Don't call the help desk
     type: warning
