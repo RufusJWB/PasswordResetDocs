@@ -12,7 +12,7 @@ There are two ways for resetting your password, one via self-service and one whi
 
 If you're reading this, there's a good chance you've forgotten your Microsoft Account password.
 
-![Forgot my password](./Enterpassword2.png "What's my password?")
+![Forgot my password](./EnterPassword2.png "What's my password?")
 
 The best way to proceed, which works in most cases, is to click on `Sign in another way`. If you have Windows Hello for Business on your Windows device, a Siemens Smartcard (company badge) with PKI/certifcates on it, a Passkey on your smartphone, or a MacOS client, you will be able to sign in without a password.
 
