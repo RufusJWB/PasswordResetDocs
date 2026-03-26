@@ -77,7 +77,7 @@ In order to avoid forgetting or using your password in the future, please [setup
 
 ### The Emergency password reset process
 
-If the manager can't be reached there is an emergency process that can be performed by typically two colleagues in your department. This process is documented in this [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/agm/en/emergency-password-reset).
+If the manager can't be reached, there is an emergency process that can be performed by two colleagues in your department. This process is documented in this [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/agm/en/emergency-password-reset).
 
 /// admonition | Setup passwordless (recommended)
     type: tip
