@@ -6,9 +6,9 @@
 Avoid calling or submitting a ticket to the MyIT help desk if you've forgotten your password, as they are unable to assist and doing so will incur significant costs for Siemens.
 ///
 
-There are two ways for resetting your password, one via self-service and one which needs to be done by your manager or two colleagues.
+There are two ways for resetting your password, one via self-service (recommended) and one which needs to be done by your manager or two colleagues.
 
-## The self-service password reset process
+## Self-service password reset process (recommended)
 
 If you're reading this, there's a good chance you've forgotten your Microsoft Account password.
 
