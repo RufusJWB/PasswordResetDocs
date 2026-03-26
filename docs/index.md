@@ -19,13 +19,13 @@ The best way to proceed, which works in most cases, is to click on `Sign in anot
 ![Sign in another way](./Signinanotherway.png "Alternative sign in")
 
 This will bring you to this page where you can select passwordless methods to authenticate:
-- Select `Face, fingerprint, PIN or security key` if you have:  
-  - Windows Hello for Business on your managed Windows device  
-  - Hello for Mac (automatically rolled out on all managed MacOS devices)  
-  - A Passkey on your smartphone  
-  - A physical Passkey/FIDO2 security key (e.g. Yubikey)  
-- Select `Approve a request on my Microsoft Authenticator app` if you have have setup passwordless signin in your `Microsoft Authenticator` mobile app.  
-- Select `Use a certificate or smart card` if you have have a company badge/smartcard with the golden chip and valid PKI certifcates on it. Please note Virtual Smartcard (VSC) is not suppored.  
+- Select `Face, fingerprint, PIN or security key` if you have:
+  - Windows Hello for Business on your managed Windows device 
+  - Hello for Mac (automatically rolled out on all managed MacOS devices)
+  - A Passkey on your smartphone
+  - A physical Passkey/FIDO2 security key (e.g. Yubikey)
+- Select `Approve a request on my Microsoft Authenticator app` if you have have setup passwordless signin in your `Microsoft Authenticator` mobile app.
+- Select `Use a certificate or smart card` if you have have a company badge/smartcard with the golden chip and valid PKI certifcates on it. Please note Virtual Smartcard (VSC) is not suppored.
 
 ![Chose another method to signin](./methods.png "Go passwordless")
 
