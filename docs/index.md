@@ -16,7 +16,7 @@ After resetting your password, in order to avoid forgetting or using your passwo
 
 ## Self-service password reset process (recommended)
 
-If you're reading this, there's a good chance you've forgotten your Microsoft Account password.
+If you're reading this, there's a good chance you've forgotten your Siemens account password.
 
 ![Forgot my password](./EnterPassword2.png "What's my password?")
 
