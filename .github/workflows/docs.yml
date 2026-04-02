@@ -1,0 +1,83 @@
+name: Docs CI/CD
+
+on:
+  pull_request:
+  push:
+    branches:
+      - '**'
+
+# Required for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevent overlapping docs runs on the same ref, similar to interruptible jobs
+concurrency:
+  group: docs-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_LINK_MODE: copy
+  UV_LOCKED: 'true'
+
+  # Optional: if your theme/index is private, configure these repository secrets.
+  # If secrets are not defined, these evaluate to empty values.
+  UV_INDEX_MKDOCS_USERNAME: ${{ secrets.UV_INDEX_MKDOCS_USERNAME }}
+  UV_INDEX_MKDOCS_PASSWORD: ${{ secrets.UV_INDEX_MKDOCS_PASSWORD }}
+
+jobs:
+  build:
+    name: Build MkDocs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies (locked)
+        run: uv sync --locked
+
+      - name: Build docs (strict)
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            uv run mkdocs build --strict --no-directory-urls
+          else
+            uv run mkdocs build --strict
+          fi
+
+      - name: Upload build artifact (debug/review)
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: site/
+          retention-days: 1
+
+      - name: Prepare Pages artifact
+        if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+
+  deploy:
+    name: Deploy GitHub Pages
+    needs: build
+    if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -14,7 +14,6 @@ There are two ways for resetting your password, one via self-service (recommende
 After resetting your password, in order to avoid forgetting or using your password in the future, please [setup passwordless as described here (requires authentication)](https://www.siemens.com/passwordless).
 ///
 
-
 ## Self-service password reset process (recommended)
 
 If you're reading this, there's a good chance you've forgotten your Microsoft Account password.
