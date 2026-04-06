@@ -20,6 +20,7 @@ concurrency:
 env:
   UV_LINK_MODE: copy
   UV_LOCKED: 'true'
+  UV_NO_BINARY_PACKAGE: mkdocs-code-siemens-code-docs-theme
 
   # Optional: if your theme/index is private, configure these repository secrets.
   # If secrets are not defined, these evaluate to empty values.
