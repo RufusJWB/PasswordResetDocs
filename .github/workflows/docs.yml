@@ -55,7 +55,7 @@ jobs:
 
       - name: Build and install Siemens docs theme
         shell: bash
-        run: ./scripts/bootstrap-docs-theme.sh
+        run: bash ./scripts/bootstrap-docs-theme.sh
 
       - name: Build docs (strict)
         shell: bash
