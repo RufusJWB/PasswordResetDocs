@@ -1,0 +1,28 @@
+<!-- Siemens topic links -->
+{% if "links" in config.extra %}
+  {% set footer_links = config.extra.links %}
+  <div class="footer-siemens">
+    <!-- No topics defined, single column only -->
+    {% if not footer_links is mapping %}
+      {% set topic = "explore" %}
+      {% set topic_links = footer_links %}
+      {% include "partials/siemens/topic-links.html" %}
+    <!-- Support multiple topic columns as shown in Siemens Brand -->
+    {% elif footer_links is mapping %}
+      {% for topic, topic_links in footer_links.items() %}
+        {% include "partials/siemens/topic-links.html" %}
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endif %}
+
+<div class="md-copyright">
+  <!-- Siemens legal links -->
+  {{ config.copyright or "© Siemens 1996 - 2026" }}
+  <a class="footer-siemens__link-legal" href="http://www.siemens.com/corporate-information" target="_blank">Corporate Information</a>
+  <a class="footer-siemens__link-legal" href="http://www.siemens.com/privacy" target="_blank">Privacy Policy</a>
+  <a class="footer-siemens__link-legal" href="http://www.siemens.com/corp/en/index/terms_of_use.htm" target="_blank">Terms of Use</a>
+  {% if "code-siemens-code-docs-theme/licenses" in config.plugins %}
+    <a class="footer-siemens__link-legal" href="{{ base_url }}/_licenses.html">Third-party Software</a>
+  {% endif %}
+</div>

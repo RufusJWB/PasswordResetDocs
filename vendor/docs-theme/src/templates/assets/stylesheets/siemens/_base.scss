@@ -1,0 +1,9 @@
+// Add some padding inside the card container
+.container {
+  padding: 2px 16px;
+}
+
+// Vertically center badges in paragraphs
+p > img[type="badge"] {
+  vertical-align: text-bottom;
+}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block styles %}
+
+  {{ super() }}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/code-main.css' | url }}" />
+
+{% endblock %}
+
+{% block fonts %}
+  {% if config.theme.font != false %}
+    {% set font = config.theme.font %}
+
+    <link rel="preload" href="https://cdn.c2comms.cloud/fonts/professional/7.0/SiemensSansPro_W_Rm.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://cdn.c2comms.cloud/fonts/professional/7.0/SiemensSansPro_W_Bd.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style>:root{--md-text-font:"{{ font.text }}";--md-code-font:"{{ font.code }}"}</style>
+  {% endif %}
+{% endblock %}
+
+{% block header %}
+  <input
+    class="md-toggle"
+    data-md-toggle="main-nav"
+    type="checkbox"
+    id="main-nav-toggle"
+    autocomplete="off"
+  />
+  {% include "partials/header.html" %}
+{% endblock %}
+
+{% block tabs %}{% endblock %}
+
+{% block content %}
+
+  {{ super() }}
+  {% include "partials/siemens/content-footer.html" %}
+
+{% endblock %}
+
+{% block footer %}
+
+  <!-- AsyncAPI integration -->
+  {% if "asyncapi" in features %}
+    {% include "asyncapi.html" %}
+  {% endif %}
+
+  <!-- OpenAPI integration -->
+  {% if "openapi" in features %}
+    {% include "openapi.html" %}
+  {% endif %}
+
+  {% include "partials/footer.html" %}
+{% endblock %}

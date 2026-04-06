@@ -1,0 +1,30 @@
+.md-search {
+  &__input {
+    font-family: $font-siemens-sans;
+    appearance: none;
+
+    @include break-from-device(tablet landscape) {
+      background: var(--md-search-input-bg-color);
+
+      // Search form on hover
+      &:hover {
+        background-color: var(--md-search-input-bg-color-hover);
+      }
+    }
+  }
+}
+
+.md-icon.md-search__icon:hover {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 59.9375em) {
+  button[type="reset"].md-icon.md-search__icon {
+    color: var(--md-default-fg-color--light);
+  }
+
+  .md-search__input::placeholder {
+    font-size: 1em;
+    color: var(--md-code-fg-color);
+  }
+}

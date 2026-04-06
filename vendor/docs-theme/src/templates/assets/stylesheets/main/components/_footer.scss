@@ -1,0 +1,107 @@
+// ----------------------------------------------------------------------------
+// Rules
+// ----------------------------------------------------------------------------
+
+// Footer
+.md-footer {
+
+  // Footer link button
+  &__button {
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  // Footer link to previous and next page
+  &__link {
+    &:is(:focus, :hover) {
+      color: var(--md-accent-fg-color);
+    }
+  }
+}
+
+// Footer metadata
+.md-footer-meta {
+
+  // Lighten color for non-hovered text links
+  html &.md-typeset a {
+
+    // Text link on focus/hover
+    &:is(:focus, :hover) {
+      color: var(--md-accent-fg-color);
+    }
+  }
+}
+
+// Social links
+.md-social {
+  // override: always align to the right
+  margin-inline-start: auto;
+}
+
+// ----------------------------------------------------------------------------
+
+// Copyright and theme information
+.md-copyright {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2rem;
+  font-size: 16px;
+  color: var(--md-footer-fg-color);
+}
+
+// Siemens topic links
+
+.footer-siemens {
+  width: 100%;
+
+  .col {
+    float: left;
+    width: 300px;
+    height: auto;
+    padding: px2rem(8px) 0;
+    margin: auto px2rem(12px);
+  }
+
+  .footer-siemens-title {
+    display: block;
+    margin: 1.6em 0 .64em;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.4;
+    letter-spacing: -.01em;
+  }
+
+  ul {
+    margin-inline-start: 0;
+
+    li {
+      margin-inline-start: 0;
+      list-style: none;
+    }
+  }
+
+  &__link {
+    &-topic,
+    &-legal
+    {
+      font-size: 16px;
+      border-bottom: 1px solid transparent;
+
+      &:is(:focus, :hover) {
+        border-bottom: 1px solid var(--md-accent-fg-color);
+      }
+    }
+
+    &-topic {
+      text-transform: capitalize;
+    }
+  }
+
+  @media only screen and (min-width: 980px) {
+    &__link-legal {
+      display: inline-block;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+branches:
+  - main
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - "@semantic-release/changelog"
+  - "@semantic-release/gitlab"
+  - - "semantic-release-replace-plugin"
+    - replacements:
+      - files:
+        - package.json
+        from: '"version": "\S"'
+        to: '"version": "${nextRelease.version}"'
+      - files:
+        - pyproject.toml
+        from: '^version = "\S+"'
+        to: 'version = "${nextRelease.version}"'
+      - files:
+        - uv.lock
+        from: "^name = \"mkdocs-code-siemens-code-docs-theme\"\nversion = \"\\S+\""
+        to: "name = \"mkdocs-code-siemens-code-docs-theme\"\nversion = \"${nextRelease.version}\""
+  - - "@semantic-release/git"
+    - assets:
+        - CHANGELOG.md
+        - package.json
+        - pyproject.toml
+        - uv.lock
+      message: "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"

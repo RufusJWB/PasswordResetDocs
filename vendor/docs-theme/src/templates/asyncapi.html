@@ -1,0 +1,42 @@
+<script>
+  if (document.querySelectorAll(".material-asyncapi").length > 0) {
+
+    const script = document.createElement("script")
+    script.id = "asyncapi-bundle"
+    script.async = true
+    script.src = "{{ 'assets/javascripts/asyncapi-react-component/index.js' | url }}"
+    document.head.appendChild(script)
+
+    script.onload = function () {
+      Array.prototype.forEach.call(
+        document.querySelectorAll(".material-asyncapi"), item => {
+
+          AsyncApiStandalone.render({
+              schema: {
+                url: item.getAttribute("data-asyncapi-url"),
+                options: {method: "GET", mode: "cors"},
+              },
+              config: {
+                show: {
+                  sidebar: JSON.parse(item.getAttribute("data-asyncapi-sidebar")) ?? true,
+                  info: JSON.parse(item.getAttribute("data-asyncapi-info")) ?? true,
+                  servers: JSON.parse(item.getAttribute("data-asyncapi-servers")) ?? true,
+                  operations: JSON.parse(item.getAttribute("data-asyncapi-operations")) ?? true,
+                  messages: JSON.parse(item.getAttribute("data-asyncapi-messages")) ?? true,
+                  schemas: JSON.parse(item.getAttribute("data-asyncapi-schemas")) ?? true,
+                  errors: JSON.parse(item.getAttribute("data-asyncapi-errors")) ?? true
+                },
+                expand: {
+                  messageExamples: JSON.parse(item.getAttribute("data-asyncapi-expand-message-examples")) ?? false,
+                },
+                sidebar: {
+                  showOperations: item.getAttribute("data-asyncapi-show-operations"),
+                  showServers: item.getAttribute("data-asyncapi-show-operations")
+                }
+              },
+            }, document.getElementById("asyncapi")
+          )
+        })
+    }
+  }
+</script>

@@ -1,0 +1,343 @@
+// ----------------------------------------------------------------------------
+// Variables
+// ----------------------------------------------------------------------------
+
+// Active (toggled) search
+$md-toggle-search-checked: "[data-md-toggle=\"search\"]:checked ~ .md-header";
+
+// ----------------------------------------------------------------------------
+// Rules
+// ----------------------------------------------------------------------------
+
+// Search
+.md-search {
+  // override: unset upstream value `relative` to avoid creating a new
+  // containing block for the absolute positioning of the search output.
+  position: initial;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  // Search overlay
+  &__overlay {
+    z-index: 5;
+
+    // [tablet portrait -]: Search modal
+    @include break-to-device(tablet portrait) {
+      inset-inline-start: 0.4em;
+      top: 0.4em;
+      width: 3.6em;
+      height: 3.6em;
+      background-color: var(--md-primary-bg-color);
+      border-radius: 2em;
+    }
+
+    // Adjust appearance when search is active
+    #{$md-toggle-search-checked} & {
+
+      // [mobile portrait -]: Scale up 45 times
+      @include break-to-device(mobile portrait) {
+        height: 110%;
+      }
+
+      // [mobile landscape]: Scale up 60 times
+      @include break-at-device(mobile landscape) {
+        height: 90%;
+      }
+
+      // [tablet portrait]: Scale up 75 times
+      @include break-at-device(tablet portrait) {
+        height: 75%;
+      }
+    }
+
+    // [tablet landscape +]: Overlay for better focus on search
+    @include break-from-device(tablet landscape) {
+      position: fixed;
+      inset-inline-start: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      cursor: pointer;
+      opacity: 1;
+      transition:
+        width   0ms 250ms,
+        height  0ms 250ms,
+        opacity 250ms;
+    }
+  }
+
+  // Search wrapper
+  &__inner {
+    // override: inherit width from parent element by default, use `!important`
+    // to reset all upstream widths in media queries.
+    // stylelint-disable-next-line declaration-no-important
+    width: inherit !important;
+
+    // [tablet portrait -]: Search modal
+    @include break-to-device(tablet portrait) {
+      inset-inline-start: 100%;
+      top: $search-input-height-mobile; // aligned with`.main-nav`
+      z-index: 20;
+      width: 100%;
+      height: 100%;
+      transition:
+        inset-inline-end    0ms    300ms,
+        inset-inline-start  0ms    300ms;
+
+      // Adjust appearance when search is active
+      #{$md-toggle-search-checked} & {
+        inset-inline-start: 0;
+        transition:
+          inset-inline-end    0ms    0ms,
+          inset-inline-start  0ms    0ms,
+          transform           150ms 150ms cubic-bezier(0.1, 0.7, 0.1, 1),
+          opacity             150ms 150ms;
+      }
+
+      // Adjust for RTL languages
+      html [dir="rtl"] & {
+        transform: translateX(-5%);
+      }
+    }
+
+    // [tablet landscape +]: Header-embedded search
+    @include break-from-device(tablet landscape) {
+      // override: unset upstream value `relative` to avoid creating a new
+      // containing block for the absolute positioning of the search output.
+      position: initial;
+      margin-right: 1rem;
+    }
+  }
+
+  // Search form
+  &__form {
+    z-index: 5;
+    height: 1.3rem;
+    margin-right: 1.2rem; // width of search button
+
+    // [tablet landscape +]: Header-embedded search
+    @include break-from-device(tablet landscape) {
+      width: 11rem;
+    }
+  }
+
+  // Search input
+  &__input {
+    z-index: 3;
+    height: inherit;
+    padding-block: 0;
+    padding-inline: 0.5em 2.2em;
+    color: var(--md-search-input-placeholder-color);
+    border-bottom: 1px solid var(--md-input-border-color);
+
+    #{$md-toggle-search-checked} & {
+      color: var(--md-search-input-fg-color);
+    }
+
+    // Transition on placeholder
+    &::placeholder {
+      transition: color 250ms cubic-bezier(0.1, 0.7, 0.1, 1);
+    }
+
+    // [tablet portrait -]: Search modal
+    @include break-to-device(tablet portrait) {
+      padding-inline-start: 3em;
+      font-size: 1.8em;
+      color: var(--md-default-fg-color--light);
+    }
+
+    // [tablet landscape +]: Header-embedded search
+    @include break-from-device(tablet landscape) {
+      background-color: initial;
+      transition:
+        background-color 250ms cubic-bezier(0.1, 0.7, 0.1, 1),
+        color            250ms cubic-bezier(0.1, 0.7, 0.1, 1);
+
+      // Search placeholder
+      &::placeholder {
+        color: var(--md-search-input-placeholder-color);
+      }
+
+      // Adjust appearance when search is active
+      #{$md-toggle-search-checked} & {
+
+        // Search icon and placeholder
+        + .md-search__icon,
+        &::placeholder {
+          display: none;
+          color: #adbecb;
+        }
+      }
+    }
+  }
+
+  // Search icon
+  &__icon {
+    z-index: 3;
+    font-size: var(--md-icon-size);
+    transition:
+      color   250ms cubic-bezier(0.1, 0.7, 0.1, 1);
+
+    // override: align icons with SVG. Remove when fully migrated to SVG.
+    svg {
+      padding: 0.2rem;
+    }
+
+    // Search icon on hover
+    &:hover {
+      color: var(--md-default-fg-color);
+    }
+
+    // Search focus button
+    &[for="__search"] {
+      inset-block-start: 0%;
+      inset-inline-start: 100%;
+      display: flex;
+      align-items: center;
+      // override: unlike upstream, we currently show our search icon outside the field
+      height: 1.3rem;
+      background: var(--md-search-icon-bg-color);
+
+      svg {
+        color: var(--md-search-icon-color);
+      }
+
+      &:hover {
+        color: var(--md-default-fg-color);
+      }
+      // [tablet portrait -]: Full-screen search bar
+      @include break-to-device(screen) {
+        inset-inline: 1.6rem auto;
+        top: 1.2rem;
+      }
+    }
+
+    // Search reset button
+    &[type="reset"] {
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0.75);
+      transition:
+        transform 150ms cubic-bezier(0.1, 0.7, 0.1, 1),
+        opacity   150ms;
+
+      // [tablet portrait -]: Search modal
+      @include break-to-device(tablet portrait) {
+        inset-inline-end: px2rem(16px);
+        top: px2rem(12px);
+      }
+
+      // Show reset button when search is active and input non-empty
+      #{$md-toggle-search-checked},
+      .md-search__input:valid ~ & {
+        inset-inline-end: 1em;
+        top: 0.35em;
+        font-size: 1.6em;
+        pointer-events: initial;
+        opacity: 1;
+        transform: scale(1);
+
+        // Search focus icon
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  // Search options
+  &__options {
+    inset-inline-end: 0.1rem;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    height: inherit;
+  }
+
+  // Search output
+  &__output {
+    inset-inline-end: 0.3rem;
+    z-index: 6;
+    width: 900px;
+
+    // [tablet portrait -]: Search modal
+    @include break-to-device(tablet portrait) {
+      top: 1.8rem;
+      width: 100%;
+    }
+
+    // [tablet landscape +]: Header-embedded search
+    @include break-from-device(tablet landscape) {
+      top: $md-tabbar-search-container-height; // aligned with `md-tabbar-search-container`
+
+      // Show output when search is active
+      #{$md-toggle-search-checked} & {
+        @include z-depth(6);
+      }
+    }
+  }
+
+  // Search scroll wrapper
+  &__scrollwrap {
+
+    // [tablet landscape +]: Limit height to viewport
+    @include break-from-device(tablet landscape) {
+
+      // Show scroll wrapper when search is active
+      #{$md-toggle-search-checked} & {
+        width: 250%;
+      }
+    }
+  }
+}
+
+// Search result
+.md-search-result {
+  @include break-from-device(tablet landscape) {
+    width: 40%;
+  }
+
+  // Typesetted content
+  .md-typeset {
+
+    // Search result section title
+    h1 {
+      margin: 1.1em 0;
+      color: var(--md-default-fg-color);
+    }
+
+    // Search result article title
+    h2 {
+      font-size: 1.25em;
+      line-height: 1.4;
+    }
+  }
+
+  // Search result metadata
+  &__meta {
+    font-size: 1.4em;
+    line-height: 2.4em;
+    color: var(--md-code-fg-color);
+    background-color: var(--md-code-bg-color);
+  }
+
+  // Search result list
+  &__list {
+    background-color: var(--md-primary-bg-color);
+    border-top: 0.1em solid var(--md-default-fg-color--lightest);
+  }
+
+  // Search result article
+  &__article {
+
+    // override: todo: remove after migration to SVG icons
+    // Icon
+    .md-icon {
+      width: 1.2rem;
+      height: 1.8rem;
+    }
+  }
+}

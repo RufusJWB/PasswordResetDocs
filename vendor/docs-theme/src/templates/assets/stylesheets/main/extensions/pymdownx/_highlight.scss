@@ -1,0 +1,12 @@
+// ----------------------------------------------------------------------------
+// Rules: syntax highlighting
+// ----------------------------------------------------------------------------
+
+// Code block
+.highlight {
+
+  // Code block line numbers (pymdownx-inline)
+  [data-linenos]::before {
+    z-index: 1;
+  }
+}

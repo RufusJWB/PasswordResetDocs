@@ -1,0 +1,9 @@
+// Icon
+.md-icon {
+  fill: var(--md-default-fg-color);
+
+  // SVG defaults
+  svg {
+    color: var(--md-default-fg-color--lightest);
+  }
+}

@@ -1,0 +1,64 @@
+// ----------------------------------------------------------------------------
+// Variables
+// ----------------------------------------------------------------------------
+
+/// Admonition flavours
+/// override: upstream dynamically defines color classes that we need to revert
+/// to align more closely with Brand colors.
+$admonitions: (
+  "note": var(--md-admonition-note-color),
+  "abstract": var(--md-admonition-abstract-color),
+  "info": var(--md-admonition-info-color),
+  "tip": var(--md-admonition-tip-color),
+  "success": var(--md-admonition-success-color),
+  "question": var(--md-admonition-question-color),
+  "warning": var(--md-admonition-warning-color),
+  "failure": var(--md-admonition-failure-color),
+  "danger": var(--md-admonition-danger-color),
+  "bug": var(--md-admonition-bug-color),
+  "example": var(--md-admonition-example-color),
+  "quote": var(--md-admonition-quote-color),
+);
+
+.md-typeset {
+  .admonition,
+  details {
+    border-width: 0;
+    border-inline-start-width: 4px;
+    border-radius: 4px;
+  }
+
+  .admonition-title {
+    background-color: var(--md-admonition-bg-color);
+  }
+}
+
+
+// ----------------------------------------------------------------------------
+// Rules: flavours
+// ----------------------------------------------------------------------------
+
+// Define admonition flavors
+@each $name,
+$color in $admonitions {
+
+  // Admonition flavour
+  .md-typeset .admonition.#{$name} {
+    border-color: var(--md-admonition-#{$name}-color);
+  }
+
+  // Admonition flavour title
+  .md-typeset .#{$name}>.admonition-title {
+    background-color: var(--md-admonition-bg-color);
+
+    // Admonition icon
+    &::before {
+      background-color: $color;
+    }
+
+    // Details marker
+    &::after {
+      color: $color;
+    }
+  }
+}

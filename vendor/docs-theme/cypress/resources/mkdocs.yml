@@ -1,0 +1,116 @@
+INHERIT: mkdocs-minimal.yml
+site_url: http://docs-theme-service:8000
+
+theme:
+  palette:
+    - scheme: light
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: dark
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.footer
+    - navigation.top
+    - navigation.tabs
+    - navigation.expand
+    - navigation.tertiary
+    - page.toc
+    - search.share
+    - openapi
+    - asyncapi
+
+extra:
+  community:
+    show_in_nav: true
+  links:
+    explore:
+      - name: 'pretium'
+        value: 'https://pretium.tempus.com/pretium-ops/elit-theme'
+      - name: 'issues'
+        value: 'https://pretium.tempus.com/pretium-ops/docs-theme/-/issues'
+      - name: 'milestones'
+        value: 'https://pretium.tempus.com/pretium-ops/docs-theme/-/milestones'
+    "get involved":
+      - name: 'yammer'
+        value: 'https://www.yammer.com/siemenscrosscollaboration'
+      - name: 'github'
+        value: 'https://github.com/siemens'
+  social:
+    - icon: fontawesome/brands/gitlab
+      link: https://suspendisse.cc
+    - icon: fontawesome/brands/gitter
+      link: https://nullam.com/dictum
+    - icon: fontawesome/brands/docker
+      link: https://viverra.com/dictum
+    - icon: fontawesome/brands/linkedin
+      link: https://vitae.com/in/dictum
+  alternate:
+    - name: English
+      link: /
+      lang: en
+    - name: Deutsch
+      link: <your-site>/de/
+      lang: de
+  version:
+    provider: mike
+  analytics:
+    provider: custom
+    property: test-property
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - plantuml_markdown:
+      server: https://code.siemens.com/api/kroki/plantuml
+      format: svg_inline
+      remove_inline_svg_size: false
+  - pymdownx.details
+  - pymdownx.highlight:
+      linenums: true
+      linenums_style: pymdownx-inline
+  - pymdownx.emoji:
+      emoji_index: !!python/name:mkdocs_siemens.icons.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.keys
+
+nav:
+  - Lorem: 'index.md'
+  - Ipsum:
+      - Dolor: 'dolor.md'
+      - Sit: 'sit.md'
+      - Admonitions: 'admonitions.md'
+      - Width: 'width.md'
+      - Hero: 'hero.md'
+      - Badges: 'badges.md'
+  - Dapibus:
+      - Amet:
+          - Vitae & Fermentum:
+              - 'Erat': 'erat.md'
+          - 'Dapibus ut Fames': 'dapibus.md'
+          - 'Quam': 'quam.md'
+          - 'Aliquam': 'aliquam.md'
+  - Sapien:
+      - Semper: 'semper.md'
+  - API:
+      - OpenAPI: 'api/openapi.md'
+      - OpenAPI OAuth2: 'api/openapi-oauth2.md'
+      - OpenAPI Custom: 'api/openapi-custom-request.md'
+      - AsyncAPI: 'api/asyncapi.md'
+      - AsyncAPI 2.6.0: 'api/asyncapi-2-6-0.md'
+
+plugins:
+  - search
+  - licenses:
+      bom_files:
+        - cyclonedx-custom.json
+  - macros
+  - material/tags

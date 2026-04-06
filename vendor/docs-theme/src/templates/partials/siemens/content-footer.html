@@ -1,0 +1,35 @@
+{% if page.meta and page.meta.hide %}
+  {% set hide_community_button = true if "community_button" in page.meta.hide %}
+  {% set hide_license_text = true if "license_text" in page.meta.hide %}
+{% endif %}
+
+{% if config.extra.community and not hide_community_button == true %}
+  {% if page.meta.community_link %}
+    {% set clink = page.meta.community_link %}
+  {% else %}
+    {% set clink = config.extra.community.community_button_default_href %}
+  {% endif %}
+  <h2>{{ config.extra.community.community_button_headline }}</h2>
+  <p class="md-community-button">
+    <a href="{{ clink }}" class="button" target="_blank">
+      {% include ".icons/siemens/link-extern.svg" %}
+      {{ config.extra.community.community_button_text }}
+    </a>
+  </p>
+{% endif %}
+
+{% if not hide_license_text == true and not config.extra.hide_license_text == true %}
+<hr>
+<p>
+  <em>
+    {% if config.extra.page_license_text %}
+      {{ config.extra.page_license_text }}
+    {% else %}
+      Except where otherwise noted, content on this site is licensed under the
+      <a href="https://innersource.siemens.com/licenses/">
+        Siemens Inner Source License
+      </a>.
+    {% endif %}
+  </em>
+</p>
+{% endif %}

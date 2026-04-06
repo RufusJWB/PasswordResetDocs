@@ -1,0 +1,78 @@
+@use '@siemens/element-theme/src/styles/variables';
+
+body {
+  font-family: $font-siemens-sans;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset {
+  :target {
+    scroll-behavior: smooth;
+    scroll-margin-top: px2rem(50px);
+  }
+
+  h1 {
+    font-size: variables.$si-font-size-h1-bold;
+    font-weight: variables.$si-font-weight-h1-bold;
+  }
+
+  h2 {
+    font-size: variables.$si-font-size-h2;
+    font-weight: variables.$si-font-weight-h2;
+  }
+
+  h3 {
+    font-size: variables.$si-font-size-h3;
+    font-weight: variables.$si-font-weight-h3;
+  }
+
+  h4 {
+    font-size: variables.$si-font-size-h4;
+    font-weight: variables.$si-font-weight-h4;
+  }
+
+  h5,
+  h6 {
+    font-size: variables.$si-font-size-h5;
+    font-weight: variables.$si-font-weight-h5;
+  }
+
+  h1:target,
+  h2:target,
+  h3:target {
+    scroll-margin-top: px2rem(50px);
+  }
+
+  h1:target::before,
+  h2:target::before,
+  h3:target::before {
+    display: block;
+    padding-top: px2rem(50px);
+    margin-top: px2rem(-50px);
+    content: "";
+  }
+
+  h4:target {
+    scroll-margin-top: px2rem(47px);
+  }
+
+  h4:target::before {
+    display: block;
+    padding-top: px2rem(47px);
+    margin-top: px2rem(-47px);
+    content: "";
+  }
+
+  h5:target,
+  h6:target {
+    scroll-margin-top: px2rem(45px);
+  }
+
+  h5:target::before,
+  h6:target::before {
+    display: block;
+    padding-top: px2rem(45px);
+    margin-top: px2rem(-45px);
+    content: "";
+  }
+}

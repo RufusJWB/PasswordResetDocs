@@ -1,0 +1,62 @@
+// ----------------------------------------------------------------------------
+// Rules
+// ----------------------------------------------------------------------------
+
+// Navigation tabs
+.md-tabs {
+  position: relative;
+  top: -3px;
+  overflow: unset;
+  background-color: transparent;
+
+  // Navigation tabs are hidden
+  &--hidden {
+    pointer-events: initial;
+  }
+
+  // Navigation tabs list
+  &__list {
+    position: relative;
+    color: var(--md-nav-fg-color);
+    pointer-events: none;
+  }
+
+  // Navigation tabs item
+  &__item {
+    position: relative;
+    pointer-events: auto;
+
+    // override: use Siemens Brand underline for tabs item itself
+    &--active::after {
+      position: absolute;
+      inset-inline-start: 0.5rem;
+      bottom: calc(2.4rem - 44px - 3px);
+      width: calc(100% - 1rem);
+      height: 3px;
+      content: "";
+      background-color: var(--md-nav-underline-color);
+    }
+  }
+
+  // Navigation tabs link - could be defined as block elements and aligned via
+  // line height, but this would imply more repaints when scrolling
+  &__link {
+    margin-top: px2rem(14px);
+    font-size: px2rem(16px);
+    opacity: 0.8;
+
+    // Hide tabs upon scrolling - disable transition to minimizes repaints
+    // while scrolling down, while scrolling up seems to be okay
+    .md-tabs[hidden] & {
+      opacity: 0.8;
+      transform: none;
+
+      &--active,
+      &:focus,
+      &:hover {
+        color: inherit;
+        opacity: 1;
+      }
+    }
+  }
+}

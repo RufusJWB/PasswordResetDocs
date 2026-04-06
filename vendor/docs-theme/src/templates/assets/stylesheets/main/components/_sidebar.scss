@@ -1,0 +1,133 @@
+// ----------------------------------------------------------------------------
+// Rules
+// ----------------------------------------------------------------------------
+
+// Sidebar
+.md-sidebar {
+  &--primary {
+    // stylelint-disable-next-line declaration-no-important
+    top: px2rem(98px) !important;
+  }
+
+  // Secondary sidebar with table of contents
+  &--secondary {
+    width: px2rem(300px);
+
+    .md-nav__link {
+      position: relative;
+      padding-inline-start: 1rem;
+
+      &:active,
+      &:focus {
+        border: 1px solid var(--md-nav-focus-border-color);
+      }
+
+      &::after {
+        position: absolute;
+        inset-inline-start: 0;
+        width: 9px;
+        height: 9px;
+        content: "";
+        background: var(--md-default-bg-color);
+        border: 1px solid var(--md-accent-fg-color);
+        border-radius: 50%;
+        transform: translateY(50%);
+        transition: all 300ms;
+      }
+
+      &--active {
+        color: var(--md-accent-fg-color);
+
+        &::after {
+          background: var(--md-accent-fg-color);
+        }
+      }
+
+      &--primary {
+        &.active + .md-nav .active {
+          color: var(--md-accent-fg-color);
+          background: var(--md-accent-fg-color);
+        }
+      }
+    }
+
+    .md-nav__item {
+      position: relative;
+      padding-inline: 0;
+      overflow: hidden;
+
+      &::before {
+        position: absolute;
+        inset-inline-start: 4px;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        content: "";
+        background: #239196;
+      }
+
+      &:first-child {
+        &::before {
+          top: 1.125em; // 0.625em (margin-top from `md-nav__link`) + 0.5em (half link font height)
+        }
+      }
+
+      &:last-child {
+        &::before {
+          height: 1.125em; // 0.625em (margin-top from `md-nav__link`) + 0.5em (half link font height)
+        }
+
+        .md-nav .md-nav__item::before {
+          display: none;
+        }
+      }
+
+      &:first-child:last-child {
+        &::before {
+          display: none;
+        }
+      }
+
+      .md-nav__item {
+        padding: 0;
+
+        .md-nav__link {
+          position: relative;
+          padding-block: 0;
+          padding-inline: 50px 0;
+
+          &::after {
+            display: none;
+          }
+
+          &::before {
+            position: absolute;
+            inset-inline-start: 25px;
+            top: 50%;
+            display: inline-block;
+            width: 19px;
+            height: 1px;
+            content: "";
+            background: #cdd9e1;
+          }
+        }
+      }
+
+      .md-nav__item .md-nav {
+        display: none;
+      }
+    }
+
+    // [screen small +]: Show table of contents as sidebar
+    @include break-from-device(screen small) {
+      padding-inline-start: 1.2rem;
+      padding-bottom: 4rem;
+    }
+
+    @include break-from-device(tablet) {
+      .md-nav__list {
+        background: var(--md-default-bg-color);
+      }
+    }
+  }
+}

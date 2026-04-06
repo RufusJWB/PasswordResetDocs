@@ -1,0 +1,94 @@
+// This file contains header classes currently only used in Siemens partials.
+
+.md-header {
+  &--shadow {
+    @media only screen and (min-width: 1220px) {
+      .md-version {
+        padding-top: 0.2rem;
+        transition: padding-top 300ms;
+      }
+    }
+
+    .main-nav {
+      &__inner-holder {
+        @media only screen and (min-width: 1220px) {
+          margin: 0.4rem 0;
+        }
+
+        a:last-child {
+          padding-top: 0.5em;
+          padding-bottom: 0.5em;
+          font-size: 14px;
+          opacity: 1;
+        }
+
+        svg.logo__desktop {
+          width: 6em;
+        }
+      }
+    }
+  }
+
+  .md-tabbar-search-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: $md-tabbar-search-container-height;
+    background: var(--md-nav-bg-color);
+    transition: 300ms all;
+
+    @media only screen and (max-width: 1219px) {
+      padding-inline-start: $md-nav-common-padding-mobile;
+    }
+
+    &__search {
+      display: flex;
+      place-content: flex-end;
+      margin-inline-start: auto;
+      pointer-events: auto;
+    }
+
+    // Header title
+    &__title {
+      display: none;
+      align-items: center;
+      font-size: 18px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      cursor: pointer;
+
+      @include break-to-device(tablet) {
+        display: flex;
+      }
+    }
+
+    @include break-to-device(tablet) {
+      display: flex;
+      width: 100%;
+    }
+
+    // Place tabs list and search container next to each other.
+    > .md-grid {
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  // Header button
+  &__button {
+
+    // override: add transition for icon spin
+    &[for="__drawer"] {
+      svg {
+        margin-block: 0.1rem;
+        transition: all 300ms;
+      }
+    }
+  }
+}
+
+[data-md-toggle="drawer"]:checked ~ .md-header .md-header__button {
+  &[for="__drawer"] svg {
+    transform: rotate(180deg) translateY(0);
+  }
+}

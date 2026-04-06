@@ -1,0 +1,13 @@
+// Common left padding used by header, nav, sidebar and footer.
+// TODO: replace with md-grid reuse across elements (
+$md-nav-common-padding: 3.7rem;
+$md-nav-common-padding-mobile: 1rem;
+
+/// Navigation
+
+// Matches the search input height to the main-nav height
+$main-nav-max-height: 3.3em;
+$search-input-height-mobile: 52.8px;
+
+/// Header
+$md-tabbar-search-container-height: 44px;

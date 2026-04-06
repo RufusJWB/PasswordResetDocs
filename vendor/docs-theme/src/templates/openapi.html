@@ -1,0 +1,55 @@
+<script>
+  if (document.querySelectorAll(".material-openapi").length > 0) {
+    let requestInterceptor
+
+    const computedRedirectURL = new URL("{{ base_url }}/oauth2-redirect.html", location).href
+    const script = document.createElement("script")
+    script.id = "swagger-bundle"
+    script.async = true
+    script.src = "{{ 'assets/javascripts/swagger-ui-bundle.js' | url }}"
+    document.head.appendChild(script)
+
+    const DisableAuthorizePlugin = function() {
+      return {
+        wrapComponents: {
+          authorizeBtn: () => () => null
+        }}
+    }
+
+    const DisableTryItOutPlugin = function() {
+      return {
+        statePlugins: {
+          spec: {
+            wrapSelectors: {
+              allowTryItOutFor: () => () => false
+            }}}}
+    }
+
+    script.onload = function () {
+      Array.prototype.forEach.call(
+        document.querySelectorAll(".material-openapi"), item => {
+
+          const plugins = [SwaggerUIBundle.plugins.DownloadUrl]
+          if (item.getAttribute("data-try-it-out-btn") === "false") {
+            plugins.push(DisableTryItOutPlugin)
+          }
+          if (item.getAttribute("data-authorize-btn") === "false") {
+            plugins.push(DisableAuthorizePlugin)
+          }
+
+          customRequestInterceptor = item.getAttribute("data-custom-request-function")
+          requestInterceptor = customRequestInterceptor ?
+            // otherwise just return the request
+            window[customRequestInterceptor] : function(request) { return request }
+
+          SwaggerUIBundle({
+            url: item.getAttribute("data-openapi-url"),
+            domNode: item,
+            plugins: plugins,
+            oauth2RedirectUrl: computedRedirectURL,
+            requestInterceptor: requestInterceptor
+          })
+        })
+    }
+  }
+</script>

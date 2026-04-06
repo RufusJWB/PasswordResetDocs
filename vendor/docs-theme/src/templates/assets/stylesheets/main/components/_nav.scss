@@ -1,0 +1,330 @@
+// Navigation item
+.main-nav {
+  position: relative;
+  top: 0;
+  width: 100%;
+  max-height: $main-nav-max-height;
+  overflow: hidden;
+  font-size: 16px;
+  background: var(--md-primary-bg-color);
+  transition: background 300ms ease-in-out, max-height 300ms ease-in-out;
+}
+
+// [tablet portrait -]: Full-screen search bar
+@include break-to-device(tablet portrait) {
+  .main-nav {
+    // HACK: Needed to show the top header
+    z-index: 7;
+  }
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+.main-nav label {
+  position: absolute;
+  inset-inline-end: 1.25em;
+  top: 1em;
+  width: 1.25em;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav label {
+    display:none;
+  }
+}
+
+[data-md-toggle="main-nav"]:checked ~ .md-header .main-nav label svg {
+  fill: var(--md-nav-underline-color);
+}
+
+.main-nav label svg {
+  fill: var(--md-nav-underline-color);
+}
+
+[data-md-toggle="main-nav"]:checked ~ .md-header .main-nav {
+  z-index: 7;
+  max-height: 85vh;
+  overflow: hidden auto;
+  background: var(--md-primary-bg-color);
+}
+
+[data-md-toggle="main-nav"]:checked ~ .md-header .md-tabbar-search-container {
+  height: 0;
+  opacity: 0;
+}
+
+.main-nav__inner-holder {
+  margin-block: 0.9375em 0;
+  overflow: visible;
+}
+
+@media only screen and (max-width: 1219px) {
+  .main-nav__inner-holder {
+    padding-inline-start: $md-nav-common-padding-mobile;
+  }
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav__inner-holder {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    max-height: 1.6rem;
+    margin: 1em auto;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .main-nav__inner-holder {
+    max-height: 1.8rem;
+  }
+}
+
+@media only screen and (min-width: 2000px) {
+  .main-nav__inner-holder {
+    max-height: 2rem;
+  }
+}
+
+[data-md-color-scheme="light"] {
+  .logo {
+    &__white {
+      display: none;
+    }
+
+    &__petrol {
+      display: block;
+    }
+  }
+
+}
+
+[data-md-color-scheme="dark"] {
+  .logo {
+    &__white {
+      display: block;
+    }
+
+    &__petrol {
+      display: none;
+    }
+  }
+}
+
+.main-nav__inner-holder svg.logo__mobile {
+  display: block;
+  width: px2em(80px);
+  height: px2em(16px);
+  overflow: visible;
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav__inner-holder svg.logo__mobile {
+    display:none;
+  }
+}
+
+.main-nav__inner-holder svg.logo__desktop {
+  display: none;
+  width: 7.75em;
+  height: 2.625em;
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav__inner-holder svg.logo__desktop {
+    display:block;
+  }
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav__inner-holder svg {
+    position:relative;
+  }
+}
+
+.main-nav__inner-holder a {
+  position: relative;
+  display: block;
+  padding: 1.25em 0.625em;
+  font-family: $font-siemens-sans;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  border-top: 1px solid hsl(0 0% 100% / 0.25);
+  transition: color 300ms ease-in-out;
+
+  &:focus-visible {
+    outline-color: var(--md-accent-fg-color);
+    outline-offset: px2rem(4px);
+  }
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav__inner-holder a::after {
+    position: absolute;
+    inset-inline: 50%;
+    top: auto;
+    bottom: -0.3125em;
+    height: 2px;
+    content:"";
+    background: var(--md-nav-underline-color);
+    opacity: 0;
+    transition: all 300ms ease-in-out;
+  }
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav__inner-holder a {
+    display:inline-block;
+    align-self: center;
+    max-width: 220px;
+    padding: 0 1em;
+    color: var(--md-nav-fg-color);
+    border-top: 0;
+  }
+}
+
+.main-nav__inner-holder a:last-child {
+  margin-bottom: 0.625em;
+
+  &:hover {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav__inner-holder a:last-child {
+    padding: 0.875em 1.25em;
+    margin-inline-start: auto;
+    margin-bottom: 0;
+  }
+}
+
+.main-nav__inner-holder a.main-nav--active {
+  color: var(--md-accent-fg-color);
+}
+
+.main-nav__inner-holder a.logo {
+  top: 0.8rem;
+  display: inline-block;
+  padding-block: 0;
+  margin-bottom: 2em;
+  font-size: 1em;
+  color: var(--md-nav-fg-color);
+  border: 0;
+
+  @media only screen and (max-width: 1219px) {
+    position: absolute;
+    display: flex;
+    padding: 0;
+  }
+}
+
+.main-nav__inner-holder a.logo::after {
+  display: none;
+  content: "";
+}
+
+@media only screen and (max-width: 1219px) {
+  .main-nav__inner-holder a.logo {
+    padding-inline: 0 3.125em;
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (min-width: 1220px) {
+  .main-nav__inner-holder a:hover {
+    color: var(--md-accent-fg-color);
+  }
+
+  .main-nav__inner-holder a:hover::after {
+    inset-inline: 1.4375em;
+    opacity: 1;
+  }
+}
+
+// Navigation
+.md-nav {
+  // Navigation title
+  &--primary &__title {
+    font-weight: 600;
+    color: var(--md-default-fg-color);
+  }
+
+  // [tablet -]: Show navigation as drawer
+  @include break-to-device(tablet) {
+    &--primary,
+    &--primary &__title ~ .md-nav__list {
+      background-color: var(--md-nav-bg-color);
+    }
+  }
+
+  // Table of contents
+  &--secondary {
+
+    // Navigation title
+    .md-nav__title {
+
+      // Adjust snapping behavior
+      &[for="__toc"] {
+        display: block;
+        padding-inline-start: 1rem;
+        font-size: 1.4em;
+        font-weight: 500;
+        color: inherit;
+        scroll-snap-align: start;
+      }
+    }
+
+    // Adjust spacing for navigation list - same reason as below
+    .md-nav__list {
+      // override: we keep the spacing at zero to keep vertical bar consistent
+      padding-inline-start: 0;
+    }
+  }
+
+  // [screen +]: Tree-like navigation
+  @include break-from-device(screen) {
+    // Modifier for when navigation tabs are rendered
+    &--lifted {
+      // Hide level 0 navigation items
+      > .md-nav__list > .md-nav__item {
+        // Active parent navigation item
+        &--active {
+          // Hide nested links
+          > .md-nav__link {
+            display: none;
+          }
+
+          // Show title and adjust spacing
+          > .md-nav > .md-nav__title {
+            display: block;
+            font-size: 1.4em;
+            font-weight: 500;
+            pointer-events: none;
+            scroll-snap-align: start;
+          }
+        }
+      }
+    }
+
+    // Modifier for when table of contents is rendered in primary navigation
+    &--integrated > .md-nav__list > .md-nav__item--active {
+
+      // Show integrated table of contents
+      .md-nav--secondary {
+        // override: we don't show the left border for integrated ToC
+        border-inline-start: none;
+      }
+    }
+  }
+}

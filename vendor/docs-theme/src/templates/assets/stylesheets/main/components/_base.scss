@@ -1,0 +1,53 @@
+// ----------------------------------------------------------------------------
+// Rules: base grid and containers
+// ----------------------------------------------------------------------------
+
+// Stretch body to container - flexbox is used, so the footer will always be
+// aligned to the bottom of the viewport
+body {
+  // Body in locked state
+  &[data-md-scrolllock] {
+
+    // [tablet portrait -]: Omit scroll bubbling
+    @include break-to-device(tablet portrait) {
+      // Lock body to viewport height (e.g. in search mode)
+      &[data-md-scrolllock] {
+        overflow: hidden;
+
+        // Hide container on iOS, or the body will not be locked correctly
+        .ios & .md-container {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+
+// Grid container - this class is applied to wrapper elements within the
+// header, content area and footer, and makes sure that their width is limited
+// to `1600px`, and they are rendered centered if the screen is larger.
+.md-grid {
+  max-width: px2rem(1600px);
+}
+
+// ----------------------------------------------------------------------------
+// Rules: navigational elements
+// ----------------------------------------------------------------------------
+
+// Skip link
+.md-skip {
+  padding: 10px 20px;
+  color: var(--md-typeset-a-color);
+  background: var(--md-primary-bg-color);
+  border: 1px var(--md-typeset-a-color) solid;
+
+  &:focus {
+    z-index: 99;
+  }
+}
+
+.md-main__inner {
+  margin-top: 1.25em;
+}

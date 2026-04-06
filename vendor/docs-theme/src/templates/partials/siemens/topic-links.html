@@ -1,0 +1,10 @@
+<div class="col">
+  <div class="footer-siemens-title">{{ topic.capitalize() }}</div>
+  <nav>
+    <ul>
+      {% for link in topic_links %}
+      <li><a class="footer-siemens__link-topic" href="{{ link.value }}" target="_blank">{{ link.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+</div>

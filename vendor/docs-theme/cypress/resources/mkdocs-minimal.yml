@@ -1,0 +1,45 @@
+site_name: Lorem ipsum
+site_url: http://docs-theme-service:8001
+site_author: Tellus Molestie
+site_description: Lorem ipsum dolor sit amet
+
+repo_name: dolor/amet-ipsum
+repo_url: https://ipsum.amet.io/dolor-amet/
+edit_uri: ""
+
+copyright: 'Copyright &copy; 2216 - 2218 Tellus Molestie'
+
+theme:
+  name: code-siemens-code-docs-theme
+  custom_dir: theme
+  features:
+    - navigation.footer
+    - navigation.tabs
+  favicon: assets/images/favicon.png
+
+extra:
+  community:
+    community_button_headline: 'Suscipit adipiscing?'
+    community_button_text: 'Elementum tempus'
+    community_button_default_href: 'https://pretium.tempus.com/pretium-ops/elit-theme'
+  links:
+    - name: 'pretium'
+      value: 'https://pretium.tempus.com/pretium-ops/elit-theme'
+    - name: 'issues'
+      value: 'https://pretium.tempus.com/pretium-ops/docs-theme/-/issues'
+    - name: 'milestones'
+      value: 'https://pretium.tempus.com/pretium-ops/docs-theme/-/milestones'
+  homepage: https://ipsum.com
+
+nav:
+  - Lorem: 'index.md'
+  - Ipsum:
+      - Dolor: 'dolor.md'
+      - Sit: 'sit.md'
+  - Dapibus:
+      - Amet:
+          - Vitae & Fermentum:
+              - 'Erat': 'erat.md'
+          - 'Dapibus ut Fames': 'dapibus.md'
+          - 'Quam': 'quam.md'
+          - 'Aliquam': 'aliquam.md'

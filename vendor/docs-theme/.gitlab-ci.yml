@@ -1,0 +1,214 @@
+workflow:
+  # MergeRequest-Pipelines.gitlab-ci.yml
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+include:
+  - component: $CI_SERVER_FQDN/code-ops/ci-components/release-changelog@13.1.1
+    inputs:
+      stage: release
+      rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+          when: manual
+
+default:
+  image: ghcr.io/astral-sh/uv:0.9.30-python3.13-bookworm-slim@sha256:531f855bda2c73cd6ef67d56b733b357cea384185b3022bd09f05e002cd144ca
+  tags:
+    - DOCKER
+
+stages:
+  - build-dist
+  - build-e2e
+  - test
+  - deploy
+  - release
+
+variables:
+  DOCKERFILENAME: docs-theme-test
+  http_proxy: $CODE_PROXY
+  https_proxy: $CODE_PROXY
+  no_proxy: $CODE_NO_PROXY
+  HTTP_PROXY: $CODE_PROXY
+  HTTPS_PROXY: $CODE_PROXY
+  NO_PROXY: $CODE_NO_PROXY
+  UV_LOCKED: "true"
+  UV_LINK_MODE: copy
+
+.rules-merge-requests:
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+
+build-dist:
+  stage: build-dist
+  image: nikolaik/python-nodejs:python3.12-nodejs24-slim
+  before_script:
+    - npm install -g corepack@0.24.1 # Remove once https://github.com/nodejs/corepack/issues/447 is fixed
+    - apt-get update
+    - apt-get install -y git jq
+  script:
+    - uv sync --dev
+    - yarn --frozen-lockfile
+    - yarn dist:setup
+    - yarn dist:build
+  artifacts:
+    expire_in: 3h
+    paths:
+      - dist/
+      - mkdocs_siemens/
+
+build-e2e:
+  stage: build-e2e
+  extends: .rules-merge-requests
+  image:
+    name: ghcr.io/osscontainertools/kaniko:v1.27.0-debug@sha256:c6acf2ef8593502b122344bcf23e60ba0f1a25e8b8fee763dcb524504613c367
+    entrypoint: [""]
+  variables:
+    HTTP_PROXY: $CODE_PROXY
+    HTTPS_PROXY: $CODE_PROXY
+    NO_PROXY: $CODE_NO_PROXY
+  id_tokens:
+    CR_PROXY_TOKEN:
+      aud: https://code.siemens.com
+  script:
+    - executor login -u $GITLAB_USER_LOGIN -p $CR_PROXY_TOKEN $CODE_CR_PROXY
+    - executor
+      --context $CI_PROJECT_DIR
+      --dockerfile $CI_PROJECT_DIR/Dockerfile
+      --destination $CI_REGISTRY_IMAGE/$DOCKERFILENAME:dev-$CI_COMMIT_SHORT_SHA
+      --build-arg HTTP_PROXY
+      --build-arg HTTPS_PROXY
+      --build-arg NO_PROXY
+      --registry-mirror $CODE_CR_PROXY_HOST
+  dependencies:
+    - build-dist
+
+.build-mkdocs:
+  extends: .rules-merge-requests
+  stage: build-e2e
+  variables:
+    MKDOCS_CONFIG: mkdocs.yml
+  dependencies:
+    - build-dist
+  script:
+    - uv run mkdocs build ${CI_MERGE_REQUEST_IID+--no-directory-urls} --strict --config-file "${MKDOCS_CONFIG}"
+  artifacts:
+    paths:
+      - site/
+  environment:
+    name: review/${CI_JOB_NAME_SLUG}/${CI_MERGE_REQUEST_PROJECT_PATH}/${CI_MERGE_REQUEST_IID}
+    url: https://${CI_PROJECT_NAMESPACE}.${CI_PAGES_DOMAIN}/-/${CI_PROJECT_NAME}/-/jobs/${CI_JOB_ID}/artifacts/site/index.html
+
+review-docs:
+  extends: .build-mkdocs
+
+review-e2e:
+  extends: .build-mkdocs
+  before_script:
+    - cd cypress/resources
+  after_script:
+    - mv cypress/resources/site/ site/
+  parallel:
+    matrix:
+      - MKDOCS_CONFIG: mkdocs.yml
+      - MKDOCS_CONFIG: mkdocs-minimal.yml
+
+review-e2e-windows:
+  extends: .build-mkdocs
+  image: python:3.14@sha256:7aea6827c8787754f99339ffed8cfc41fb09421f9c7d0e77a198b08422a3455e
+  before_script:
+    - cd cypress/resources
+    - $proxySettings = New-Object System.Net.WebProxy("$CODE_PROXY", $true)
+    - $proxySettings.BypassList = $CODE_NO_PROXY -split ",";
+    - '[System.Net.WebRequest]::DefaultWebProxy = $proxySettings'
+    - curl https://astral.sh/uv/install.ps1 -o install.ps1
+    - .\install.ps1
+    - $env:Path = "$env:USERPROFILE\.local\bin;$env:Path"
+  after_script:
+    - mv ./cypress/resources/site/ ./site/
+  tags:
+    - WINDOWS-DOCKER-LTSC2025
+
+.test-e2e:
+  extends: .rules-merge-requests
+  stage: test
+  variables:
+    CYPRESS_HOST: docs-theme-service
+    no_proxy: $CODE_NO_PROXY,docs-theme-service
+    HTTP_PROXY: $CODE_PROXY
+    HTTPS_PROXY: $CODE_PROXY
+    NO_PROXY: $CODE_NO_PROXY,docs-theme-service
+  image:
+    name: cypress/included:15.13.0@sha256:1048a3bac8a29e63159668a36d6dbbcf3a8a291d6f413c85edaf7e39bba9f3d9
+    entrypoint: [ "" ]
+  services:
+    - name: $CI_REGISTRY_IMAGE/$DOCKERFILENAME:dev-$CI_COMMIT_SHORT_SHA
+      alias: docs-theme-service
+  script:
+    - echo "precedence ::ffff:0:0/96  100" >> /etc/gai.conf
+    - yarn --frozen-lockfile --ignore-engines
+    - yarn e2e:run
+    - yarn e2e:run:minimal
+  artifacts:
+    when: always
+    expire_in: 1d
+    paths:
+      - dist/
+      - cypress/screenshots
+      - cypress/snapshots
+    reports:
+      junit: cypress/results/report-*.xml
+  dependencies:
+    - build-dist
+
+test-e2e-chrome:
+  extends: .test-e2e
+  variables:
+    CYPRESS_BROWSER: chrome
+
+test-e2e-firefox:
+  extends: .test-e2e
+  variables:
+    CYPRESS_BROWSER: firefox
+
+test-e2e-snapshots:
+  extends: .test-e2e
+  variables:
+    CYPRESS_updateSnapshots: "true"
+  script:
+    - echo "precedence ::ffff:0:0/96  100" >> /etc/gai.conf
+    - yarn --frozen-lockfile
+    - yarn e2e:run:chrome
+    - yarn e2e:run:firefox
+    - yarn e2e:run:minimal:chrome
+    - yarn e2e:run:minimal:firefox
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+      when: manual
+      allow_failure: true # non-blocking job
+
+deploy:
+  stage: deploy
+  variables:
+    UV_PUBLISH_URL: $CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/pypi/
+    UV_PUBLISH_USERNAME: gitlab-ci-token
+    UV_PUBLISH_PASSWORD: ${CI_JOB_TOKEN}
+  script:
+    - uv publish
+  dependencies:
+    - build-dist
+  only:
+    - tags
+
+pages:
+  extends: .build-mkdocs
+  stage: deploy
+  after_script:
+    - mv site/ public/
+  artifacts:
+    paths:
+      - public/
+  environment: # do not create an environment on main
+  rules:
+    - if: '$CI_PROJECT_NAMESPACE == "code-ops" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'

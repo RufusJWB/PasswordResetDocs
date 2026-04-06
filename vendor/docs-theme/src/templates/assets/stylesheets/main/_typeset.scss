@@ -1,0 +1,27 @@
+.md-typeset {
+  h1 {
+    color: var(--md-default-fg-color);
+  }
+
+  // Data table
+  table:not([class]) {
+    display: inline-table;
+    background-color: var(--md-table-bg-color);
+    box-shadow: var(--md-shadow-z1);
+
+    // Table heading
+    th {
+      border-block-end: 4px solid var(--md-table-border-color);
+    }
+
+    td {
+      border-top: 0.1rem solid var(--md-table-border-color);
+    }
+  }
+
+  // Data table wrapper
+  // Override default table style and make it full width by default
+  &__table {
+    width: 100%;
+  }
+}

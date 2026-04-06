@@ -1,0 +1,84 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'local>code-ops/renovate-config',
+  ],
+  packageRules: [
+    {
+      description: 'Trigger breaking release for major upstream updates',
+      matchDepNames: [
+        'mkdocs-material',
+      ],
+      matchUpdateTypes: [
+        'major',
+      ],
+      semanticCommitType: 'feat',
+      commitBody: 'BREAKING CHANGE: Major mkdocs-material update',
+    },
+    {
+      description: 'Trigger feature release for minor upstream updates',
+      matchDepNames: [
+        'mkdocs-material',
+      ],
+      matchUpdateTypes: [
+        'minor',
+      ],
+      semanticCommitType: 'feat',
+    },
+    {
+      description: 'Trigger fix release for patch upstream updates',
+      matchDepNames: [
+        'mkdocs-material',
+      ],
+      matchUpdateTypes: [
+        'patch',
+      ],
+      semanticCommitType: 'fix',
+    },
+    {
+      description: 'Always separate upstream updates',
+      matchDepNames: [
+        'mkdocs-material',
+      ],
+      groupName: 'upstream mkdocs-material',
+    },
+    {
+      description: 'Always separate swagger-ui updates',
+      matchPackageNames: [
+        'swagger-ui',
+      ],
+      groupName: 'upstream swagger-ui',
+    },
+    {
+      description: 'Always separate cypress updates to make snapshot updates easier',
+      matchPackageNames: [
+        'cypress',
+        'cypress/included',
+      ],
+      groupName: 'cypress dependencies',
+      prBodyNotes: [
+        ':bulb: If only snapshots need updating, you can manually run the test-e2e-snapshots job.',
+      ],
+    },
+    {
+      description: 'Align postcss-logical with upstream behavior. See https://github.com/squidfunk/mkdocs-material/pull/7427.',
+      matchPackageNames: [
+        'postcss-logical',
+      ],
+      allowedVersions: '<6.0.0',
+    },
+  ],
+  customManagers: [
+    {
+      customType: 'regex',
+      description: 'Manage versions as variables in shell scripts',
+      managerFilePatterns: [
+        '/^scripts/.*.sh$/',
+      ],
+      matchStrings: [
+        '#\\s*renovate:\\s*datasource=(?<datasource>\\S+?)\\s+depName=(?<depName>\\S+?)(?:\\|(?<packageName>\\S+?))?(?:\\s+versioning=(?<versioning>\\S+?))?(?:\\s+registryUrl=(?<registryUrl>\\S+?))?\\s+(?:\\S+_)?(?:(?i)version)=(?:["\']?)(?<currentValue>[^\\s"\']+)(?:["\']?)\\s',
+      ],
+      versioningTemplate: '{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}',
+    },
+  ],
+}

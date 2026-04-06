@@ -1,0 +1,13 @@
+// Scoped in typesetted content to match specificity of regular content
+// override: this brings in reverts from admonitions to details as well
+.md-typeset {
+  // Details
+  details {
+    @extend .admonition;
+  }
+
+  // Details title
+  summary {
+    @extend .admonition-title;
+  }
+}

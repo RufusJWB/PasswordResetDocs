@@ -1,0 +1,7 @@
+# Specifies dev-specific requirements on top of common
+mkdocs-macros-plugin==1.5.0
+plantuml-markdown==3.11.1
+pymdown-extensions==10.21
+wheel>=0.46.3
+pygments==2.19.2
+markdown==3.10.2
