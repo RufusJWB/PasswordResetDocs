@@ -6,19 +6,11 @@ authors = [{ name = "code.siemens.com team", email = "ops.code.ch@siemens.com" }
 requires-python = ">=3.10,<4"
 license = "LicenseRef-Siemens-Inner-Source-License-1.4"
 dependencies = [
-    "mkdocs-code-siemens-code-docs-theme>=8,<9",
+    "mkdocs>=1.6.1,<2",
+    "mkdocs-material==9.7.5",
     "plantuml-markdown>=3.11.1,<4",
     "mkdocs-literate-nav>=0.6.1,<0.7",
 ]
 
 [tool.uv]
 package = false
-
-[[tool.uv.index]]
-name = "mkdocs"
-url = "https://code.siemens.com/api/v4/projects/64538/packages/pypi/simple/"
-explicit = true
-authenticate = "always"
-
-[tool.uv.sources]
-mkdocs-code-siemens-code-docs-theme = { index = "mkdocs" }

@@ -32,7 +32,7 @@ Follow the link below to create a new MkDocs project based on this template:
 
 ## First use
 
-If you want to see your GitLab Pages before making any changes, you need to trigger the pipeline one time to get it deployed.  
+If you want to see your GitLab Pages before making any changes, you need to trigger the pipeline one time to get it deployed.
 In your project's left sidebar, go to **CI/CD > Pipelines** and press the `Run pipeline` button.
 
 If the pipeline passed with `Job succeeded`, you can find the URL under **Deploy > Pages**  in the `Access pages` field.
@@ -45,14 +45,21 @@ To work locally with this project, you'll have to follow the steps below:
 
 1. Fork, clone or download this project
 1. Install [uv](https://docs.astral.sh/uv/)
-1. Connect to the intranet (only required when downloading the `docs-theme`)
+1. Install Node.js 20 or newer (required to build the Siemens `docs-theme` from source)
+1. Connect to the intranet (only required when downloading the `docs-theme` sources)
+1. Set `UV_INDEX_MKDOCS_USERNAME` and `UV_INDEX_MKDOCS_PASSWORD` in your shell so the theme sources can be cloned from GitLab.
+   The token must be allowed to read the repository, so use a PAT with `read_repository` or `api` scope.
+1. Install the locked Python dependencies: `uv sync --locked`
+1. Build and install the Siemens theme locally:
+   * macOS/Linux/Git Bash: `./scripts/bootstrap-docs-theme.sh`
+   * PowerShell: `./scripts/bootstrap-docs-theme.ps1`
 1. Preview your project: `uv run mkdocs serve`, then available at `http://127.0.0.1:8000`
 1. Modify content, live reloading will reflect your changes immediately
 1. Generate the website: `uv run mkdocs build` (optional)
 1. (Optional) Remember to keep your theme dependencies up to date.
    Use `uv lock --upgrade` to get patches and minor version upgrades.
    To upgrade major versions look at the [releases of the Siemens `docs-theme`](https://code.siemens.com/code-ops/docs-theme/-/releases)
-   and set a new version constraint by running `uv add mkdocs-code-siemens-code-docs-theme>=NEW_MAJOR_VERSION,<NEXT_MAJOR_VERSION`.
+   and update the version in `scripts/bootstrap-docs-theme.sh` and `scripts/bootstrap-docs-theme.ps1`.
    or automate all updates via [renovate-bot](https://code.siemens.io/ci/renovate-bot/).
 
 ## Recommendations

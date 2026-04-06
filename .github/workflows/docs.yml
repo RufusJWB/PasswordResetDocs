@@ -20,12 +20,7 @@ concurrency:
 env:
   UV_LINK_MODE: copy
   UV_LOCKED: 'true'
-  UV_NO_BINARY_PACKAGE: mkdocs-code-siemens-code-docs-theme
-
-  # Optional: if your theme/index is private, configure these repository secrets.
-  # If secrets are not defined, these evaluate to empty values.
-  UV_INDEX_MKDOCS_USERNAME: ${{ secrets.UV_INDEX_MKDOCS_USERNAME }}
-  UV_INDEX_MKDOCS_PASSWORD: ${{ secrets.UV_INDEX_MKDOCS_PASSWORD }}
+  GIT_TERMINAL_PROMPT: '0'
 
 jobs:
   build:
@@ -39,13 +34,28 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@v6
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
+      - name: Configure Git credentials for code.siemens.com
+        shell: bash
+        run: |
+          # The token must be able to clone the theme repository (for example: read_repository or api scope).
+          git config --global url."https://${{ secrets.UV_INDEX_MKDOCS_USERNAME }}:${{ secrets.UV_INDEX_MKDOCS_PASSWORD }}@code.siemens.com/".insteadOf "https://code.siemens.com/"
+
       - name: Install dependencies (locked)
         run: uv sync --locked
+
+      - name: Build and install Siemens docs theme
+        shell: bash
+        run: ./scripts/bootstrap-docs-theme.sh
 
       - name: Build docs (strict)
         shell: bash
