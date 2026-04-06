@@ -1,0 +1,36 @@
+extends: material
+palette:
+  scheme: light
+font:
+  text: SiemensSans Pro
+  code: monospace
+
+static_templates:
+  - oauth2-redirect.html
+
+icon:
+  alternate: siemens/language
+  admonition:
+    note: siemens/edit
+    abstract: siemens/copy
+    info: siemens/information
+    success: siemens/success
+    question: siemens/help
+    warning: siemens/warning
+    failure: siemens/error
+    # The following icons still need a Siemens equivalent for the override:
+    # tip: siemens/
+    # danger: siemens/
+    # bug: siemens/
+    # example: siemens/
+    # quote: siemens/
+  search: siemens/search
+  share: siemens/share
+  close: siemens/close
+  top: siemens/arrow-up
+  edit: siemens/edit
+  view: siemens/document
+  previous: siemens/arrowhead-left
+  next: siemens/arrowhead-right
+  tag:
+    default: siemens/bookmark

@@ -33,11 +33,6 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@v6
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -46,9 +41,15 @@ jobs:
       - name: Install dependencies (locked)
         run: uv sync --locked
 
-      - name: Build and install Siemens docs theme
+      - name: Verify vendored Siemens docs theme assets
         shell: bash
-        run: bash ./scripts/bootstrap-docs-theme.sh
+        run: |
+          test -d ./vendor/docs-theme/mkdocs_siemens/templates
+          test -f ./vendor/docs-theme/mkdocs_siemens/__init__.py
+
+      - name: Install vendored Siemens docs theme
+        shell: bash
+        run: uv pip install --python .venv/bin/python --no-deps ./vendor/docs-theme
 
       - name: Build docs (strict)
         shell: bash

@@ -1,0 +1,29 @@
+
+<header class="md-header" data-md-component="header">
+
+  
+  <nav class="main-nav md-grid">
+    <div class="main-nav__inner-holder" id="siemens-header-container">
+      <a href="{{ config.site_url | default(nav.homepage.url, true) }}" class="logo">
+        {% include "partials/logo.html" %}
+      </a>
+      {% if "navigation.tertiary" in features %}
+        {% include "partials/siemens/tertiary-nav.html" %}
+      {% endif %}
+      <a style="display: none;"></a>
+    </div>
+
+    <div class="md-header__topic">
+      
+    </div>
+
+    {% if "navigation.tertiary" in features %}
+      <label for="main-nav-toggle">
+        {% include ".icons/siemens/menu.svg" %}
+      </label>
+    {% endif %}
+  </nav>
+
+  {% include "partials/siemens/top-nav.html" %}
+
+</header>

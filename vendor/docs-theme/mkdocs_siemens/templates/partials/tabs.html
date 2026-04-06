@@ -1,0 +1,30 @@
+{% import "partials/tabs-item.html" as item with context %}
+
+
+<nav class="md-tabs" aria-label="{{ lang.t('tabs.title') }}" data-md-component="tabs">
+  <ul class="md-tabs__list">
+    {% if "navigation.tertiary" in features %}
+      {% for nav_item in nav %}
+        {% if nav_item.active and nav_item.children %}
+          {% for nav_item in nav_item.children %}
+            {{ item.render(nav_item) }}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% for nav_item in nav %}
+        {{ item.render(nav_item) }}
+      {% endfor %}
+    {% endif %}
+    {% if config.extra.community and config.extra.community.show_in_nav %}
+      <li class="md-tabs__item">
+        <span class="md-community-button">
+          <a class="md-tabs__link" href="{{ config.extra.community.community_button_default_href }}" target="_blank">
+            {% include ".icons/siemens/link-extern.svg" %}
+            Community
+          </a>
+        </span>
+      </li>
+    {% endif %}
+  </ul>
+</nav>

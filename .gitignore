@@ -1,3 +1,6 @@
 site/
 .cache/
 GitExtensions.settings
+vendor/docs-theme/node_modules/
+vendor/docs-theme/manifest.json
+vendor/docs-theme/mkdocs_siemens/templates/*.bak

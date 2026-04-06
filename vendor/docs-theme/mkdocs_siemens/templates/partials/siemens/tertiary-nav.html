@@ -1,0 +1,52 @@
+
+{% macro print_and_append_url(nav_item, item_url, item_urls) %}
+  <a href="{{ item_url }}" title="{{ nav_item.title }}" {% if nav_item.active %} class="main-nav--active">
+    {% else %}
+      >
+    {% endif %}
+  {{ nav_item.title }}
+  </a>
+  
+  {{ item_urls.append(item_url) or '' }}
+{% endmacro %}
+
+
+{% for top_nav_item in nav %}
+  {% set item_urls = ["none"] %}
+  
+  {% if top_nav_item.children %}
+    {% if not (top_nav_item.children | first).url and item_urls|length == 1 %}
+      
+      {% for sub_nav_item_1 in top_nav_item.children %}
+        {% if sub_nav_item_1.children and item_urls|length == 1 %}
+          {% if not (sub_nav_item_1.children | first).url %}
+            
+            {% for sub_nav_item_2 in sub_nav_item_1.children %}
+              {% if sub_nav_item_2.children and item_urls|length == 1 %}
+                
+                {% if (sub_nav_item_2.children | first).url and item_urls|length == 1 %}
+                  {{ print_and_append_url(top_nav_item, (sub_nav_item_2.children | first).url | url, item_urls) }}
+                {% endif %}
+              
+              {% elif item_urls|length == 1 %}
+                {{ print_and_append_url(top_nav_item, sub_nav_item_2.url | url, item_urls) }}
+              {% endif %}
+            {% endfor %}
+          
+          {% elif item_urls|length == 1 %}
+            {{ print_and_append_url(top_nav_item, (sub_nav_item_1.children | first).url | url, item_urls) }}
+          {% endif %}
+        
+        {% elif sub_nav_item_1.url and item_urls|length == 1 %}
+          {{ print_and_append_url(top_nav_item, sub_nav_item_1.url | url, item_urls) }}
+        {% endif %}
+      {% endfor %}
+    
+    {% else %}
+      {{ print_and_append_url(top_nav_item, ((top_nav_item.children | first).url | url), item_urls) }}
+    {% endif %}
+  
+  {% else %}
+    {{ print_and_append_url(top_nav_item, (top_nav_item.url | url), item_urls) }}
+  {% endif %}
+{% endfor %}

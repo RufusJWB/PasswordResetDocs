@@ -139,6 +139,13 @@ fonts/
 # We keep a dummy file committed for uv
 !/mkdocs_siemens/__init__.py
 /mkdocs_siemens
+!/mkdocs_siemens/
+!/mkdocs_siemens/_meta.py
+!/mkdocs_siemens/icons.py
+!/mkdocs_siemens/plugins/
+!/mkdocs_siemens/plugins/**
+!/mkdocs_siemens/templates/
+!/mkdocs_siemens/templates/**
 
 # postcss-hash manifest
 manifest.json

@@ -51,6 +51,7 @@ To work locally with this project, you'll have to follow the steps below:
 1. Build and install the Siemens theme locally:
    * macOS/Linux/Git Bash: `./scripts/bootstrap-docs-theme.sh`
    * PowerShell: `./scripts/bootstrap-docs-theme.ps1`
+   * After updating the vendored theme, commit the generated `vendor/docs-theme/mkdocs_siemens/` files so CI can install the prebuilt theme package without reaching the Siemens npm registry.
 1. Preview your project: `uv run mkdocs serve`, then available at `http://127.0.0.1:8000`
 1. Modify content, live reloading will reflect your changes immediately
 1. Generate the website: `uv run mkdocs build` (optional)
