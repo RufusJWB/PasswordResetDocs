@@ -1,0 +1,52 @@
+// This file, its imports and override files closely resemble the structure in
+// https://github.com/squidfunk/mkdocs-material/blob/master/src/templates/assets/stylesheets/main.scss.
+// Siemens-specific features that are not overrides are placed in the `siemens/` folder.
+// Section comments are aligned with upstream to help keep track of where overrides are made.
+
+// ----------------------------------------------------------------------------
+// Dependencies
+// ----------------------------------------------------------------------------
+
+@import "material-shadows";
+
+@import "utilities/break";
+@import "utilities/convert";
+@import "config";
+
+// ----------------------------------------------------------------------------
+// Local imports
+// ----------------------------------------------------------------------------
+
+@import "siemens/variables";
+@import "palette/scheme";
+
+@import "siemens/fonts";
+@import "main/typeset";
+@import "siemens/typeset";
+
+@import "main/components/base";
+@import "siemens/base";
+@import "main/components/content";
+@import "main/components/footer";
+@import "main/components/header";
+@import "siemens/header";
+@import "main/components/nav";
+@import "main/components/search";
+@import "siemens/search";
+@import "main/components/sidebar";
+@import "main/components/tabs";
+@import "siemens/hero";
+@import "main/components/top";
+@import "main/components/version";
+@import "siemens/community";
+@import "siemens/licenses";
+
+@import "main/extensions/markdown/admonition";
+
+@import "main/extensions/pymdownx/details";
+@import "main/extensions/pymdownx/highlight";
+@import "siemens/extensions/pymdownx/progressbar";
+
+@import "siemens/integrations/asyncapi";
+@import "siemens/integrations/plantuml";
+@import "siemens/integrations/swaggerui";

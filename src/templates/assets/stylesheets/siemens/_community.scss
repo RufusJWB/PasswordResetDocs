@@ -1,0 +1,34 @@
+.md-community-button svg {
+  position: relative;
+  width: 16px;
+  fill: var(--md-typeset-a-color);
+
+  :hover {
+    fill: var(--md-default-bg-color);
+  }
+}
+
+.md-tabs {
+  .md-community-button svg {
+      top: 3px;
+    }
+}
+
+.md-community-button .button {
+  &:hover {
+    svg {
+      fill: var(--md-default-bg-color);
+      transition: all 300ms;
+    }
+  }
+
+  &:not(:hover) {
+    svg {
+      transition: all 300ms;
+    }
+  }
+}
+
+span.md-community-button svg {
+  fill: var(--md-default-fg-color);
+}

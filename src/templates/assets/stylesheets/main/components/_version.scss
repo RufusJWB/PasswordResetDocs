@@ -1,0 +1,35 @@
+// Version selection
+.md-version {
+  padding-top: 0.5rem;
+  transition: padding-top 300ms;
+
+  @media only screen and (max-width: 1219px) {
+    position: absolute;
+    inset-inline-start: 5rem;
+    top: 0.5rem;
+  }
+
+  // Current selection
+  &__current {
+    min-width: 6rem;
+    max-width: 10rem;
+    text-overflow: ellipsis;
+    font-size: 1em;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  // Version selection list
+  &__list {
+    inset-inline-start: -0.8rem;
+    z-index: 5;
+
+    // Fix hover on touch devices
+    @media (pointer: coarse), (hover: none) {
+      // Switch off on hover
+      .md-version:hover & {
+        box-shadow: none;
+      }
+    }
+  }
+}

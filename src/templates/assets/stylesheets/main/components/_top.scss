@@ -1,0 +1,20 @@
+// Back-to-top button
+.md-top {
+  width: 6.8rem;
+  color: var(--md-typeset-a-color);
+  border: 1px solid var(--md-typeset-a-color);
+
+  &:hover {
+    color: var(--md-top-hover-color);
+    background-color: var(--md-top-hover-bg-color);
+    border: 1px solid var(--md-top-hover-color);
+  }
+
+  &:focus {
+    color: var(--md-top-hover-color);
+    outline: var(--md-default-fg-color) solid 1px;
+    outline-offset: 2px;
+    background-color: var(--md-default-bg-color); // needed to override upstream
+    border: 1px solid var(--md-top-hover-color);
+  }
+}

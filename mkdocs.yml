@@ -1,0 +1,92 @@
+site_name: docs-theme
+site_description: The official code.siemens.io theme for MkDocs.
+site_author: The code.siemens.com team <ops.code.ch@siemens.com>
+site_url: https://code-ops.code.siemens.io/docs-theme
+copyright: "Copyright Siemens 2019 - 2026"
+
+repo_url: https://code.siemens.com/code-ops/docs-theme
+edit_uri: edit/main/docs/
+
+nav:
+  - Introduction:       index.md
+  - Features:
+      - Basic features: features/index.md
+      - Plugins:        features/plugins.md
+      - Integrations:   features/integrations.md
+      - Icons:          features/icons.md
+  - Upgrading:          upgrade.md
+  - Development:        development.md
+  - Troubleshooting:    troubleshooting.md
+  - Changelog:          changelog.md
+
+theme:
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: siemens/element/element-theme-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: light
+      toggle:
+        icon: siemens/element/element-sun
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: dark
+      toggle:
+        icon: siemens/element/element-economy
+        name: Switch to system theme
+  name: code-siemens-code-docs-theme
+  include_search_page: false
+  search_index_only: true
+  features:
+    - navigation.footer
+    - navigation.tabs
+    - navigation.top
+    - search.share
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+
+extra:
+  community:
+    community_button_headline: 'Any questions left?'
+    community_button_text: 'Ask the community'
+    community_button_default_href: 'https://www.yammer.com/siemenscrosscollaboration/#/threads/inGroup?feedId=2883928064'
+  links:
+    - name: 'code'
+      value: 'https://code.siemens.com/code-ops/docs-theme'
+    - name: 'issues'
+      value: 'https://code.siemens.com/code-ops/docs-theme/-/issues'
+    - name: 'milestones'
+      value: 'https://code.siemens.com/code-ops/docs-theme/-/milestones'
+  social:
+    - icon: fontawesome/brands/gitlab
+      link: https://code.siemens.com/code-ops/docs-theme
+
+markdown_extensions:
+  - admonition
+  - plantuml_markdown:
+      server: https://code.siemens.com/api/kroki/plantuml
+      format: svg_inline
+      remove_inline_svg_size: false
+  - pymdownx.emoji:
+      emoji_index: !!python/name:mkdocs_siemens.icons.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      linenums: true
+      linenums_style: pymdownx-inline
+      guess_lang: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+hooks:
+  - scripts/icon_table.py
+
+plugins:
+  - search
+  - licenses

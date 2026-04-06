@@ -1,0 +1,102 @@
+// ----------------------------------------------------------------------------
+// Rules
+// ----------------------------------------------------------------------------
+
+// Header - by default, the header will be sticky and stay always on top of the
+// viewport. If this behavior is not desired, just set `position: static`.
+.md-header {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 4.6rem;
+  margin-bottom: 0.3rem;
+  color: var(--md-default-fg-color);
+  background: var(--md-primary-bg-color);
+
+  .main-nav {
+    &__inner-holder {
+      transition: all 300ms;
+
+      @media only screen and (max-width: 1219px) {
+        padding-block: 2rem 0.5rem;
+      }
+    }
+
+    a {
+      white-space: nowrap;
+      transition:
+        padding 800ms,
+        opacity 500ms 300ms,
+        color 400ms,
+        max-width 800ms;
+
+      &:first-child {
+        padding-inline-end: 1.5em;
+      }
+
+      &:last-child {
+        transition: all 300ms;
+      }
+    }
+
+    svg.logo__desktop {
+      width: 7rem;
+      transition: all 300ms;
+      // [screen medium +]: Set base `font-size` to `11px`
+      @include break-from-device(screen medium) {
+        width: 6.5rem;
+      }
+
+      // [screen large +]: Set base `font-size` to `12px`
+      @include break-from-device(screen large) {
+        width: 5.8rem;
+      }
+    }
+  }
+
+  // Header is hidden
+  &[hidden] {
+    height: 5.4rem;
+  }
+
+  // Header button
+  &__button {
+    align-self: center;
+    width: 2.2rem;
+    margin: 0;
+
+    // Set correct display on image or icon
+    &.md-logo * {
+      display: block;
+    }
+  }
+
+  // Header topic
+  &__topic {
+    inset-inline-end: 0;
+    top: 0.6rem;
+    z-index: 7;
+    align-items: center;
+    width: 13rem;
+
+    @media only screen and (max-width: 1219px) {
+      inset-inline-end: 6rem;
+      top: -0.2rem;
+    }
+  }
+
+  // Header option
+  &__option {
+    align-items: center;
+    // override: disable upstream's `max-width: 0` when the search output is
+    // shown to avoid having the search input shift to the right.
+    // stylelint-disable-next-line declaration-no-important
+    max-width: 100% !important;
+
+    &:last-child {
+      @include break-from-device(screen) {
+        margin-inline-end: 1rem;
+      }
+    }
+  }
+}

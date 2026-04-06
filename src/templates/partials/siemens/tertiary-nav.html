@@ -1,0 +1,56 @@
+<!-- print a nav item, mark it as active if required and
+add the url to item_urls to remember an item has been printed -->
+{% macro print_and_append_url(nav_item, item_url, item_urls) %}
+  <a href="{{ item_url }}" title="{{ nav_item.title }}"
+    {% if nav_item.active %}
+      class="main-nav--active">
+    {% else %}
+      >
+    {% endif %}
+  {{ nav_item.title }}
+  </a>
+  <!-- remember the found page url -->
+  {{ item_urls.append(item_url) or '' }}
+{% endmacro %}
+
+<!-- traverse the navigation tree to find the first child of top_nav_item with a url
+or print top_nav_item if it has a url -->
+{% for top_nav_item in nav %}
+  {% set item_urls = ["none"] %}
+  <!-- check the top_nav_items children for a url -->
+  {% if top_nav_item.children %}
+    {% if not (top_nav_item.children | first).url and item_urls|length == 1 %}
+      <!-- proceed to next level if no url has been found in top_nav_items children -->
+      {% for sub_nav_item_1 in top_nav_item.children %}
+        {% if sub_nav_item_1.children and item_urls|length == 1 %}
+          {% if not (sub_nav_item_1.children | first).url %}
+            <!-- proceed to next level if no url has been found in sub_nav_item_1s children -->
+            {% for sub_nav_item_2 in sub_nav_item_1.children %}
+              {% if sub_nav_item_2.children and item_urls|length == 1 %}
+                <!-- output the item if a url has been found in its children and no item has been printed yet -->
+                {% if (sub_nav_item_2.children | first).url and item_urls|length == 1 %}
+                  {{ print_and_append_url(top_nav_item, (sub_nav_item_2.children | first).url | url, item_urls) }}
+                {% endif %}
+              <!-- output the item if no item has been printed yet, no more levels supported -->
+              {% elif item_urls|length == 1 %}
+                {{ print_and_append_url(top_nav_item, sub_nav_item_2.url | url, item_urls) }}
+              {% endif %}
+            {% endfor %}
+          <!-- output the item if a url has been found in its children and no item has been printed -->
+          {% elif item_urls|length == 1 %}
+            {{ print_and_append_url(top_nav_item, (sub_nav_item_1.children | first).url | url, item_urls) }}
+          {% endif %}
+        <!-- output the item if sub_nav_item_1 has a url and no item has been printed -->
+        {% elif sub_nav_item_1.url and item_urls|length == 1 %}
+          {{ print_and_append_url(top_nav_item, sub_nav_item_1.url | url, item_urls) }}
+        {% endif %}
+      {% endfor %}
+    <!-- output the item if a url has been found in its children -->
+    {% else %}
+      {{ print_and_append_url(top_nav_item, ((top_nav_item.children | first).url | url), item_urls) }}
+    {% endif %}
+  <!-- output the item if it has a url -->
+  {% else %}
+    {{ print_and_append_url(top_nav_item, (top_nav_item.url | url), item_urls) }}
+  {% endif %}
+{% endfor %}

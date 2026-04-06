@@ -1,0 +1,83 @@
+{% extends "main.html" %}
+
+<!-- nav and ToC are never used in static templates, hide them to save space -->
+{% block site_nav %}
+{% endblock %}
+
+{% block content %}
+
+<div class="md-license">
+  <h1>Third-party Software</h1>
+
+  The following list includes third-party software used to build this website or the product(s)
+  described therein. Parts of this website may also contain some of the software listed.
+
+  {% if config._boms %}
+
+  <p>
+  <table>
+    <tr>
+      <th>Component</th>
+      <th>Version</th>
+      <th>Author</th>
+      <th>License(s)</th>
+    </tr>
+
+    {% for component in config._components %}
+      {% set with_licenses = component.licenses is defined %}
+      {% set with_evidence_licenses = component.evidence and component.evidence.licenses %}
+      <tr>
+        <td>{{ component.group ~ "/" if component.group else "" }}{{ component.name }}</td>
+        <td>{{ component.version }}</td>
+        <td>{{ component.author }}</td>
+        <td>
+          {% if with_licenses or with_evidence_licenses %}<a href="#{{ component.group ~ '-' if component.group else '' }}{{ component.name }}-{{ component.version }}">{% endif %}
+            {% for license in component.licenses %}
+              {% set license_id = license.license.id or license.license.name or license.license.url %}
+              {{ license_id }}{{ ", " if not loop.last else "" }}
+            {% endfor %}
+          {% if with_licenses or with_evidence_licenses %}</a>{% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+
+  </table>
+
+    {% if config._licenses.bom_link %}
+      <h2>Download CycloneDX SBOM</h2>
+        <ul>
+          {% for bom_file in config._boms %}
+            <li><a href="{{ base_url }}/{{ bom_file.name | url }}">{{ bom_file.name }}</a></li>
+          {% endfor %}
+        </ul>
+    {% endif %}
+
+  </p>
+  {% endif %}
+
+  {% if config._licenses.notice %}
+  <h2>Licenses</h2>
+
+    {% for component in config._components %}
+    <h3 id="{{ component.group ~ '-' if component.group else '' }}{{ component.name }}-{{ component.version }}">{{ component.group ~ "/" if component.group else "" }}{{ component.name }} ({{ component.version }})</h3>
+
+      <!-- first list any licenses with text defined in the component itself -->
+      {% if component.licenses %}
+        {% for license_choice in component.licenses %}
+          {% include "partials/siemens/license-text.html" %}
+        {% endfor %}
+      {% endif %}
+
+      <!-- then list any licenses with text extracted in the component evidence -->
+      {% if component.evidence and component.evidence.licenses %}
+        {% for license_choice in component.evidence.licenses %}
+          {% include "partials/siemens/license-text.html" %}
+        {% endfor %}
+      {% endif %}
+
+    {% endfor %}
+
+  {% endif %}
+
+</div>
+{% endblock %}

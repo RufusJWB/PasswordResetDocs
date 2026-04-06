@@ -1,0 +1,69 @@
+[project]
+name = "mkdocs-code-siemens-code-docs-theme"
+version = "8.0.1"
+description = "The official code.siemens.io theme for MkDocs."
+readme = "README.md"
+authors = [{ name = "Siemens AG", email = "info@siemens.com" }]
+maintainers = [{ name = "code.siemens.com team", email = "ops.code.ch@siemens.com"}]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Programming Language :: JavaScript",
+    "Programming Language :: Python",
+    "Topic :: Documentation",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Text Processing :: Markup :: HTML",
+]
+license = "LicenseRef-SISL-1.1"
+license-files = ["LICENSE.md"]
+requires-python = ">=3.10"
+dependencies = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material==9.7.6",
+]
+
+[project.urls]
+Homepage = "https://code.siemens.com/code-ops/docs-theme"
+Documentation = "https://code-ops.code.siemens.io/docs-theme"
+Repository = "https://code.siemens.com/code-ops/docs-theme.git"
+Issues = "https://code.siemens.com/code-ops/docs-theme/-/issues"
+Changelog = "https://code.siemens.com/code-ops/docs-theme/-/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+licenses = [
+    "cyclonedx-bom>=7.2.2,<8",
+    "importlib-metadata==9.0.0; python_full_version < '3.13'",
+    # Pinning setuptools is needed until cyclonedx-bom removes all usages of pkg_resources
+    # See https://stackoverflow.com/questions/7446187/no-module-named-pkg-resources
+    "setuptools==82.0.1",
+]
+
+[project.entry-points."mkdocs.plugins"]
+"code-siemens-code-docs-theme/licenses" = "mkdocs_siemens.plugins.licenses.plugin:LicensePlugin"
+# Wrapping the material search plugin as our own ensures it's always picked up correctly
+# instead of the builtin mkdocs search plugin. For more context, see
+# https://github.com/squidfunk/mkdocs-material/issues/4581
+"code-siemens-code-docs-theme/search" = "material.plugins.search.plugin:SearchPlugin"
+
+[project.entry-points."mkdocs.themes"]
+"code-siemens-code-docs-theme" = "mkdocs_siemens.templates"
+
+[dependency-groups]
+dev = [
+    "cyclonedx-bom>=7.2.2,<8",
+    "mkdocs-macros-plugin==1.5.0",
+    "black==26.3.0",
+    "mypy==1.19.1",
+    "isort==8.0.1",
+    "flake8==7.3.0",
+    "plantuml-markdown==3.11.1",
+    "importlib-metadata==9.0.0; python_full_version < '3.13'",
+]
+
+[build-system]
+requires = ["uv_build>=0.10.9,<0.10.10"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "mkdocs_siemens"

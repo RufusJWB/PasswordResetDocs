@@ -1,0 +1,242 @@
+---
+components:
+  securitySchemes:
+    oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: ../authorize?audience=http://localhost
+          tokenUrl: ../oauth/token
+  schemas:
+    Test:
+      type: object
+      properties:
+        permissions:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Permission"
+        name:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+  TestInfoRepresentationModel:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+  Permission:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+servers:
+  - description: Generated server url
+    url: http://localhost:8080
+openapi: 3.0.1
+paths:
+  "/api/testinfo":
+    get:
+      operationId: testInfo
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/TestInfoRepresentationModel"
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: id
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: X-TEST-ID
+          required: false
+      tags:
+        - Tests
+    delete:
+      operationId: deleteTest
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: id
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: X-TEST-ID
+          required: false
+      tags:
+        - Tests
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Test"
+        required: true
+      operationId: updateTest
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+      parameters:
+        - schema:
+            type: string
+          in: path
+          name: id
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: X-TEST-ID
+          required: false
+      tags:
+        - Tests
+    post:
+      summary: Generate signed URLs to download for single object.
+      tags:
+        - Object Access Operations
+      description: Generate signed URLs to download for single object.
+      operationId: generateDownloadObjectUrls
+      security:
+        - datalakeservice:
+            - dl.ds.r
+      parameters:
+        - name: generateUrlPayload
+          in: body
+          description: download payload with path details array and optional subtenat
+            id
+          schema:
+            "$ref": "#/definitions/GenerateUrlPayload"
+      produces:
+        - application/json
+      responses:
+        '201':
+          description: Signed URL response for download
+          schema:
+            "$ref": "#/definitions/SignedUrlResponse"
+        '400':
+          description: |
+            Bad request. Possible errors:
+            <br>
+            <table>
+              <colgroup>
+                <col span="1" style="width: 30%;">
+                <col span="1" style="width: 70%;">
+              </colgroup>
+              <tr>
+                <th align="left">Code Suffix</th>
+                <th align="left">Message (parametrized)</th>
+              </tr>
+              <tr>
+                <td>pathTooLong</td>
+                <td>Value of  request body property complete path, which is, the default path {defaultpath} and input path must be no longer than 1024 characters.</td>
+              </tr>
+              <tr>
+                <td>pathHasInvalidCharacters</td>
+                <td>Characters used for values of request body property paths[].path must be in the character set '[a-zA-Z0-9.!*'() _-/=]'.Spaces are not allowed at beginning or at end. Also, consecutive spaces are not allowed.</td>
+              </tr>
+              <tr>
+                <td>pathInvalid</td>
+                <td>Provided property paths[].path is invalid.</td>
+              </tr>
+              <tr>
+                <td>noSuchSubtenant</td>
+                <td>Provided subtenant does not belong to tenant.</td>
+              </tr>
+              <tr>
+                <td>tooManyPaths</td>
+                <td>A maximum of 1 paths can be provided per request.</td>
+              </tr>
+              <tr>
+                <td>objectNotAccessible</td>
+                <td>Object with storage class COLD is not accessible.</td>
+              </tr>
+            </table>
+          schema:
+            "$ref": "#/definitions/Errors"
+        '403':
+          "$ref": "#/responses/ForbiddenErrorResponse"
+        '404':
+          description: |
+            Not Found. Possible errors:
+            <br>
+            <table>
+              <colgroup>
+                <col span="1" style="width: 30%;">
+                <col span="1" style="width: 70%;">
+              </colgroup>
+              <tr>
+                <th align="left">Code Suffix</th>
+                <th align="left">Message (parametrized)</th>
+              </tr>
+              <tr>
+                <td>objectNotFoundError</td>
+                <td>Object not found.</td>
+              </tr>
+            </table>
+          schema:
+            "$ref": "#/definitions/Errors"
+        default:
+          description: Other error with any status code and response body format.
+  "/version":
+    get:
+      operationId: getVersion
+      deprecated: true
+      tags:
+        - Info
+      security: []
+      summary: Current API information
+      description: 'Deprecated in favour of /info endpoint.
+
+        '
+      responses:
+        '200':
+          description: The version and security information
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ApiInfo"
+        default:
+          "$ref": "#/components/responses/defaultResponse"
+info:
+  title: Test Open API
+  description:  |
+    #### LDAP
+
+    ##### LDAP Fields Mapping
+
+    | Directory Service Field | LDAP Attribute          | Comments                       |
+    | ----------------------- | ------------------------| ------------------------------ |
+    | `gid`                   | `tcgid`                 |                                |
+    | `organizationId`        | `orgId`                 |                                |
+    | `organizationalUnit`    | `ou`                    | Deprecated since v0.13. Always returns `-`, use `department` as alternative |
+    | `locality`              | `l`                     |                                |
+    | `city`                  | `localityInternational` |                                |
+    | `commonName`            | `cn`                    |                                |
+  version: 1.2.3

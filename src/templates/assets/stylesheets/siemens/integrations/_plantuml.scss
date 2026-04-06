@@ -1,0 +1,39 @@
+// stylelint-disable declaration-no-important
+// Essentially all of this needs !important as plantuml inlines its styles
+
+.uml {
+  background-color: var(--md-default-bg-color) !important;
+
+  circle,
+  ellipse,
+  line,
+  rect {
+    fill: var(--md-table-bg-color) !important;
+    stroke: var(--md-default-fg-color) !important;
+
+    // correctly use foreground color for black fill elements
+    &[fill="#000000"] {
+      fill: var(--md-default-fg-color) !important;
+    }
+  }
+
+  path {
+    stroke: var(--md-default-fg-color) !important;
+
+    // only override fill if already defined, otherwise it may be a single line
+    &[fill^="#"] {
+      fill: var(--md-table-bg-color) !important;
+    }
+  }
+
+  text {
+    fill: var(--md-default-fg-color) !important;
+  }
+
+  polygon {
+    fill: var(--md-table-bg-color) !important;
+    stroke: var(--md-default-fg-color) !important;
+  }
+}
+
+// stylelint-enable declaration-no-important

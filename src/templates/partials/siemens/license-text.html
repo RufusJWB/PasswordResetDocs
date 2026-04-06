@@ -1,0 +1,7 @@
+{% if license_choice.license.text %}
+  <em>({{ license_choice.license.id | default(license_choice.license.name) }})</em>
+
+  <pre class="md-license-text">
+    {{- license_choice.license.text.content }}
+  </pre>
+{% endif %}

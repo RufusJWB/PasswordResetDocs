@@ -1,0 +1,194 @@
+{
+    "bomFormat" : "CycloneDX",
+    "specVersion" : "1.4",
+    "version" : 1,
+    "metadata" : {
+        "timestamp" : "2022-07-08T15:00:00Z",
+        "tools" : [
+            {
+                "vendor" : "Siemens AG",
+                "name" : "standard-bom",
+                "version" : "2.0.0",
+                "externalReferences" : [
+                    {
+                        "type" : "website",
+                        "url" : "https://sbom.siemens.io/"
+                    }
+                ]
+            },
+            {
+                "vendor" : "Siemens AG",
+                "name" : "gradle-scanner",
+                "version" : "3.0.0",
+                "externalReferences" : [
+                    {
+                        "type" : "website",
+                        "url" : "https://code.siemens.com/sbom/scanners/gradle-scanner"
+                    }
+                ]
+            },
+            {
+                "vendor" : "Gradle Inc.",
+                "name" : "Gradle",
+                "version" : "7.4",
+                "externalReferences" : [
+                    {
+                        "type" : "website",
+                        "url" : "https://gradle.org"
+                    }
+                ]
+            }
+        ],
+        "component" : {
+            "group" : "com.siemens.pdde.aps",
+            "name" : "data-federation",
+            "version" : "3.7.4",
+            "purl" : "pkg:maven/com.siemens.pdde.aps/data-federation@3.7.4",
+            "externalReferences" : [
+                {
+                    "type" : "website",
+                    "url" : "https://de.apps.siemens.cloud/all/operation-suites/ensure-asset-uptime/others/data-fabric"
+                },
+                {
+                    "type" : "vcs",
+                    "url" : "https://code.siemens.com/pd-de/asset-performance-suite/backend/data-federation"
+                }
+            ],
+            "properties" : [
+                {
+                    "name" : "siemens:vcsRevision",
+                    "value" : "0e3e6387c452f61c3ea015f0e03892ec1a2ae4ed"
+                },
+                {
+                    "name" : "siemens:vcsClean",
+                    "value" : "true"
+                }
+            ],
+            "type" : "application"
+        },
+        "properties" : [
+            {
+                "name" : "siemens:profile",
+                "value" : "clearing"
+            }
+        ]
+    },
+    "components" : [
+        {
+            "author" : "Tatu Saloranta <tatu@fasterxml.com>, Christopher Currie, and Paul Brown <prb@fasterxml.com> of FasterXML",
+            "group" : "com.fasterxml.jackson.core",
+            "name" : "jackson-core",
+            "version" : "2.12.5",
+            "description" : "Core Jackson processing abstractions (aka Streaming API), implementation for JSON",
+            "hashes" : [
+                {
+                    "alg" : "MD5",
+                    "content" : "b24f3a25bc033352f1c3ab2c683b926c"
+                },
+                {
+                    "alg" : "SHA-1",
+                    "content" : "725e364cc71b80e60fa450bd06d75cdea7fb2d59"
+                },
+                {
+                    "alg" : "SHA-256",
+                    "content" : "0c9860b8fb6f24f59e083e0b92a17c515c45312951fc272d093e4709faed6356"
+                },
+                {
+                    "alg" : "SHA-512",
+                    "content" : "f2c011cf1866aade9ea654d58b65e50d46ea203cb4f2230fc5c40822c158b6f144a184e00d98a8d29fabfb4550690a6d2ff09d27960764b2810667b63600e303"
+                }
+            ],
+            "licenses" : [
+                {
+                    "license" : {
+                        "name" : "The Apache Software License, Version 2.0",
+                        "url" : "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+            ],
+            "copyright" : "Copyright (c) 2007- Tatu Saloranta, tatu.saloranta@iki.fi",
+            "purl" : "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.12.5?type=jar",
+            "externalReferences" : [
+                {
+                    "type" : "distribution",
+                    "url" : "file:///binaries/725e364cc71b80e60fa450bd06d75cdea7fb2d59/jackson-core-2.12.5.jar",
+                    "comment" : "relativePath"
+                },
+                {
+                    "type" : "distribution",
+                    "url" : "file:///sources/c85582cc77d4383286bad26c10ef4ed87d13e46a/jackson-core-2.12.5-sources.jar",
+                    "comment" : "source archive (local copy)",
+                    "hashes" : [
+                        {
+                            "alg" : "MD5",
+                            "content" : "0d031a65bbe52459dff1b993df2d47ba"
+                        },
+                        {
+                            "alg" : "SHA-1",
+                            "content" : "c85582cc77d4383286bad26c10ef4ed87d13e46a"
+                        },
+                        {
+                            "alg" : "SHA-256",
+                            "content" : "7b69522e7656f81bd920259940ac221c163dfa3db77868f93b29b079747cbd1a"
+                        },
+                        {
+                            "alg" : "SHA-512",
+                            "content" : "11623c607039b4d77399db1b2e12b54387fb8fb5f9f314c77792b80527dc23dbe5633e51d322a7a4842d3330f5d2521a990acce572fe34cc10091c20f9dd0c34"
+                        }
+                    ]
+                },
+                {
+                    "type" : "distribution",
+                    "url" : "https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.12.5/jackson-core-2.12.5-sources.jar",
+                    "comment" : "source archive (download location)",
+                    "hashes" : [
+                        {
+                            "alg" : "MD5",
+                            "content" : "0d031a65bbe52459dff1b993df2d47ba"
+                        },
+                        {
+                            "alg" : "SHA-1",
+                            "content" : "c85582cc77d4383286bad26c10ef4ed87d13e46a"
+                        },
+                        {
+                            "alg" : "SHA-256",
+                            "content" : "7b69522e7656f81bd920259940ac221c163dfa3db77868f93b29b079747cbd1a"
+                        },
+                        {
+                            "alg" : "SHA-512",
+                            "content" : "11623c607039b4d77399db1b2e12b54387fb8fb5f9f314c77792b80527dc23dbe5633e51d322a7a4842d3330f5d2521a990acce572fe34cc10091c20f9dd0c34"
+                        }
+                    ]
+                },
+                {
+                    "type" : "website",
+                    "url" : "https://github.com/FasterXML/jackson-core"
+                },
+                {
+                    "type" : "vcs",
+                    "url" : "https://github.com/FasterXML/jackson-core"
+                }
+            ],
+            "properties" : [
+                {
+                    "name" : "siemens:direct",
+                    "value" : "false"
+                },
+                {
+                    "name" : "siemens:filename",
+                    "value" : "jackson-core-2.12.5.jar"
+                },
+                {
+                    "name" : "siemens:primaryLanguage",
+                    "value" : "Java"
+                },
+                {
+                    "name" : "siemens:thirdPartyNotices",
+                    "value" : "# Jackson JSON processor\nJackson is a high-performance, Free/Open Source JSON processing library.\nIt was originally written by Tatu Saloranta (tatu.saloranta@iki.fi), and has\nbeen in development since 2007.\nIt is currently developed by a community of developers.\n## Licensing\nJackson 2.x core and extension components are licensed under Apache License 2.0\nTo find the details that apply to this artifact see the accompanying LICENSE file.\n## Credits\nA list of contributors may be found from CREDITS(-2.x) file, which is included\nin some artifacts (usually source distributions); but is always available\nfrom the source code management (SCM) system project uses."
+                }
+            ],
+            "type" : "library",
+            "bom-ref" : "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.12.5?type=jar"
+        }
+    ]
+}

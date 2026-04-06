@@ -1,0 +1,58 @@
+<div class="md-tabbar-search-container">
+  <div class="md-grid">
+    {% if page.meta and page.meta.hide %}
+      {% if "navigation" in page.meta.hide and "navigation.tertiary" in features %}
+        {% set hide_nav = true %}
+      {% endif %}
+    {% endif %}
+    {% if not hide_nav == true %}
+      <label class="md-tabbar-search-container__title" for="__drawer">
+        {% block site_nav %}
+            {% for nav_item in nav %}
+              {% if nav_item.active %}
+                {{ nav_item.title }}
+              {% endif %}
+            {% endfor %}
+        {% endblock %}
+      </label>
+
+      <!-- Button to open drawer -->
+      <label class="md-icon md-header__button" for="__drawer">
+        {% include ".icons/siemens/arrowhead-down.svg" %}
+      </label>
+    {% endif %}
+
+    {% if "navigation.tabs" in features %}
+      {% include "partials/tabs.html" %}
+    {% endif %}
+    <div class="md-tabbar-search-container__search">
+      {% block search_box %}
+        {% if "code-siemens-code-docs-theme/search" in config.plugins or "material/search" in config.plugins %}
+          <label class="md-header__button md-icon" for="__search">
+            {% include ".icons/material/magnify.svg" %}
+          </label>
+          <!-- Search interface -->
+          {% include "partials/search.html" %}
+        {% endif %}
+      {% endblock %}
+
+      <!-- Color palette -->
+      {% if config.theme.palette %}
+        {% if not config.theme.palette is mapping %}
+          {% include "partials/palette.html" %}
+        {% endif %}
+      {% endif %}
+
+      <!-- User preference: color palette -->
+      {% if not config.theme.palette is mapping %}
+        {% include "partials/javascripts/palette.html" %}
+      {% endif %}
+
+      <!-- Site language selector -->
+      {% if config.extra.alternate %}
+        {% include "partials/alternate.html" %}
+      {% endif %}
+
+    </div>
+  </div>
+</div>

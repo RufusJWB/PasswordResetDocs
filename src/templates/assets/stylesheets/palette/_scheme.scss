@@ -1,0 +1,221 @@
+@use "@simpl/brand/dist/colors-palette" as colors;
+
+// colors not yet upstreamed/incorporated into element-base-theme
+$siemens-bright-sand: #dfdfd9;
+$siemens-elevation-dark-3: #404057;
+$siemens-interactive-blue-light-hover: #00708c;
+$siemens-interactive-blue-light-pressed: #005673;
+$siemens-interactive-blue: #008aa6;
+$siemens-interactive-cyan: #0098a6;
+$siemens-interactive-coral-12: #00183b;
+$siemens-interactive-cyan-8: #ebf7f8;
+$siemens-interactive-focus-border: #1491eb;
+$siemens-soft-green: #00d7a0;
+$siemens-bold-green-18: #d1fff2;
+$siemens-deep-blue-55: #737389;
+$siemens-deep-blue-80: #333353;
+$siemens-deep-blue-85: #262648;
+$siemens-dark-feedback-red: #ff2640;
+$siemens-dark-feedback-green: #01d65a;
+$siemens-dark-feedback-blue: #00bedc;
+$siemens-light-green: #62eec7;
+
+[data-md-color-scheme="light"] {
+  color-scheme: light;
+  // Primary color shades
+  --md-primary-fg-color: #{colors.$siemens-interactive-blue-500};
+  --md-primary-fg-color--light: #{$siemens-interactive-blue-light-hover};
+  --md-primary-fg-color--lighter: #{$siemens-interactive-blue-light-pressed};
+  --md-primary-fg-color--lightest: #{$siemens-interactive-blue};
+  --md-primary-bg-color: #{colors.$siemens-white};
+
+  // Default colors
+  --md-default-bg-color: #{colors.$siemens-white};
+
+  // Accent color shades
+  --md-accent-fg-color: #{$siemens-interactive-cyan};
+  --md-accent-fg-color--transparent: #{$siemens-bold-green-18};
+
+  // Typeset `a` color shades
+  --md-typeset-a-color: #{colors.$siemens-interactive-blue-500};
+
+  // Table colors
+  --md-table-bg-color: #{colors.$siemens-light-sand};
+  --md-table-border-color: #{colors.$siemens-deep-blue-100};
+  --md-typeset-table-color--light: #{colors.$siemens-sand};
+
+  // Admonition color shades
+  --md-admonition-fg-color: var(--md-default-fg-color);
+  --md-admonition-bg-color: #{colors.$siemens-light-sand};
+  --md-admonition-note-color: #{colors.$siemens-blue-500};
+  --md-admonition-abstract-color: var(--md-default-fg-color);
+  --md-admonition-info-color: #{colors.$siemens-blue-500};
+  --md-admonition-tip-color: #{colors.$siemens-blue-500};
+  --md-admonition-success-color: #{colors.$siemens-green-700};
+  --md-admonition-question-color: var(--md-default-fg-color);
+  --md-admonition-warning-color: #{colors.$siemens-orange-700};
+  --md-admonition-failure-color: #{colors.$siemens-red-500};
+  --md-admonition-danger-color: #{colors.$siemens-red-900};
+  --md-admonition-bug-color: #{colors.$siemens-red-900};
+  --md-admonition-example-color: var(--md-default-fg-color);
+  --md-admonition-quote-color: var(--md-default-fg-color);
+
+  // Code colors
+  --md-opblock-code-fg: #{colors.$siemens-white};
+  --md-opblock-code-bg: #{$siemens-elevation-dark-3};
+  --md-opblock: #{colors.$siemens-deep-blue-700};
+  --md-opblock-bg: #{colors.$siemens-white};
+  --md-opblock-disabled: #{colors.$siemens-deep-blue-400};
+  --md-opblock-disabled-bg: #{$siemens-interactive-cyan-8};
+  --md-opblock-section-head-bg: #{colors.$siemens-light-sand};
+
+  // Navigation
+  --md-nav-fg-color: #{colors.$siemens-deep-blue-900};
+  --md-nav-bg-color: #{colors.$siemens-light-sand};
+  --md-nav-underline-color: #{$siemens-soft-green};
+  --md-nav-focus-border-color: #{$siemens-interactive-focus-border};
+
+  // Back-to-top button colors
+  --md-top-hover-color: #{colors.$siemens-teal};
+  --md-top-hover-bg-color: #{$siemens-bold-green-18};
+
+  // Search
+  --md-search-icon-color: #{colors.$siemens-deep-blue-900};
+  --md-search-icon-bg-color: #{colors.$siemens-gradient-bold-dynamic};
+  --md-search-input-placeholder-color: #{colors.$siemens-deep-blue-700};
+  --md-search-input-fg-color: #{colors.$siemens-deep-blue-900};
+  --md-search-input-bg-color: #{$siemens-interactive-cyan-8};
+  --md-search-input-bg-color-hover: #{$siemens-bold-green-18};
+  --md-input-border-color: #{colors.$siemens-deep-blue-900};
+
+  // Footer color shades
+  --md-footer-fg-color: #{colors.$siemens-deep-blue-900};
+  --md-footer-fg-color--light: #{colors.$siemens-deep-blue-900};
+  --md-footer-fg-color--lighter: #{colors.$siemens-deep-blue-900};
+  --md-footer-bg-color: #{colors.$siemens-white}; // White background for previous/next navigation
+  --md-footer-bg-color--dark: #{colors.$siemens-light-sand}; // Light Sand background for copyright & meta
+
+  // AsyncAPI colors
+  --async-api-box-elevation-1-bg-color: #{colors.$siemens-light-sand};
+  --async-api-box-elevation-2-bg-color: #{colors.$siemens-sand};
+  --async-api-text-soft: #{colors.$siemens-deep-blue-600};
+
+  // Keyboard keys extension colors
+  --md-typeset-kbd-color: #{colors.$siemens-sand};
+}
+
+[data-md-color-scheme="light"] img[src$="#only-dark"],
+[data-md-color-scheme="light"] img[src$="#gh-dark-mode-only"] {
+  display: none; /* Hide dark images in light mode */
+}
+
+[data-md-color-scheme="dark"] {
+  // Indicate that the site is rendered with a dark color scheme
+  color-scheme: dark;
+
+  // Primary color shades
+  --md-primary-fg-color: #{colors.$siemens-bold-green};
+  --md-primary-fg-color--light: #{$siemens-interactive-blue-light-hover};
+  --md-primary-fg-color--lighter: #{$siemens-interactive-blue-light-pressed};
+  --md-primary-bg-color: #{colors.$siemens-deep-blue-900};
+
+  // Default colors
+  --md-default-bg-color: #{colors.$siemens-deep-blue-900};
+  --md-default-fg-color: #{colors.$siemens-white};
+  --md-default-fg-color--light: #{colors.$siemens-deep-blue-400};
+  --md-default-fg-color--lighter: #{$siemens-deep-blue-55};
+  --md-default-fg-color--lightest: #{colors.$siemens-deep-blue-700};
+
+  // Accent color shades
+  --md-accent-fg-color: #{colors.$siemens-bold-green};
+  --md-accent-fg-color--transparent: #{colors.$siemens-dark-bold-green};
+
+  // Typeset color shades
+  --md-typeset-a-color: #{colors.$siemens-interactive-coral};
+  --md-code-bg-color: #{$siemens-deep-blue-80};
+  --md-code-fg-color: #{colors.$siemens-light-sand};
+
+  // Table colors
+  --md-table-bg-color: #{colors.$siemens-deep-blue-800};
+  --md-table-border-color: #{colors.$siemens-deep-blue-700};
+  --md-typeset-table-color--light: #{colors.$siemens-grayish-navy};
+
+  // Admonition color shades
+  --md-admonition-fg-color: var(--md-default-fg-color);
+  --md-admonition-bg-color: #{colors.$siemens-deep-blue-800};
+  --md-admonition-note-color: #{colors.$siemens-blue-500};
+  --md-admonition-abstract-color: var(--md-default-fg-color);
+  --md-admonition-info-color: #{colors.$siemens-blue-500};
+  --md-admonition-tip-color: #{colors.$siemens-blue-500};
+  --md-admonition-success-color: #{colors.$siemens-green-500};
+  --md-admonition-question-color: var(--md-default-fg-color);
+  --md-admonition-warning-color: #{colors.$siemens-orange-500};
+  --md-admonition-failure-color: #{colors.$siemens-red-500};
+  --md-admonition-danger-color: #{colors.$siemens-red-700};
+  --md-admonition-bug-color: #{colors.$siemens-red-700};
+  --md-admonition-example-color: var(--md-default-fg-color);
+  --md-admonition-quote-color: var(--md-default-fg-color);
+
+  // Code colors
+  --md-opblock-code-fg: #{colors.$siemens-white};
+  --md-opblock-code-bg: #{$siemens-deep-blue-80};
+  --md-opblock: #{colors.$siemens-deep-blue-300};
+  --md-opblock-bg: #{$siemens-deep-blue-80};
+  --md-opblock-disabled: #{$siemens-deep-blue-55};
+  --md-opblock-disabled-bg: #{$siemens-interactive-coral-12};
+  --md-opblock-section-head-bg: #{$siemens-deep-blue-85};
+  --md-code-hl-operator-color: var(--md-default-fg-color--light);
+  --md-code-hl-punctuation-color: var(--md-default-fg-color--light);
+  --md-code-hl-comment-color: var(--md-default-fg-color--light);
+  --md-code-hl-generic-color: var(--md-default-fg-color--light);
+  --md-code-hl-color: hsl(218 100% 63% / 0.15);
+  --md-code-hl-number-color: #{colors.$siemens-orange-500};
+  --md-code-hl-special-color: #{$siemens-dark-feedback-red};
+  --md-code-hl-function-color: #{$siemens-dark-feedback-green};
+  --md-code-hl-constant-color: #{$siemens-dark-feedback-blue};
+  --md-code-hl-keyword-color: #{colors.$siemens-interactive-coral};
+  --md-code-hl-string-color: #{$siemens-light-green};
+  --md-code-hl-name-color: var(--md-code-fg-color);
+  --md-code-hl-variable-color: #{colors.$siemens-red-100};
+
+  // Navigation
+  --md-nav-fg-color: #{colors.$siemens-white};
+  --md-nav-bg-color: #{colors.$siemens-deep-blue-800};
+  --md-nav-underline-color: #{$siemens-soft-green};
+  --md-nav-focus-border-color: #{$siemens-interactive-focus-border};
+
+  // Back-to-top button colors
+  --md-top-hover-color: #{colors.$siemens-bold-green};
+  --md-top-hover-bg-color: #{colors.$siemens-dark-bold-green};
+
+  // Search
+  --md-search-icon-color: #{colors.$siemens-deep-blue-900};
+  --md-search-icon-bg-color: #{colors.$siemens-gradient-bold-dynamic};
+  --md-search-input-placeholder-color: #{colors.$siemens-deep-blue-300};
+  --md-search-input-fg-color: #{colors.$siemens-white};
+  --md-search-input-bg-color: #{colors.$siemens-dark-bold-green};
+  --md-search-input-bg-color-hover: #{colors.$siemens-dark-bold-green};
+  --md-input-border-color: #{colors.$siemens-deep-blue-300};
+
+  // Footer color shades
+  --md-footer-fg-color: #{colors.$siemens-white};
+  --md-footer-fg-color--light: #{colors.$siemens-light-sand};
+  --md-footer-fg-color--lighter: #{$siemens-bright-sand};
+  --md-footer-bg-color: #{colors.$siemens-deep-blue-900};
+  --md-footer-bg-color--dark: #{colors.$siemens-deep-blue-900}; // Same color for both footer and elements in dark mode
+
+  // AsyncAPI colors
+  --async-api-box-elevation-1-bg-color: #{colors.$siemens-deep-blue-800};
+  --async-api-box-elevation-2-bg-color: #{colors.$siemens-grayish-navy};
+  --async-api-text-soft: #{colors.$siemens-deep-blue-400};
+
+  // Keyboard keys extension colors
+  --md-typeset-kbd-color: #{colors.$siemens-grayish-navy};
+  --md-typeset-kbd-accent-color: #{$siemens-elevation-dark-3};
+  --md-typeset-kbd-border-color: #{colors.$siemens-deep-blue-400};
+}
+
+[data-md-color-scheme="dark"] img[src$="#only-light"],
+[data-md-color-scheme="dark"] img[src$="#gh-light-mode-only"] {
+  display: none; /* Hide light images in dark mode */
+}
