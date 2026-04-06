@@ -48,7 +48,12 @@ jobs:
         shell: bash
         run: |
           # The token must be able to clone the theme repository (for example: read_repository or api scope).
-          git config --global url."https://${{ secrets.UV_INDEX_MKDOCS_USERNAME }}:${{ secrets.UV_INDEX_MKDOCS_PASSWORD }}@code.siemens.com/".insteadOf "https://code.siemens.com/"
+          cat > "$HOME/.netrc" <<EOF
+          machine code.siemens.com
+            login ${{ secrets.UV_INDEX_MKDOCS_USERNAME }}
+            password ${{ secrets.UV_INDEX_MKDOCS_PASSWORD }}
+          EOF
+          chmod 600 "$HOME/.netrc"
 
       - name: Install dependencies (locked)
         run: uv sync --locked
