@@ -13,8 +13,16 @@ pushd "${THEME_DIR}" > /dev/null
 if ! command -v corepack >/dev/null 2>&1; then
   npm install --global corepack@0.24.1
 fi
-corepack enable
-yarn --frozen-lockfile
+
+COREPACK_INSTALL_DIR="${COREPACK_INSTALL_DIR:-${HOME}/.local/bin}"
+mkdir -p "${COREPACK_INSTALL_DIR}"
+case ":${PATH}:" in
+  *":${COREPACK_INSTALL_DIR}:"*) ;;
+  *) export PATH="${COREPACK_INSTALL_DIR}:${PATH}" ;;
+esac
+
+corepack enable --install-directory "${COREPACK_INSTALL_DIR}"
+yarn --frozen-lockfile --ignore-engines
 yarn src:compile
 yarn src:postcss
 yarn dist:cpy:src
@@ -24,4 +32,9 @@ yarn src:hash
 popd > /dev/null
 
 cd "${ROOT_DIR}"
-uv pip install --no-deps "${THEME_DIR}"
+VENV_PYTHON="${ROOT_DIR}/.venv/bin/python"
+if [[ -x "${VENV_PYTHON}" ]]; then
+  uv pip install --python "${VENV_PYTHON}" --no-deps "${THEME_DIR}"
+else
+  uv pip install --no-deps "${THEME_DIR}"
+fi
