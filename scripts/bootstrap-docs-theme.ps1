@@ -1,6 +1,5 @@
 param(
-    [string]$ThemeRef = "v8.0.1",
-    [string]$ThemeRepo = "https://code.siemens.com/code-ops/docs-theme.git"
+    [string]$ThemeDir = "vendor/docs-theme"
 )
 
 $ErrorActionPreference = "Stop"
@@ -11,11 +10,7 @@ if ($null -eq $bash) {
 }
 
 $rootDir = Split-Path -Parent $PSScriptRoot
-$env:THEME_REF = $ThemeRef
-$env:THEME_REPO = $ThemeRepo
-$env:GITLAB_REPO_USERNAME = if ($env:GITLAB_REPO_USERNAME) { $env:GITLAB_REPO_USERNAME } else { $env:UV_INDEX_MKDOCS_USERNAME }
-$env:GITLAB_REPO_TOKEN = if ($env:GITLAB_REPO_TOKEN) { $env:GITLAB_REPO_TOKEN } else { $env:UV_INDEX_MKDOCS_PASSWORD }
-$env:GIT_TERMINAL_PROMPT = "0"
+$env:THEME_DIR = Join-Path $rootDir $ThemeDir
 git config --global core.longpaths true
 
 Push-Location $rootDir

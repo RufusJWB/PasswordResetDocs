@@ -46,9 +46,7 @@ To work locally with this project, you'll have to follow the steps below:
 1. Fork, clone or download this project
 1. Install [uv](https://docs.astral.sh/uv/)
 1. Install Node.js 20 or newer (required to build the Siemens `docs-theme` from source)
-1. Connect to the intranet (only required when downloading the `docs-theme` sources)
-1. Set `UV_INDEX_MKDOCS_USERNAME` and `UV_INDEX_MKDOCS_PASSWORD` in your shell so the theme sources can be cloned from GitLab.
-   The token must be allowed to read the repository, so use a PAT with `read_repository` or `api` scope.
+1. Ensure the vendored Siemens theme sources are present under `vendor/docs-theme` (managed via `git subtree`)
 1. Install the locked Python dependencies: `uv sync --locked`
 1. Build and install the Siemens theme locally:
    * macOS/Linux/Git Bash: `./scripts/bootstrap-docs-theme.sh`
@@ -58,8 +56,7 @@ To work locally with this project, you'll have to follow the steps below:
 1. Generate the website: `uv run mkdocs build` (optional)
 1. (Optional) Remember to keep your theme dependencies up to date.
    Use `uv lock --upgrade` to get patches and minor version upgrades.
-   To upgrade major versions look at the [releases of the Siemens `docs-theme`](https://code.siemens.com/code-ops/docs-theme/-/releases)
-   and update the version in `scripts/bootstrap-docs-theme.sh` and `scripts/bootstrap-docs-theme.ps1`.
+   To update the vendored theme, pull a newer tag into `vendor/docs-theme` via `git subtree` and rerun the bootstrap step.
    or automate all updates via [renovate-bot](https://code.siemens.io/ci/renovate-bot/).
 
 ## Recommendations

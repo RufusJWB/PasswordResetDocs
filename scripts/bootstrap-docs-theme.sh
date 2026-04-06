@@ -2,18 +2,12 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-THEME_DIR="${ROOT_DIR}/.cache/docs-theme"
-THEME_REF="${THEME_REF:-v8.0.1}"
-THEME_REPO="${THEME_REPO:-https://code.siemens.com/code-ops/docs-theme.git}"
-GITLAB_USERNAME="${GITLAB_REPO_USERNAME:-${UV_INDEX_MKDOCS_USERNAME:-}}"
-GITLAB_TOKEN="${GITLAB_REPO_TOKEN:-${UV_INDEX_MKDOCS_PASSWORD:-}}"
+THEME_DIR="${THEME_DIR:-${ROOT_DIR}/vendor/docs-theme}"
 
-if [[ -n "${GITLAB_USERNAME}" && -n "${GITLAB_TOKEN}" ]]; then
-  git config --global url."https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@code.siemens.com/".insteadOf "https://code.siemens.com/"
+if [[ ! -d "${THEME_DIR}" ]]; then
+  echo "Expected vendored theme sources in ${THEME_DIR}. Import the docs-theme repository via git subtree before running this script." >&2
+  exit 1
 fi
-
-rm -rf "${THEME_DIR}"
-git clone --depth 1 --branch "${THEME_REF}" "${THEME_REPO}" "${THEME_DIR}"
 
 pushd "${THEME_DIR}" > /dev/null
 if ! command -v corepack >/dev/null 2>&1; then
