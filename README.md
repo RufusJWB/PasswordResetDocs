@@ -46,18 +46,22 @@ To work locally with this project, you'll have to follow the steps below:
 1. Fork, clone or download this project
 1. Install [uv](https://docs.astral.sh/uv/)
 1. Install Node.js 20 or newer (required to build the Siemens `docs-theme` from source)
-1. Ensure the vendored Siemens theme sources are present under `vendor/docs-theme` (managed via `git subtree`)
+1. Ensure the vendored Siemens theme sources are present under `vendor/docs-theme` (managed via `git subtree`; if the directory is missing, restore it from git or re-import `https://code.siemens.com/code-ops/docs-theme.git` into `vendor/docs-theme` with `git subtree`)
 1. Install the locked Python dependencies: `uv sync --locked`
 1. Build and install the Siemens theme locally:
-   * macOS/Linux/Git Bash: `./scripts/bootstrap-docs-theme.sh`
-   * PowerShell: `./scripts/bootstrap-docs-theme.ps1`
+   * Run `./scripts/bootstrap-docs-theme.sh` (this can be executed in WSL)
    * After updating the vendored theme, commit the generated `vendor/docs-theme/mkdocs_siemens/` files so CI can install the prebuilt theme package without reaching the Siemens npm registry.
 1. Preview your project: `uv run mkdocs serve`, then available at `http://127.0.0.1:8000`
 1. Modify content, live reloading will reflect your changes immediately
 1. Generate the website: `uv run mkdocs build` (optional)
 1. (Optional) Remember to keep your theme dependencies up to date.
    Use `uv lock --upgrade` to get patches and minor version upgrades.
-   To update the vendored theme, pull a newer tag into `vendor/docs-theme` via `git subtree` and rerun the bootstrap step.
+   To update the vendored theme sources to the latest upstream changes:
+   * Check the latest docs-theme release or tag in the upstream changelog and releases: `https://code-ops.code.siemens.io/docs-theme/changelog/`
+   * Review the upgrade guide for breaking changes before updating: `https://code-ops.code.siemens.io/docs-theme/upgrade/`
+   * Pull the selected upstream tag into `vendor/docs-theme` with `git subtree`, for example: `git subtree pull --prefix=vendor/docs-theme https://code.siemens.com/code-ops/docs-theme.git <tag> --squash`
+   * Rerun `./scripts/bootstrap-docs-theme.sh` to regenerate the built theme files
+   * Commit the updated vendored sources together with the regenerated `vendor/docs-theme/mkdocs_siemens/` files
    or automate all updates via [renovate-bot](https://code.siemens.io/ci/renovate-bot/).
 
 ## Recommendations
