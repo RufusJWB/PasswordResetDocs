@@ -6,6 +6,12 @@ The official [code.siemens.io](https://code.siemens.io/) theme for MkDocs, based
 Head over to our [User documentation](https://code-ops.code.siemens.io/docs-theme)
 for installation and usage instructions.
 
+## Static site generators
+
+MkDocs is the primary supported static site generator, with Zensical support for compatibility.
+See [Static site generators](https://code-ops.code.siemens.io/docs-theme/features/zensical/)
+for usage and migration instructions.
+
 ## Upgrading docs-theme from previous versions
 
 Please see our [Migration Guides](https://code-ops.code.siemens.io/docs-theme/upgrade/)

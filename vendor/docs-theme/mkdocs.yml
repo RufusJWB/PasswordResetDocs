@@ -2,6 +2,7 @@ site_name: docs-theme
 site_description: The official code.siemens.io theme for MkDocs.
 site_author: The code.siemens.com team <ops.code.ch@siemens.com>
 site_url: https://code-ops.code.siemens.io/docs-theme
+use_directory_urls: !ENV [USE_DIRECTORY_URLS, true]
 copyright: "Copyright Siemens 2019 - 2026"
 
 repo_url: https://code.siemens.com/code-ops/docs-theme
@@ -14,6 +15,7 @@ nav:
       - Plugins:        features/plugins.md
       - Integrations:   features/integrations.md
       - Icons:          features/icons.md
+      - zensical:       features/zensical.md
   - Upgrading:          upgrade.md
   - Development:        development.md
   - Troubleshooting:    troubleshooting.md

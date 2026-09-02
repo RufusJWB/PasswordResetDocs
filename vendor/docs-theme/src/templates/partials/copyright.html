@@ -2,14 +2,22 @@
 {% if "links" in config.extra %}
   {% set footer_links = config.extra.links %}
   <div class="footer-siemens">
-    <!-- No topics defined, single column only -->
     {% if not footer_links is mapping %}
-      {% set topic = "explore" %}
-      {% set topic_links = footer_links %}
-      {% include "partials/siemens/topic-links.html" %}
+      {% set first_link = footer_links | first %}
+      {% if first_link.name is defined and first_link.value is defined %}
+        {% set topic = "explore" %}
+        {% set topic_links = footer_links %}
+        {% include "partials/siemens/topic-links.html" %}
+      {% else %}
+        {% for topic_mapping in footer_links %}
+          {% for topic, topic_links in topic_mapping | items %}
+            {% include "partials/siemens/topic-links.html" %}
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
     <!-- Support multiple topic columns as shown in Siemens Brand -->
     {% elif footer_links is mapping %}
-      {% for topic, topic_links in footer_links.items() %}
+      {% for topic, topic_links in footer_links | items %}
         {% include "partials/siemens/topic-links.html" %}
       {% endfor %}
     {% endif %}
@@ -22,7 +30,8 @@
   <a class="footer-siemens__link-legal" href="http://www.siemens.com/corporate-information" target="_blank">Corporate Information</a>
   <a class="footer-siemens__link-legal" href="http://www.siemens.com/privacy" target="_blank">Privacy Policy</a>
   <a class="footer-siemens__link-legal" href="http://www.siemens.com/corp/en/index/terms_of_use.htm" target="_blank">Terms of Use</a>
-  {% if "code-siemens-code-docs-theme/licenses" in config.plugins %}
+  {% set is_zensical = generator is defined and "zensical" in generator %}
+  {% if "code-siemens-code-docs-theme/licenses" in config.plugins or (is_zensical and config.extra.licenses is mapping) %}
     <a class="footer-siemens__link-legal" href="{{ base_url }}/_licenses.html">Third-party Software</a>
   {% endif %}
 </div>

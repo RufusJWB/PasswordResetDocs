@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Optional, Union
 from urllib.parse import unquote, urlparse
 
+from cyclonedx.contrib.license.factories import LicenseFactory
 from cyclonedx.model import AttachedText
 from cyclonedx.model.bom import Bom
 from cyclonedx.model.component import Component, ComponentType
@@ -12,12 +13,17 @@ from cyclonedx.model.license import DisjunctiveLicense
 from cyclonedx.model.tool import Tool
 from cyclonedx.output import make_outputter
 from cyclonedx.schema import OutputFormat, SchemaVersion
+from cyclonedx_py._internal.utils import license_trove_classifier
+from cyclonedx_py._internal.utils.cdx import licenses_fixup
 from packageurl import PackageURL
+from pkginfo import Distribution
 
 if sys.version_info >= (3, 13):
+    from importlib.metadata import Distribution as InstalledDistribution
     from importlib.metadata import distribution, distributions
     from importlib.metadata._meta import SimplePath
 else:
+    from importlib_metadata import Distribution as InstalledDistribution
     from importlib_metadata import SimplePath, distribution, distributions
 
 DOCS_THEME_DIST = distribution("mkdocs-code-siemens-code-docs-theme")
@@ -58,8 +64,60 @@ def collect_evidence(component_name: str) -> Optional[list[DisjunctiveLicense]]:
     return licenses
 
 
+def collect_metadata_licenses(
+    metadata: Distribution, license_factory: LicenseFactory
+) -> list:
+    """Extract declared licenses from package metadata fields.
+
+    Checks License-Expression (PEP 639), classifier trove strings,
+    and the legacy License field, similar to what cyclonedx-bom's
+    own environment analysis does.
+    """
+    licenses = []
+
+    license_expression = metadata.license_expression
+    if license_expression is not None:
+        # PEP 639: License-Expression takes precedence over classifiers and License
+        return [license_factory.make_from_string(license_expression)]
+
+    # Fall back to classifiers and License field
+    classifiers = metadata.classifiers or []
+    for classifier in classifiers:
+        if not isinstance(
+            classifier, str
+        ) or not license_trove_classifier.is_license_trove(classifier):
+            continue
+
+        spdx_id = license_trove_classifier.license_trove2spdx(classifier)
+        if spdx_id is None:
+            # Last resort: extract short name from classifier
+            spdx_id = classifier.rsplit("::", 1)[-1].strip()
+        if not spdx_id:
+            continue
+        licenses.append(license_factory.make_from_string(spdx_id))
+
+    if metadata.license:
+        lic = license_factory.make_from_string(metadata.license)
+        if isinstance(lic, DisjunctiveLicense) and lic.id is None:
+            return licenses
+        licenses.append(lic)
+
+    return licenses
+
+
+def get_pkginfo_metadata(dist: InstalledDistribution) -> Optional[Distribution]:
+    metadata = dist.read_text("METADATA") or dist.read_text("PKG-INFO")
+    if metadata is None:
+        return None
+
+    pkginfo_metadata = Distribution()
+    pkginfo_metadata.parse(metadata.encode())
+    return pkginfo_metadata
+
+
 def get_environment_bom(dest_dir: Path) -> Path:
     bom = Bom()
+    license_factory = LicenseFactory()
 
     # Add tool metadata
     bom.metadata.tools.tools.add(
@@ -84,11 +142,23 @@ def get_environment_bom(dest_dir: Path) -> Path:
                 ),
             )
 
-            # Add licenses as evidence
+            # Add declared licenses from package metadata
+            pkginfo_metadata = get_pkginfo_metadata(dist)
+            if pkginfo_metadata:
+                metadata_licenses = collect_metadata_licenses(
+                    pkginfo_metadata, license_factory
+                )
+                component.licenses.update(metadata_licenses)
+
+            # Add license file texts as evidence
             # https://cyclonedx.org/docs/1.4/json/#components_items_evidence_licenses
-            licenses = collect_evidence(component.name)
-            if licenses:
-                component.evidence = ComponentEvidence(licenses=licenses)
+            evidence_licenses = collect_evidence(component.name)
+            if evidence_licenses:
+                if component.evidence is None:
+                    component.evidence = ComponentEvidence()
+                component.evidence.licenses.update(evidence_licenses)
+
+            licenses_fixup(component)
 
             bom.components.add(component)
 

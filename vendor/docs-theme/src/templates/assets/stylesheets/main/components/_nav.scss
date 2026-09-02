@@ -1,3 +1,5 @@
+@use "@siemens/element-theme/src/styles/variables/semantic-tokens";
+
 // Navigation item
 .main-nav {
   position: relative;
@@ -152,7 +154,7 @@
   position: relative;
   display: block;
   padding: 1.25em 0.625em;
-  font-family: $font-siemens-sans;
+  font-family: var(--element-body-font-family);
   font-size: 1em;
   font-weight: 700;
   line-height: 1;

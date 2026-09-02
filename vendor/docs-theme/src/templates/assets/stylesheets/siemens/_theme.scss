@@ -1,0 +1,30 @@
+$icon-font-path: "../fonts" !default;
+
+@use "@simpl/brand/dist/element-theme-siemens-brand-light" as brand-light;
+@use "@simpl/brand/dist/element-theme-siemens-brand-dark" as brand-dark;
+@use "@simpl/element-icons/dist/style/simpl-element-icons" with (
+  $font-path: $icon-font-path
+);
+@use "@siemens/element-theme/src/styles/themes";
+
+$element-theme-default: "siemens-brand";
+$element-themes: ("siemens-brand");
+
+@include themes.configure($element-theme-default, $element-themes);
+@include themes.make-theme(brand-light.$tokens, "siemens-brand");
+@include themes.make-theme(brand-dark.$tokens, "siemens-brand", true);
+
+// Bridge MkDocs Material's theme switching with Element Design System
+// MkDocs uses [data-md-color-scheme], but Element uses .app--dark
+// So we manually apply theme tokens to the MkDocs scheme selectors
+[data-md-color-scheme="light"] {
+  @each $token, $val in brand-light.$tokens {
+    --#{$token}: #{$val};
+  }
+}
+
+[data-md-color-scheme="dark"] {
+  @each $token, $val in brand-dark.$tokens {
+    --#{$token}: #{$val};
+  }
+}

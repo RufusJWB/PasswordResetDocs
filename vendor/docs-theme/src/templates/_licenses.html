@@ -7,6 +7,7 @@
 {% block content %}
 
 <div class="md-license">
+  {% set config = config.extra.licenses if "licenses" in config.extra and config.extra.licenses is mapping else config %}
   <h1>Third-party Software</h1>
 
   The following list includes third-party software used to build this website or the product(s)
@@ -33,7 +34,7 @@
         <td>
           {% if with_licenses or with_evidence_licenses %}<a href="#{{ component.group ~ '-' if component.group else '' }}{{ component.name }}-{{ component.version }}">{% endif %}
             {% for license in component.licenses %}
-              {% set license_id = license.license.id or license.license.name or license.license.url %}
+              {% set license_id = license.expression or license.license.id or license.license.name or license.license.url %}
               {{ license_id }}{{ ", " if not loop.last else "" }}
             {% endfor %}
           {% if with_licenses or with_evidence_licenses %}</a>{% endif %}
@@ -47,7 +48,7 @@
       <h2>Download CycloneDX SBOM</h2>
         <ul>
           {% for bom_file in config._boms %}
-            <li><a href="{{ base_url }}/{{ bom_file.name | url }}">{{ bom_file.name }}</a></li>
+            <li><a href="{{ bom_file.name | url }}">{{ bom_file.name }}</a></li>
           {% endfor %}
         </ul>
     {% endif %}

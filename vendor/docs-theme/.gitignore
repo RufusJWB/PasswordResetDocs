@@ -112,6 +112,8 @@ venv.bak/
 
 # mkdocs documentation
 /site
+/playwright/resources/site
+/playwright/resources/site-*
 
 # mypy
 .mypy_cache/

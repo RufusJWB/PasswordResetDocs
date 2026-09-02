@@ -1,6 +1,8 @@
+@use "@siemens/element-theme/src/styles/variables/semantic-tokens";
+
 .md-search {
   &__input {
-    font-family: $font-siemens-sans;
+    font-family: var(--element-body-font-family);
     appearance: none;
 
     @include break-from-device(tablet landscape) {

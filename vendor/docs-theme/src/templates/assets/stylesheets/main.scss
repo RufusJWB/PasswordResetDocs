@@ -17,6 +17,7 @@
 // Local imports
 // ----------------------------------------------------------------------------
 
+@import "siemens/theme";
 @import "siemens/variables";
 @import "palette/scheme";
 
@@ -48,5 +49,6 @@
 @import "siemens/extensions/pymdownx/progressbar";
 
 @import "siemens/integrations/asyncapi";
+@import "siemens/integrations/mermaid";
 @import "siemens/integrations/plantuml";
 @import "siemens/integrations/swaggerui";

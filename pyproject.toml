@@ -7,7 +7,7 @@ requires-python = ">=3.10,<4"
 license = "LicenseRef-Siemens-Inner-Source-License-1.4"
 dependencies = [
     "mkdocs>=1.6.1,<2",
-    "mkdocs-material==9.7.5",
+    "mkdocs-material==9.7.7",
     "plantuml-markdown>=3.11.1,<4",
     "mkdocs-literate-nav>=0.6.1,<0.7",
 ]

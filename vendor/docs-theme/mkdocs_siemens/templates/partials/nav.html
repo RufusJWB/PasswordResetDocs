@@ -15,7 +15,7 @@
   
   <ul class="md-nav__list" data-md-scrollfix>
   {% if "navigation.tertiary" in features %}
-    {% for nav_item in nav %}
+    {% for nav_item in nav.items %}
       {% if nav_item.active and nav_item.children %}
         {% for nav_item in nav_item.children %}
           {% set path = "__nav_" + loop.index | string %}
@@ -24,7 +24,7 @@
       {% endif %}
     {% endfor %}
   {% else %}
-    {% for nav_item in nav %}
+    {% for nav_item in nav.items %}
       {% set path = "__nav_" + loop.index | string %}
       {{ item.render(nav_item, path, 1) }}
     {% endfor %}

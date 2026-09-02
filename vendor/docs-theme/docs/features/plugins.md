@@ -56,6 +56,8 @@ plugins:
   - licenses
 ```
 
+For Zensical, see the [licenses plugin setup](zensical.md#licenses-plugin).
+
 The plugin supports generating and parsing CycloneDX SBOMs, as this is a superset of the
 [Siemens Standard BOM](https://code.siemens.com/scpautomation/standard-bom) that can help you in
 your OSS clearing tasks.

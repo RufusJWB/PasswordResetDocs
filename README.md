@@ -79,11 +79,15 @@ ships a `licenses` plugin (enabled on the theme's own site) that this project do
 declared dependency in `pyproject.toml`/`uv.lock` — it is installed from the vendored subtree:
 
 ```bash
-uv pip install --no-deps ./vendor/docs-theme    # installs mkdocs-code-siemens-code-docs-theme 8.0.1
+uv pip install --no-deps ./vendor/docs-theme    # installs mkdocs-code-siemens-code-docs-theme 8.3.0
 ```
 
 The build output (`vendor/docs-theme/mkdocs_siemens/`) is **committed**, so neither CI nor a normal
 local build needs Node.js, Yarn, or access to the Siemens npm registry.
+
+Keep `mkdocs-material` in `pyproject.toml` matching the exact pin in
+`vendor/docs-theme/pyproject.toml` (theme 8.3.0 → `mkdocs-material==9.7.7`). The theme is installed
+with `--no-deps`, so nothing enforces this automatically.
 
 ## Building locally
 
@@ -98,16 +102,37 @@ uv run mkdocs build --strict                  # what CI runs; output in site/
 
 ## Updating the vendored theme
 
-Only needed when bumping the theme; requires bash (WSL/Git Bash), Node.js 20+, and network access to
-the Siemens npm registry.
+Only needed when bumping the theme.
+
+> **Build on Linux, not Windows.** The theme's yarn scripts are POSIX-only — e.g.
+> `cpy . '!**/*.html' '!**/*.scss' '../mkdocs_siemens' --dot --cwd=src`. Yarn 1.x spawns `cmd.exe` on
+> Windows (even when launched from Git Bash), which does not strip single quotes, so the glob
+> exclusions are ignored and the output lands in a literal directory named `'..`. The result is a
+> silently corrupt theme. Use WSL with Node installed, or a container:
+>
+> ```bash
+> docker run --rm -v "$PWD/vendor/docs-theme:/work" -v docstheme_nm:/work/node_modules \
+>   -w /work node:20-bookworm bash -c "apt-get update -qq && apt-get install -y -qq jq && \
+>   yarn --frozen-lockfile --ignore-engines && yarn src:compile && yarn src:postcss && \
+>   yarn dist:cpy:src && yarn dist:cpy:vendor && yarn dist:cpy:html && yarn src:hash"
+> ```
 
 1. Check the [changelog](https://code-ops.code.siemens.io/docs-theme/changelog/) and
    [upgrade guide](https://code-ops.code.siemens.io/docs-theme/upgrade/) for breaking changes.
+   `git fetch docs-theme --tags` then `git show <tag>:CHANGELOG.md` works offline.
 2. `git subtree pull --prefix=vendor/docs-theme docs-theme <tag> --squash`
-3. `./scripts/bootstrap-docs-theme.sh` — enables corepack, runs the Yarn build
-   (`src:compile`, `src:postcss`, `dist:cpy:*`, `src:hash`), then `uv pip install --no-deps` the result.
-4. Commit the updated sources **together with** the regenerated `vendor/docs-theme/mkdocs_siemens/`,
-   otherwise CI's prebuilt-theme check fails.
+3. Rebuild `mkdocs_siemens/` — `./scripts/bootstrap-docs-theme.sh` on Linux/WSL, or the container
+   command above followed by `uv pip install --no-deps ./vendor/docs-theme`.
+4. Clean up two things the build leaves behind:
+   - **Superseded hashed stylesheets.** `postcss-hash` writes `code-main.<hash>.css` but never deletes
+     the previous one, so `git rm` the old pair once `base-siemens.html` points at the new hash.
+   - **`sed` backups.** `src:hash` leaves `*.html.bak` under `mkdocs_siemens/templates/`. The root
+     `.gitignore` rule for these is **dead** — `vendor/docs-theme/.gitignore` contains
+     `!/mkdocs_siemens/templates/**`, and a nested `.gitignore` overrides the root — so delete them
+     manually or they will be committed.
+5. Sync the `mkdocs-material` pin (see above), then `uv lock`.
+6. Commit the updated sources **together with** the regenerated `vendor/docs-theme/mkdocs_siemens/`.
+   CI only checks that the directory *exists*, so a stale prebuilt package would ship unnoticed.
 
 ## CI/CD — `.github/workflows/docs.yml`
 

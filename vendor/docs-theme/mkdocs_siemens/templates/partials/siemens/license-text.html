@@ -1,4 +1,6 @@
-{% if license_choice.license.text %}
+{% if license_choice.expression %}
+  <em>({{ license_choice.expression }})</em>
+{% elif license_choice.license.text %}
   <em>({{ license_choice.license.id | default(license_choice.license.name) }})</em>
 
   <pre class="md-license-text">

@@ -273,7 +273,7 @@ extra:
         value: 'https://github.com/siemens'
 ```
 
-It can also include a link to [Third-party Software](#third-party-software-license-bill-of-materials-page)
+It can also include a link to [Third-party Software](plugins.md#third-party-software-license-bill-of-materials-page)
 if configured.
 
 ### Overriding the footer
@@ -316,7 +316,7 @@ extra:
 ```
 
 To display the licenses of third-party software on your site, see our
-[Plugin page](plugins.md#third-party-software-license--bill-of-materials-page).
+[Plugin page](plugins.md#third-party-software-license-bill-of-materials-page).
 
 ## Multiple versions
 

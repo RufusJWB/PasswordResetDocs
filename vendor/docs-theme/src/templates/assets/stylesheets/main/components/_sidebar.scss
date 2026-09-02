@@ -2,6 +2,8 @@
 // Rules
 // ----------------------------------------------------------------------------
 
+@use "@siemens/element-theme/src/styles/variables/semantic-tokens";
+
 // Sidebar
 .md-sidebar {
   &--primary {
@@ -63,7 +65,7 @@
         bottom: 0;
         width: 1px;
         content: "";
-        background: #239196;
+        background: semantic-tokens.$element-action-primary;
       }
 
       &:first-child {
@@ -108,7 +110,7 @@
             width: 19px;
             height: 1px;
             content: "";
-            background: #cdd9e1;
+            background: semantic-tokens.$element-ui-3;
           }
         }
       }

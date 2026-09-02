@@ -4,7 +4,7 @@
 <nav class="md-tabs" aria-label="{{ lang.t('tabs.title') }}" data-md-component="tabs">
   <ul class="md-tabs__list">
     {% if "navigation.tertiary" in features %}
-      {% for nav_item in nav %}
+      {% for nav_item in nav.items %}
         {% if nav_item.active and nav_item.children %}
           {% for nav_item in nav_item.children %}
             {{ item.render(nav_item) }}
@@ -12,7 +12,7 @@
         {% endif %}
       {% endfor %}
     {% else %}
-      {% for nav_item in nav %}
+      {% for nav_item in nav.items %}
         {{ item.render(nav_item) }}
       {% endfor %}
     {% endif %}

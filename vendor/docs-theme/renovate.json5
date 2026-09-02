@@ -61,6 +61,17 @@
       ],
     },
     {
+      description: 'Always separate playwright updates to make snapshot updates easier',
+      matchPackageNames: [
+        '@playwright/test',
+        'mcr.microsoft.com/playwright',
+      ],
+      groupName: 'playwright dependencies',
+      prBodyNotes: [
+        ':bulb: If only snapshots need updating, you can manually run the test-e2e-pw-snapshots job.',
+      ],
+    },
+    {
       description: 'Align postcss-logical with upstream behavior. See https://github.com/squidfunk/mkdocs-material/pull/7427.',
       matchPackageNames: [
         'postcss-logical',
@@ -74,6 +85,7 @@
       description: 'Manage versions as variables in shell scripts',
       managerFilePatterns: [
         '/^scripts/.*.sh$/',
+        '/^e2e_local.sh$/',
       ],
       matchStrings: [
         '#\\s*renovate:\\s*datasource=(?<datasource>\\S+?)\\s+depName=(?<depName>\\S+?)(?:\\|(?<packageName>\\S+?))?(?:\\s+versioning=(?<versioning>\\S+?))?(?:\\s+registryUrl=(?<registryUrl>\\S+?))?\\s+(?:\\S+_)?(?:(?i)version)=(?:["\']?)(?<currentValue>[^\\s"\']+)(?:["\']?)\\s',

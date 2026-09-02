@@ -1,0 +1,42 @@
+@import "material-shadows";
+
+@import "utilities/break";
+@import "utilities/convert";
+@import "config";
+
+// Zensical classic's search partial is button-only, so its CSS doesn't include
+// the small form layout primitives Siemens' Material-style search markup needs.
+// Color, spacing and icon styling still come from the normal search overrides.
+.md-search {
+  &__form {
+    position: relative;
+  }
+
+  &__input {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  &__icon[for="__search"] {
+    position: absolute;
+  }
+}
+
+@include break-to-device(tablet portrait) {
+  .md-search--zensical {
+    display: none;
+  }
+}
+
+@include break-from-device(tablet landscape) {
+  .md-search-trigger--zensical {
+    display: none;
+  }
+}
+
+[data-md-color-scheme] {
+  --color-foreground: from var(--element-text-primary) r g b;
+  --color-background: from var(--element-base-0) r g b;
+  --color-background-subtle: from var(--element-base-1) r g b;
+  --color-backdrop: from var(--element-base-0) r g b;
+}

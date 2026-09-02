@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+@use "@siemens/element-theme/src/styles/variables/semantic-tokens";
+
 :root {
   --md-opblock-code-type-highlight: #89bf04;
   --md-opblock-post: rgb(0 191 165 / 0.1);
@@ -201,7 +203,7 @@
     justify-content: space-between;
     padding: 10px 20px 10px 10px;
     margin: 0 0 5px;
-    font-family: $font-siemens-sans;
+    font-family: var(--element-body-font-family);
     cursor: pointer;
     border-bottom: 1px solid rgb(59 65 81 / 0.3);
     transition: all 200ms;
@@ -219,7 +221,7 @@
       flex: 1;
       order: 3;
       padding-left: 0.2rem;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 0.7rem;
       font-weight: 400;
     }
@@ -284,7 +286,7 @@
         display: flex;
         align-items: center;
         margin: 0;
-        font-family: $font-siemens-sans;
+        font-family: var(--element-body-font-family);
         font-size: 12px;
         font-weight: 700;
         color: var(--md-code-fg-color);
@@ -302,7 +304,7 @@
       h4 {
         flex: 1;
         margin: 0;
-        font-family: $font-siemens-sans;
+        font-family: var(--element-body-font-family);
         font-size: 0.9rem;
         color: var(--md-default-fg-color--light);
 
@@ -324,7 +326,7 @@
     .opblock-summary-method {
       min-width: 100px;
       padding: 6px 15px;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 0.7rem;
       font-weight: 700;
       text-align: center;
@@ -402,7 +404,7 @@
     .opblock-summary-description {
       flex-grow: 1;
       order: 4;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 0.7rem;
       color: inherit;
       text-align: left;
@@ -812,7 +814,7 @@
     li {
       min-width: 100px;
       padding: 0;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 12px;
       color: var(--md-code-fg-color);
       cursor: pointer;
@@ -841,18 +843,18 @@
   .opblock-description-wrapper {
     padding: 15px 20px;
     margin: 0 0 5px;
-    font-family: $font-siemens-sans;
+    font-family: var(--element-body-font-family);
     color: var(--md-code-fg-color);
 
     h4 {
       margin: 0 0 5px;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       color: var(--md-code-fg-color);
     }
 
     p {
       margin: 0;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       color: var(--md-code-fg-color);
       white-space: normal;
     }
@@ -861,20 +863,20 @@
   .opblock-title_normal {
     padding: 15px 20px;
     margin: 0 0 5px;
-    font-family: $font-siemens-sans;
+    font-family: var(--element-body-font-family);
     font-size: 0.8rem;
     color: var(--md-code-fg-color);
 
     h4 {
       margin: 0 0 5px;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 12px;
       color: var(--md-code-fg-color);
     }
 
     p {
       margin: 0;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 14px;
       color: var(--md-code-fg-color);
     }
@@ -987,14 +989,14 @@
 
     h4 {
       margin: 10px 0 5px;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 0.7rem;
       color: var(--md-code-fg-color);
     }
 
     h5 {
       margin: 10px 0 5px;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 0.7rem;
       color: var(--md-code-fg-color);
     }
@@ -1071,6 +1073,13 @@
     }
   }
 
+  [data-md-color-scheme] & {
+    .response-col_description__inner span {
+      color: var(--md-default-fg-color);
+      background: var(--md-code-bg-color--lighter);
+    }
+  }
+
   .headerline {
     display: block;
   }
@@ -1096,7 +1105,7 @@
         display: flex;
         flex-direction: column;
         margin: -20px 15px 0 0;
-        font-family: $font-siemens-sans;
+        font-family: var(--element-body-font-family);
         font-size: 0.7rem;
         font-weight: 700;
         color: var(--md-code-fg-color);
@@ -1119,7 +1128,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        font-family: $font-siemens-sans;
+        font-family: var(--element-body-font-family);
         font-size: 10px;
         font-weight: 700;
         color: var(--md-code-fg-color);
@@ -1149,7 +1158,7 @@
 
   .btn {
     padding: 5px 23px;
-    font-family: $font-siemens-sans;
+    font-family: var(--element-body-font-family);
     font-size: 14px;
     font-weight: 700;
     color: var(--md-accent-fg-color);
@@ -1178,7 +1187,7 @@
   }
 
   .btn.cancel {
-    font-family: $font-siemens-sans;
+    font-family: var(--element-body-font-family);
     color: var(--md-accent-fg-color);
     border-color: var(--md-accent-fg-color);
   }
@@ -1301,7 +1310,7 @@
 
   label {
     margin: 0 0 5px;
-    font-family: $font-siemens-sans;
+    font-family: var(--element-body-font-family);
     font-size: 12px;
     font-weight: 700;
     color: var(--md-code-fg-color);
@@ -1478,14 +1487,14 @@
 
       p {
         margin: 0 0 5px;
-        font-family: $font-siemens-sans;
+        font-family: var(--element-body-font-family);
         font-size: 12px;
         color: var(--md-code-fg-color);
       }
 
       h4 {
         margin: 15px 0 0;
-        font-family: $font-siemens-sans;
+        font-family: var(--element-body-font-family);
         font-size: 18px;
         font-weight: 600;
         color: var(--md-code-fg-color);
@@ -1510,7 +1519,7 @@
         flex: 1;
         padding: 0 20px;
         margin: 0;
-        font-family: $font-siemens-sans;
+        font-family: var(--element-body-font-family);
         font-size: 20px;
         font-weight: 600;
       }
@@ -1520,7 +1529,7 @@
   .model {
     font-size: 0.7rem;
     font-weight: 300;
-    color: var(--md-opblock-code-fg);
+    color: var(--md-swagger-model-fg);
 
     .inner-object {
       font-family: $font-monospace;
@@ -1533,7 +1542,7 @@
     display: inline-block;
     margin: auto 0.3em;
     font-size: 10px;
-    color: var(--md-opblock-code-fg);
+    color: var(--md-swagger-model-fg);
     cursor: pointer;
     transform: rotate(90deg);
     transform-origin: 50% 50%;
@@ -1565,7 +1574,7 @@
   .model-title {
     position: relative;
     font-size: 0.7rem;
-    color: var(--md-opblock-code-fg);
+    color: var(--md-swagger-model-fg);
 
     &:hover {
       .model-hint {
@@ -1587,7 +1596,7 @@
 
   section.models {
     margin: 1rem 0;
-    color: var(--md-opblock-code-fg);
+    color: var(--md-swagger-model-fg);
     border: 1px solid var(--md-code-fg-color);
     border-radius: 0;
 
@@ -1596,9 +1605,9 @@
       align-items: center;
       padding: 10px 20px 10px 10px;
       margin: 0;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 0.9rem;
-      color: var(--md-opblock-code-fg);
+      color: var(--md-swagger-model-fg);
       cursor: pointer;
       transition: all 200ms;
 
@@ -1618,7 +1627,7 @@
 
     h5 {
       margin: 0 0 10px;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 16px;
       color: #777777;
     }
@@ -1640,12 +1649,12 @@
 
     .model-container {
       margin: 0 20px 15px;
-      background: var(--md-opblock-code-bg);
+      background: var(--md-swagger-model-bg);
       border-radius: 4px;
       transition: all 500ms;
 
       &:hover {
-        background: var(--md-opblock-code-bg);
+        background: var(--md-swagger-model-bg);
       }
 
       &:first-of-type {
@@ -1673,14 +1682,14 @@
         display: flex;
         justify-content: flex-end;
         width: 100%;
-        color: var(--md-opblock-code-fg);
+        color: var(--md-swagger-model-fg);
       }
 
       .model-box-control {
         display: flex;
         justify-content: space-between;
         width: 100%;
-        color: var(--md-opblock-code-fg);
+        color: var(--md-swagger-model-fg);
       }
     }
 
@@ -1705,9 +1714,9 @@
   .model-box {
     padding: 0.2rem;
     // stylelint-disable-next-line declaration-no-important
-    color: var(--md-default-fg-color) !important;
+    color: var(--md-swagger-model-fg) !important;
     // stylelint-disable-next-line declaration-no-important
-    background: var(--md-opblock-code-bg) !important;
+    background: var(--md-swagger-model-bg) !important;
     // stylelint-disable-next-line declaration-no-important
     border: none !important;
     border-radius: 4px;
@@ -1721,7 +1730,7 @@
   span {
     >span.model {
       padding: 0 0 0 10px;
-      color: var(--md-opblock-code-fg);
+      color: var(--md-swagger-model-fg);
 
       .brace-close {
         padding: 0 0 0 10px;
@@ -1731,7 +1740,7 @@
 
   .prop-type {
     padding-left: 0.5rem;
-    color: rgb(162 252 162);
+    color: var(--md-swagger-prop-type-color);
   }
 
   .prop-enum {
@@ -1739,7 +1748,7 @@
   }
 
   .prop-format {
-    color: #999999;
+    color: var(--md-default-fg-color--light);
   }
 
   table {
@@ -1813,7 +1822,7 @@
 
     p {
       margin: 0;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       color: var(--md-code-fg-color);
     }
 
@@ -1841,7 +1850,7 @@
   }
 
   .parameter__name {
-    font-family: $font-siemens-sans;
+    font-family: var(--element-body-font-family);
     font-weight: 400;
     color: var(--md-code-fg-color);
   }
@@ -1864,7 +1873,7 @@
     font-size: 0.6rem;
     font-style: italic;
     font-weight: 600;
-    color: #888888;
+    color: var(--md-default-fg-color--light);
   }
 
   .table-container {
@@ -1890,7 +1899,7 @@
       display: flex;
       flex: 1;
       align-items: center;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 1.5em;
       font-weight: 700;
       color: #ffffff;
@@ -1921,7 +1930,7 @@
 
       .download-url-button {
         padding: 4px 40px;
-        font-family: $font-siemens-sans;
+        font-family: var(--element-body-font-family);
         font-size: 16px;
         font-weight: 700;
         color: #222222;
@@ -1945,7 +1954,7 @@
     }
 
     p {
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 0.8rem;
       color: var(--md-code-fg-color);
     }
@@ -1966,7 +1975,7 @@
     }
 
     a {
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       transition: all 400ms;
 
       &:hover {
@@ -1987,7 +1996,7 @@
 
     .title {
       margin: 0;
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
 
       small {
         position: relative;
@@ -2002,7 +2011,7 @@
 
         pre {
           margin: 0;
-          font-family: $font-siemens-sans;
+          font-family: var(--element-body-font-family);
           font-size: 0.7rem;
           color: var(--md-default-bg-color);
           background: var(--md-code-fg-color);
@@ -2079,7 +2088,7 @@
 
   .scopes {
     h2 {
-      font-family: $font-siemens-sans;
+      font-family: var(--element-body-font-family);
       font-size: 14px;
       color: var(--md-code-fg-color);
     }
@@ -2119,7 +2128,7 @@
       h4 {
         flex: 1;
         margin: 0;
-        font-family: $font-siemens-sans;
+        font-family: var(--element-body-font-family);
         font-size: 20px;
         color: var(--md-code-fg-color);
       }
@@ -2133,7 +2142,7 @@
 
 body {
   margin: 0;
-  font-family: $font-siemens-sans;
+  font-family: var(--element-body-font-family);
   background: var(--md-default-bg-color);
 }
 

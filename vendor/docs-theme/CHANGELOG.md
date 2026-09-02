@@ -1,3 +1,67 @@
+# [8.3.0](https://code.siemens.com/code-ops/docs-theme/compare/v8.2.1...v8.3.0) (2026-07-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency mkdocs-material to v9.7.7 ([f72c4fe](https://code.siemens.com/code-ops/docs-theme/commit/f72c4fe355d25cd7fd3c0cf0dd603b44e4383eb8))
+* **deps:** update dependency setuptools to v83 ([da1813f](https://code.siemens.com/code-ops/docs-theme/commit/da1813f0e22ffe656a60946a65d1dddd9b23da31))
+* **zensical:** make topic lists in extra links work ([f444090](https://code.siemens.com/code-ops/docs-theme/commit/f4440900e75a43363ef03d5eafb8ef18020d9d94))
+
+
+### Features
+
+* **zensical:** offer licenses plugin ([83c62fd](https://code.siemens.com/code-ops/docs-theme/commit/83c62fd7d0c97862995619658260c2e858dc0cbe))
+
+## [8.2.1](https://code.siemens.com/code-ops/docs-theme/compare/v8.2.0...v8.2.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* use element theming for task checkboxes ([601b074](https://code.siemens.com/code-ops/docs-theme/commit/601b074e2961295892e0e026c253a3ce7ce4eb6d)), closes [#241](https://code.siemens.com/code-ops/docs-theme/issues/241)
+* **zensical:** correctly display search button in mobile ([00bb66f](https://code.siemens.com/code-ops/docs-theme/commit/00bb66fb2ed6f1588e152c3c37d23549397fd339))
+* **zensical:** style search in siemens colors and improve dark mode ([e875347](https://code.siemens.com/code-ops/docs-theme/commit/e875347485b3862f928759d11e0ce7f685ef2319))
+* **zensical:** use proper favicon ([f964719](https://code.siemens.com/code-ops/docs-theme/commit/f9647191fd30a4247ba8d771ffd3b45ae6b1125d))
+
+# [8.2.0](https://code.siemens.com/code-ops/docs-theme/compare/v8.1.1...v8.2.0) (2026-07-07)
+
+
+### Features
+
+* add initial support for Zensical ([5ce551e](https://code.siemens.com/code-ops/docs-theme/commit/5ce551e310ac7b9de394629fc13b9edd09925c67)), closes [siemens/code#8241](https://code.siemens.com/siemens/code/issues/8241)
+
+## [8.1.1](https://code.siemens.com/code-ops/docs-theme/compare/v8.1.0...v8.1.1) (2026-06-22)
+
+
+### Bug Fixes
+
+* **theme:** avoid transparent background in asyncapi ([5a0dfab](https://code.siemens.com/code-ops/docs-theme/commit/5a0dfaba44fb1e4f41848b00527898d85efabb34))
+* **theme:** correctly theme hero in dark mode ([4848c5b](https://code.siemens.com/code-ops/docs-theme/commit/4848c5bc0e14881ca136266ccfc1fa5b130d21f5)), closes [#405](https://code.siemens.com/code-ops/docs-theme/issues/405)
+
+# [8.1.0](https://code.siemens.com/code-ops/docs-theme/compare/v8.0.2...v8.1.0) (2026-06-03)
+
+
+### Bug Fixes
+
+* **licenses:** add more ways to detect package licenses ([1a54578](https://code.siemens.com/code-ops/docs-theme/commit/1a5457804ab162e28c73230e92ea1e411486d30b))
+* **licenses:** handle metadata classifier edge cases ([20bf51c](https://code.siemens.com/code-ops/docs-theme/commit/20bf51c3a926a7f193bc37e7e7253cef6b862304))
+
+
+### Features
+
+* **mermaid:** style diagrams ([6518645](https://code.siemens.com/code-ops/docs-theme/commit/6518645d81b21e7fabd0e6199d347a812f1e1ff4))
+* **templates:** use native jinja filters ([6d9b355](https://code.siemens.com/code-ops/docs-theme/commit/6d9b3558e2c14702352b9db0ba28355998266e22))
+* **theme:** upgrade to new colors ([beba6b1](https://code.siemens.com/code-ops/docs-theme/commit/beba6b18e1dd257d3bbc81b3261920e4ee6e94ba))
+* use new brand package and semantic tokens ([e519803](https://code.siemens.com/code-ops/docs-theme/commit/e519803bf7abb36539c6b2bea6f3d99ffae15e37))
+
+## [8.0.2](https://code.siemens.com/code-ops/docs-theme/compare/v8.0.1...v8.0.2) (2026-04-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency importlib-metadata to v9 ([727c5b1](https://code.siemens.com/code-ops/docs-theme/commit/727c5b19df0d66346b132eae4cd149ea147673d5))
+* **deps:** update dependency mkdocs-material to v9.7.6 ([1f6bada](https://code.siemens.com/code-ops/docs-theme/commit/1f6badaee1da0985c35e32e0afd9591f5bc0ce31))
+* **init:** handle properdocs warning suppression ([3df3c1c](https://code.siemens.com/code-ops/docs-theme/commit/3df3c1c1b054b9ff3327d1b1840341ba6ad3d647))
+
 ## [8.0.1](https://code.siemens.com/code-ops/docs-theme/compare/v8.0.0...v8.0.1) (2026-03-20)
 
 

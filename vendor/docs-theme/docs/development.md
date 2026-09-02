@@ -9,7 +9,7 @@ Additionally, Siemens-only sources that are not overrides but additional feature
 The `mkdocs_siemens/` directory is populated during the build process with the files from `src/`,
 where the SCSS files initially get compiled into `assets/stylesheets/code-main.css`.
 
-The `cypress/` directory contains everything for E2E testing, including resources, test cases and snapshots.
+The `playwright/` directory contains everything for E2E testing, including resources, test cases and snapshots.
 
 ## Getting Started
 
@@ -24,7 +24,7 @@ yarn dist:setup
 ```
 
 !!! note
-    When you make changes to files in `src/` you have to run `yarn dist:setup`  and restart your `mkdocs serve`
+    When you make changes to files in `src/` you have to run `yarn dist:setup`  and restart your `zensical serve`
     process to see the changes on `http://127.0.0.1:8000/`.
 
 Optionally, you can also build the Python package (wheel) and later install it explicitly (this will not be an editable install):
@@ -35,15 +35,15 @@ yarn dist:build
 
 ## E2E testing
 
-Set up the development environment as described above under development. Set up the test site in `/e2e` by running:
+Set up the development environment as described above under development. Build the theme before running E2E tests:
 
 ```sh
-yarn e2e:setup
+yarn dist:setup
 ```
 
-To get consistent results locally, you should run tests with a dockerized Cypress image
+To get consistent results locally, you should run tests with a dockerized Cypress or Playwright image
 that matches versions and browsers used in CI tests. A convenience script is available
-[via `yarn:e2e:docker`](https://code.siemens.com/code-ops/docs-theme/-/blob/main/scripts/test.sh).
+[via `scripts/test.sh`](https://code.siemens.com/code-ops/docs-theme/-/blob/main/scripts/test.sh).
 
 ```sh
 yarn dist:setup
@@ -51,22 +51,37 @@ yarn e2e:start # must be running for the duration of the tests, e.g. in a separa
 yarn e2e:docker
 ```
 
+For Playwright, use:
+
+```sh
+yarn dist:setup
+yarn e2e:start # must be running for the duration of the tests
+./e2e_local.sh run
+```
+
 !!! important
     Please make sure you're connected to SNX when running `yarn e2e:start` as rendering PlantUML diagrams requires
     access to our internal [Kroki](https://kroki.io) server.
 
-By default, the local Docker test script will run all browsers and suites. You can run individual suites
-or browsers by specifying exact scripts defined in `package.json`, e.g. `yarn e2e:docker:minimal:chrome`.
+By default, the Cypress Docker scripts run all browsers and suites through `yarn e2e:docker`.
+For Playwright, pass `PLAYWRIGHT_PROJECT=chromium` or `PLAYWRIGHT_PROJECT=firefox` and use `PLAYWRIGHT_SUITE=minimal` for the minimal suite.
 
 Additionally, if you've made changes to the theme or upgraded dependencies and need to update
-the snapshots, you can do so using the `CYPRESS_updateSnapshots` variable:
+the snapshots, you can do so using the `--update-snapshots` flag for Playwright:
+
+```sh
+./e2e_local.sh run --update-snapshots
+```
+
+For Cypress, use the `CYPRESS_updateSnapshots` variable:
 
 ```sh
 CYPRESS_updateSnapshots=true yarn e2e:docker
 ```
 
 !!! hint
-    You can also manually run individual tests in interactive mode using `./scripts/test.sh open`.
+    You can also manually run individual tests in interactive mode using `./scripts/test.sh open` (Cypress)
+    or `./e2e_local.sh shell` followed by `yarn playwright test --ui` (Playwright).
 
 When you're done, and you want to get rid of the test suite and `mkdocs.yml`, run the following:
 
@@ -75,7 +90,7 @@ yarn e2e:clean
 ```
 
 If your platform does not support running E2E tests locally in Docker, you can save updated snapshots
-by running the manual `test-e2e-snapshots` job as a workaround. You can then download the updated
+by running the manual `test-e2e-pw-snapshots` or `test-e2e-snapshots` job as a workaround. You can then download the updated
 snapshots and commit them.
 
 ## Quick peek
@@ -105,5 +120,5 @@ theme:
 and start serving these docs:
 
 ```sh
-uv run mkdocs serve
+uv run zensical serve
 ```

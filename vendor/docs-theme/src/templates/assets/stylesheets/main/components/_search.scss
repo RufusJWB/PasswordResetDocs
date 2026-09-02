@@ -2,6 +2,8 @@
 // Variables
 // ----------------------------------------------------------------------------
 
+@use "@siemens/element-theme/src/styles/variables/semantic-tokens";
+
 // Active (toggled) search
 $md-toggle-search-checked: "[data-md-toggle=\"search\"]:checked ~ .md-header";
 
@@ -167,7 +169,7 @@ $md-toggle-search-checked: "[data-md-toggle=\"search\"]:checked ~ .md-header";
         + .md-search__icon,
         &::placeholder {
           display: none;
-          color: #adbecb;
+          color: semantic-tokens.$element-text-secondary;
         }
       }
     }

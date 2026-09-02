@@ -1,0 +1,19 @@
+{# Zensical's upstream search partial renders a button-only component. Keep the
+   Material-style input markup so Siemens search styling and placement match MkDocs. #}
+
+<link rel="stylesheet" href="{{ 'assets/stylesheets/code-zensical.css' | url }}" />
+<div class="md-search md-search--zensical" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" role="button" class="md-search__input" name="query" aria-label="{{ lang.t('search') }}" placeholder="{{ lang.t('search.placeholder') }}" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search" aria-label="{{ lang.t('search') }}" onclick="document.querySelector('[data-md-component=search-query]').click(); return false;">
+        {% set icon = config.theme.icon.search or "material/magnify" %}
+        {% include ".icons/" ~ icon ~ ".svg" %}
+      </label>
+      {% if "search.suggest" in features %}
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      {% endif %}
+    </form>
+  </div>
+</div>

@@ -1,7 +1,17 @@
-@use '@siemens/element-theme/src/styles/variables';
+@use "@siemens/element-theme/src/styles/bootstrap/functions";
+@use "@siemens/element-theme/src/styles/bootstrap/variables" as bootstrap-variables;
+@use "@siemens/element-theme/src/styles/variables";
+@use "@siemens/element-theme/src/styles/variables/typography";
+@use "sass:map";
+
+$task-list-checkbox-size: variables.$spacer;
+$task-list-checkbox-border-width: 1px;
+$task-list-checkmark-size: $task-list-checkbox-size + $task-list-checkbox-border-width * 2;
+$task-list-checkbox-offset: (map.get(variables.$spacers, 8) + map.get(variables.$spacers, 1) * 1.5) * -1;
+$task-list-checkbox-top: map.get(variables.$spacers, 1) * 0.75;
 
 body {
-  font-family: $font-siemens-sans;
+  font-family: var(--element-body-font-family);
   color: var(--md-default-fg-color);
 }
 
@@ -12,29 +22,29 @@ body {
   }
 
   h1 {
-    font-size: variables.$si-font-size-h1-bold;
-    font-weight: variables.$si-font-weight-h1-bold;
+    font-size: typography.$si-font-size-h1-bold;
+    font-weight: typography.$si-font-weight-h1-bold;
   }
 
   h2 {
-    font-size: variables.$si-font-size-h2;
-    font-weight: variables.$si-font-weight-h2;
+    font-size: typography.$si-font-size-h2;
+    font-weight: typography.$si-font-weight-h2;
   }
 
   h3 {
-    font-size: variables.$si-font-size-h3;
-    font-weight: variables.$si-font-weight-h3;
+    font-size: typography.$si-font-size-h3;
+    font-weight: typography.$si-font-weight-h3;
   }
 
   h4 {
-    font-size: variables.$si-font-size-h4;
-    font-weight: variables.$si-font-weight-h4;
+    font-size: typography.$si-font-size-h4;
+    font-weight: typography.$si-font-weight-h4;
   }
 
   h5,
   h6 {
-    font-size: variables.$si-font-size-h5;
-    font-weight: variables.$si-font-weight-h5;
+    font-size: typography.$si-font-size-h5;
+    font-weight: typography.$si-font-weight-h5;
   }
 
   h1:target,
@@ -74,5 +84,54 @@ body {
     padding-top: px2rem(45px);
     margin-top: px2rem(-45px);
     content: "";
+  }
+
+  // Default tasklist output uses a native checkbox; custom_checkbox uses an indicator pseudo-element.
+  .task-list-item > [type="checkbox"],
+  .task-list-indicator::before {
+    position: absolute;
+    inset-inline-start: $task-list-checkbox-offset;
+    top: $task-list-checkbox-top;
+    width: $task-list-checkmark-size;
+    height: $task-list-checkmark-size;
+    appearance: none;
+    background-color: variables.$element-base-1;
+    border: $task-list-checkbox-border-width solid variables.$element-ui-1;
+    border-radius: variables.$element-button-radius;
+    opacity: 1;
+    mask-image: none;
+  }
+
+  // Checked state for native checkbox and custom indicator box.
+  .task-list-item > [type="checkbox"]:checked,
+  [type="checkbox"]:checked + .task-list-indicator::before {
+    background-color: variables.$element-action-primary;
+    border-color: variables.$element-action-primary;
+    mask-image: none;
+  }
+
+  // Checkmark overlay for native checkbox and custom indicator.
+  .task-list-item > [type="checkbox"]:checked::after,
+  [type="checkbox"]:checked + .task-list-indicator::after {
+    position: absolute;
+    width: $task-list-checkmark-size;
+    height: $task-list-checkmark-size;
+    content: "";
+    background-color: variables.$element-text-inverse;
+    mask-image: functions.escape-svg(bootstrap-variables.$form-check-input-checked-bg-image);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+  }
+
+  // Native checkbox checkmark is positioned relative to the checkbox itself.
+  .task-list-item > [type="checkbox"]:checked::after {
+    inset: $task-list-checkbox-border-width * -1;
+  }
+
+  // Custom indicator checkmark is positioned relative to the task list item.
+  [type="checkbox"]:checked + .task-list-indicator::after {
+    inset-inline-start: $task-list-checkbox-offset;
+    top: $task-list-checkbox-top;
   }
 }

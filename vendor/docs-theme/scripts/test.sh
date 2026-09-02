@@ -2,7 +2,7 @@
 set -e
 
 # renovate: datasource=docker depName=cypress/included versioning=docker
-CYPRESS_VERSION="15.13.0"
+CYPRESS_VERSION="15.18.1"
 CYPRESS_BROWSER="${CYPRESS_BROWSER:-chrome}"
 
 OS=$(uname -s)

@@ -2,6 +2,9 @@
   if (document.querySelectorAll(".material-openapi").length > 0) {
     let requestInterceptor
 
+    // To not always have the schemas in dark-mode.
+    const getSyntaxHighlightTheme = () => document.querySelector("[data-md-color-scheme]")?.getAttribute("data-md-color-scheme") === "dark" ? "agate" : "idea"
+
     const computedRedirectURL = new URL("{{ base_url }}/oauth2-redirect.html", location).href
     const script = document.createElement("script")
     script.id = "swagger-bundle"
@@ -46,6 +49,10 @@
             url: item.getAttribute("data-openapi-url"),
             domNode: item,
             plugins: plugins,
+            syntaxHighlight: {
+              activated: true,
+              theme: getSyntaxHighlightTheme()
+            },
             oauth2RedirectUrl: computedRedirectURL,
             requestInterceptor: requestInterceptor
           })

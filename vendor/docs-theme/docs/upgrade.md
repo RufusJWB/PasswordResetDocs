@@ -339,7 +339,7 @@ theme:
     - navigation.tertiary
 ```
 
-For more information, see our documentation on [tertiary navigation](features/index.md#tertiary_navigation).
+For more information, see our documentation on [tertiary navigation](features/index.md#tertiary-navigation).
 
 ##### openapi
 

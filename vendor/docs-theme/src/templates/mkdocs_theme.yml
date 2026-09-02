@@ -1,9 +1,11 @@
 extends: material
+variant: classic
 palette:
   scheme: light
 font:
   text: SiemensSans Pro
   code: monospace
+favicon: assets/images/code-favicon.png
 
 static_templates:
   - oauth2-redirect.html

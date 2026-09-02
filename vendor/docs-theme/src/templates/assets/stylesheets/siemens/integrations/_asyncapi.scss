@@ -22,6 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+@use "@siemens/element-theme/src/styles/variables/semantic-tokens";
+
 .aui-root .hljs {
   display: block;
   padding: 0.5em;
@@ -349,7 +351,7 @@
 
 // stylelint-disable-next-line no-duplicate-selectors
 .aui-root html {
-  font-family: $font-siemens-sans;
+  font-family: var(--element-body-font-family);
   line-height: 1.5;
 }
 
@@ -1500,7 +1502,7 @@ a.break-words {
 }
 
 .aui-root .font-sans {
-  font-family: $font-siemens-sans;
+  font-family: var(--element-body-font-family);
 }
 
 .aui-root .font-mono {

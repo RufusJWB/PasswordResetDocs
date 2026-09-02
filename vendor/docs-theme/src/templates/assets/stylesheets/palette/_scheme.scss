@@ -1,107 +1,167 @@
-@use "@simpl/brand/dist/colors-palette" as colors;
+@use "@siemens/element-theme/src/styles/variables/semantic-tokens";
+@use "@simpl/brand/dist/colors-palette" as old-colors;
 
-// colors not yet upstreamed/incorporated into element-base-theme
-$siemens-bright-sand: #dfdfd9;
-$siemens-elevation-dark-3: #404057;
-$siemens-interactive-blue-light-hover: #00708c;
-$siemens-interactive-blue-light-pressed: #005673;
-$siemens-interactive-blue: #008aa6;
-$siemens-interactive-cyan: #0098a6;
-$siemens-interactive-coral-12: #00183b;
-$siemens-interactive-cyan-8: #ebf7f8;
-$siemens-interactive-focus-border: #1491eb;
-$siemens-soft-green: #00d7a0;
-$siemens-bold-green-18: #d1fff2;
-$siemens-deep-blue-55: #737389;
-$siemens-deep-blue-80: #333353;
-$siemens-deep-blue-85: #262648;
-$siemens-dark-feedback-red: #ff2640;
-$siemens-dark-feedback-green: #01d65a;
-$siemens-dark-feedback-blue: #00bedc;
-$siemens-light-green: #62eec7;
-
-[data-md-color-scheme="light"] {
-  color-scheme: light;
+// Shared color variables applied to both schemes via mixin.
+// Since this stylesheet is loaded after Material's (via base-siemens.html {{ super() }}),
+// matching [data-md-color-scheme] specificity is sufficient to win the cascade — no !important needed.
+@mixin md-color-scheme-vars() {
   // Primary color shades
-  --md-primary-fg-color: #{colors.$siemens-interactive-blue-500};
-  --md-primary-fg-color--light: #{$siemens-interactive-blue-light-hover};
-  --md-primary-fg-color--lighter: #{$siemens-interactive-blue-light-pressed};
-  --md-primary-fg-color--lightest: #{$siemens-interactive-blue};
-  --md-primary-bg-color: #{colors.$siemens-white};
+  --md-primary-fg-color:        #{semantic-tokens.$element-action-primary};
+  --md-primary-fg-color--light: #{semantic-tokens.$element-action-primary-hover};
+  --md-primary-fg-color--lighter: #{semantic-tokens.$element-ui-0-hover};
+  --md-primary-fg-color--lightest: #{semantic-tokens.$element-ui-0};
 
   // Default colors
-  --md-default-bg-color: #{colors.$siemens-white};
+  --md-default-fg-color:          #{semantic-tokens.$element-text-primary};
+  --md-default-fg-color--light:   #{semantic-tokens.$element-text-secondary};
+  --md-default-fg-color--lighter: #{semantic-tokens.$element-ui-3};
+  --md-default-fg-color--lightest: #{semantic-tokens.$element-ui-4};
 
   // Accent color shades
-  --md-accent-fg-color: #{$siemens-interactive-cyan};
-  --md-accent-fg-color--transparent: #{$siemens-bold-green-18};
+  --md-accent-fg-color:              #{semantic-tokens.$element-action-primary};
+  --md-accent-fg-color--transparent: #{semantic-tokens.$element-action-secondary-hover};
 
-  // Typeset `a` color shades
-  --md-typeset-a-color: #{colors.$siemens-interactive-blue-500};
+  // Typeset color shades
+  --md-typeset-a-color: #{semantic-tokens.$element-action-primary};
+  --md-code-fg-color:   #{semantic-tokens.$element-text-primary};
 
   // Table colors
-  --md-table-bg-color: #{colors.$siemens-light-sand};
-  --md-table-border-color: #{colors.$siemens-deep-blue-100};
-  --md-typeset-table-color--light: #{colors.$siemens-sand};
+  --md-table-bg-color:           #{semantic-tokens.$element-base-1};
+  --md-table-border-color:       #{semantic-tokens.$element-ui-4};
+  --md-typeset-table-color--light: #{semantic-tokens.$element-base-1-selected};
 
   // Admonition color shades
-  --md-admonition-fg-color: var(--md-default-fg-color);
-  --md-admonition-bg-color: #{colors.$siemens-light-sand};
-  --md-admonition-note-color: #{colors.$siemens-blue-500};
+  --md-admonition-fg-color:       var(--md-default-fg-color);
+  --md-admonition-note-color:     #{semantic-tokens.$element-status-information};
   --md-admonition-abstract-color: var(--md-default-fg-color);
-  --md-admonition-info-color: #{colors.$siemens-blue-500};
-  --md-admonition-tip-color: #{colors.$siemens-blue-500};
-  --md-admonition-success-color: #{colors.$siemens-green-700};
+  --md-admonition-info-color:     #{semantic-tokens.$element-status-information};
+  --md-admonition-tip-color:      #{semantic-tokens.$element-status-information};
+  --md-admonition-success-color:  #{semantic-tokens.$element-status-success};
   --md-admonition-question-color: var(--md-default-fg-color);
-  --md-admonition-warning-color: #{colors.$siemens-orange-700};
-  --md-admonition-failure-color: #{colors.$siemens-red-500};
-  --md-admonition-danger-color: #{colors.$siemens-red-900};
-  --md-admonition-bug-color: #{colors.$siemens-red-900};
-  --md-admonition-example-color: var(--md-default-fg-color);
-  --md-admonition-quote-color: var(--md-default-fg-color);
+  --md-admonition-warning-color:  #{semantic-tokens.$element-status-warning};
+  --md-admonition-failure-color:  #{semantic-tokens.$element-status-danger};
+  --md-admonition-danger-color:   #{semantic-tokens.$element-status-critical};
+  --md-admonition-bug-color:      #{semantic-tokens.$element-status-critical};
+  --md-admonition-example-color:  var(--md-default-fg-color);
+  --md-admonition-quote-color:    var(--md-default-fg-color);
 
-  // Code colors
-  --md-opblock-code-fg: #{colors.$siemens-white};
-  --md-opblock-code-bg: #{$siemens-elevation-dark-3};
-  --md-opblock: #{colors.$siemens-deep-blue-700};
-  --md-opblock-bg: #{colors.$siemens-white};
-  --md-opblock-disabled: #{colors.$siemens-deep-blue-400};
-  --md-opblock-disabled-bg: #{$siemens-interactive-cyan-8};
-  --md-opblock-section-head-bg: #{colors.$siemens-light-sand};
+  // Code colors - opblock code boxes
+  --md-opblock-code-fg:       #{semantic-tokens.$element-text-primary};
+  --md-opblock:               #{semantic-tokens.$element-text-primary};
+  --md-opblock-bg:            #{semantic-tokens.$element-base-1};
+  --md-opblock-disabled:      #{semantic-tokens.$element-text-disabled};
+  --md-opblock-disabled-bg:   #{semantic-tokens.$element-base-information};
+  --md-opblock-section-head-bg: #{semantic-tokens.$element-base-2};
+
+  // Swagger model boxes
+  --md-swagger-model-fg: #{semantic-tokens.$element-text-primary};
+  --md-swagger-prop-type-color: #{semantic-tokens.$element-data-green-3};
+
+  // Syntax highlighting - using Element Design System data tokens for consistency
+  --md-code-hl-name-color:        var(--md-code-fg-color);
+  --md-code-hl-keyword-color:     #{semantic-tokens.$element-data-purple-2};
+  --md-code-hl-operator-color:    #{semantic-tokens.$element-data-plum-2};
+  --md-code-hl-variable-color:    #{semantic-tokens.$element-data-interactive-coral-1};
+  --md-code-hl-function-color:    #{semantic-tokens.$element-text-caution};
+  --md-code-hl-string-color:      #{semantic-tokens.$element-text-warning};
+  --md-code-hl-number-color:      #{semantic-tokens.$element-text-success};
+  --md-code-hl-constant-color:    #{semantic-tokens.$element-data-13};
+  --md-code-hl-comment-color:     #{semantic-tokens.$element-data-green-3};
+  --md-code-hl-punctuation-color: #{semantic-tokens.$element-data-17};
+  --md-code-hl-generic-color:     #{semantic-tokens.$element-data-5};
+  --md-code-hl-special-color:     #{semantic-tokens.$element-data-turquoise-1};
+  --md-code-hl-color:             #{semantic-tokens.$element-base-1-selected};
 
   // Navigation
-  --md-nav-fg-color: #{colors.$siemens-deep-blue-900};
-  --md-nav-bg-color: #{colors.$siemens-light-sand};
-  --md-nav-underline-color: #{$siemens-soft-green};
-  --md-nav-focus-border-color: #{$siemens-interactive-focus-border};
+  --md-nav-fg-color:          #{semantic-tokens.$element-text-primary};
+  --md-nav-underline-color:   #{semantic-tokens.$element-action-primary};
+  --md-nav-focus-border-color: #{semantic-tokens.$element-focus-default};
 
   // Back-to-top button colors
-  --md-top-hover-color: #{colors.$siemens-teal};
-  --md-top-hover-bg-color: #{$siemens-bold-green-18};
+  --md-top-hover-color:    #{semantic-tokens.$element-action-primary};
+  --md-top-hover-bg-color: #{semantic-tokens.$element-action-secondary-hover};
 
-  // Search
-  --md-search-icon-color: #{colors.$siemens-deep-blue-900};
-  --md-search-icon-bg-color: #{colors.$siemens-gradient-bold-dynamic};
-  --md-search-input-placeholder-color: #{colors.$siemens-deep-blue-700};
-  --md-search-input-fg-color: #{colors.$siemens-deep-blue-900};
-  --md-search-input-bg-color: #{$siemens-interactive-cyan-8};
-  --md-search-input-bg-color-hover: #{$siemens-bold-green-18};
-  --md-input-border-color: #{colors.$siemens-deep-blue-900};
+  // Search - icon should be inverse (white) since bg is action-primary (teal/blue)
+  --md-search-icon-color:               #{semantic-tokens.$element-text-inverse};
+  --md-search-icon-bg-color:            #{semantic-tokens.$element-action-primary};
+  // TODO: Drop to align more with the Element theme (no gradients)
+  // stylelint-disable-next-line declaration-block-no-duplicate-custom-properties
+  --md-search-icon-bg-color:            #{old-colors.$siemens-gradient-bold-dynamic};
+  --md-search-input-placeholder-color:  #{semantic-tokens.$element-text-secondary};
+  --md-search-input-fg-color:           #{semantic-tokens.$element-text-primary};
+  --md-input-border-color:              #{semantic-tokens.$element-ui-3};
 
   // Footer color shades
-  --md-footer-fg-color: #{colors.$siemens-deep-blue-900};
-  --md-footer-fg-color--light: #{colors.$siemens-deep-blue-900};
-  --md-footer-fg-color--lighter: #{colors.$siemens-deep-blue-900};
-  --md-footer-bg-color: #{colors.$siemens-white}; // White background for previous/next navigation
-  --md-footer-bg-color--dark: #{colors.$siemens-light-sand}; // Light Sand background for copyright & meta
+  --md-footer-fg-color:        #{semantic-tokens.$element-text-primary};
+  --md-footer-fg-color--light: #{semantic-tokens.$element-text-secondary};
+  // TODO: Drop to not differ in light and dark themes and align more with the Element theme
+  // stylelint-disable-next-line declaration-block-no-duplicate-custom-properties
+  --md-footer-fg-color--light: #{semantic-tokens.$element-text-primary};
+  --md-footer-fg-color--lighter: #{semantic-tokens.$element-ui-3};
+  // TODO: Drop to not differ in light and dark themes and align more with the Element theme
+  // stylelint-disable-next-line declaration-block-no-duplicate-custom-properties
+  --md-footer-fg-color--lighter: #{semantic-tokens.$element-text-primary};
 
   // AsyncAPI colors
-  --async-api-box-elevation-1-bg-color: #{colors.$siemens-light-sand};
-  --async-api-box-elevation-2-bg-color: #{colors.$siemens-sand};
-  --async-api-text-soft: #{colors.$siemens-deep-blue-600};
+  --async-api-text-soft: #{semantic-tokens.$element-text-secondary};
+
+  // Admonition background
+  --md-admonition-bg-color: #{semantic-tokens.$element-base-0};
+
+  // Footer backgrounds
+  --md-footer-bg-color--dark: #{semantic-tokens.$element-base-0};
 
   // Keyboard keys extension colors
-  --md-typeset-kbd-color: #{colors.$siemens-sand};
+  --md-typeset-kbd-color:        #{semantic-tokens.$element-base-1-selected};
+  --md-typeset-kbd-accent-color: #{semantic-tokens.$element-base-4};
+  --md-typeset-kbd-border-color: #{semantic-tokens.$element-ui-3};
+}
+
+// Per-scheme overrides only for tokens where light and dark use different semantic roles
+// (e.g. base-0/base-1 swap roles between page bg and sidebar bg across themes)
+[data-md-color-scheme="light"] {
+  color-scheme: light;
+
+  @include md-color-scheme-vars();
+
+  --md-default-bg-color: #{semantic-tokens.$element-base-1};
+  --md-primary-bg-color: #{semantic-tokens.$element-base-1};
+  --md-nav-bg-color:     #{semantic-tokens.$element-base-0};
+  --md-footer-bg-color:  #{semantic-tokens.$element-base-1};
+  --md-hero-fg-color:    #{semantic-tokens.$element-text-inverse};
+  --md-hero-button-primary-fg-color: #{semantic-tokens.$element-text-primary};
+  --md-hero-button-primary-bg-color: #{semantic-tokens.$element-base-0};
+  --md-hero-button-primary-hover-fg-color: #{semantic-tokens.$element-text-inverse};
+  --md-hero-button-primary-hover-bg-color: #{semantic-tokens.$element-action-primary};
+  --md-hero-button-secondary-hover-fg-color: #{semantic-tokens.$element-action-primary};
+
+  // Code blocks - base-0 (#f3f3f0) is closest to old #f5f5f5
+  --md-code-bg-color:        #{semantic-tokens.$element-base-0};
+  --md-code-bg-color--light: #{semantic-tokens.$element-base-0};
+  --md-code-bg-color--lighter: #{semantic-tokens.$element-base-4};
+  --md-opblock-code-fg:      #{semantic-tokens.$element-text-primary};
+  --md-opblock-code-bg:      #{semantic-tokens.$element-base-0};
+  --md-opblock:              #{semantic-tokens.$element-text-primary};
+  --md-opblock-bg:           #{semantic-tokens.$element-base-1};
+  --md-opblock-disabled:     #{semantic-tokens.$element-text-secondary};
+  --md-opblock-disabled-bg:  #{semantic-tokens.$element-base-information};
+  --md-opblock-section-head-bg: #{semantic-tokens.$element-base-4};
+  --md-swagger-model-fg:     var(--md-default-fg-color);
+  --md-swagger-model-bg:     #{semantic-tokens.$element-base-4};
+  --md-swagger-prop-type-color: #{semantic-tokens.$element-data-green-3};
+  --async-api-box-elevation-1-bg-color: #{semantic-tokens.$element-base-4};
+  --async-api-box-elevation-2-bg-color: #{semantic-tokens.$element-base-1-selected};
+
+  // Table - restore gray background so tables stand out against the white page
+  --md-table-bg-color:             #{semantic-tokens.$element-base-0};
+  --md-typeset-table-color--light: #{semantic-tokens.$element-base-1-selected};
+
+  // Search input - mix action-secondary-hover with white (ui-5) to get a subtle tint
+  --md-search-input-bg-color:       color-mix(in srgb, #{semantic-tokens.$element-action-secondary-hover} 30%, #{semantic-tokens.$element-ui-5});
+  --md-search-input-bg-color-hover: color-mix(in srgb, #{semantic-tokens.$element-action-secondary-hover} 30%, #{semantic-tokens.$element-ui-5});
+
+  // TODO: Drop to not differ in light and dark themes and align more with the Element theme
+  --md-search-icon-color: #{semantic-tokens.$element-text-primary};
 }
 
 [data-md-color-scheme="light"] img[src$="#only-dark"],
@@ -113,106 +173,32 @@ $siemens-light-green: #62eec7;
   // Indicate that the site is rendered with a dark color scheme
   color-scheme: dark;
 
-  // Primary color shades
-  --md-primary-fg-color: #{colors.$siemens-bold-green};
-  --md-primary-fg-color--light: #{$siemens-interactive-blue-light-hover};
-  --md-primary-fg-color--lighter: #{$siemens-interactive-blue-light-pressed};
-  --md-primary-bg-color: #{colors.$siemens-deep-blue-900};
+  @include md-color-scheme-vars();
 
-  // Default colors
-  --md-default-bg-color: #{colors.$siemens-deep-blue-900};
-  --md-default-fg-color: #{colors.$siemens-white};
-  --md-default-fg-color--light: #{colors.$siemens-deep-blue-400};
-  --md-default-fg-color--lighter: #{$siemens-deep-blue-55};
-  --md-default-fg-color--lightest: #{colors.$siemens-deep-blue-700};
+  --md-default-bg-color:    #{semantic-tokens.$element-base-0};
+  --md-primary-bg-color:    #{semantic-tokens.$element-base-0};
+  --md-nav-bg-color:        #{semantic-tokens.$element-base-1};
+  --md-admonition-bg-color: #{semantic-tokens.$element-base-1};
+  --md-footer-bg-color:     #{semantic-tokens.$element-base-0};
+  --md-hero-fg-color:       #{semantic-tokens.$element-text-primary};
+  --md-hero-button-primary-fg-color: #{semantic-tokens.$element-text-inverse};
+  --md-hero-button-primary-bg-color: #{semantic-tokens.$element-ui-1};
+  --md-hero-button-primary-hover-fg-color: #{semantic-tokens.$element-text-primary};
+  --md-hero-button-primary-hover-bg-color: #{semantic-tokens.$element-data-interactive-coral-4};
+  --md-hero-button-secondary-hover-fg-color: #{semantic-tokens.$element-data-interactive-coral-4};
 
-  // Accent color shades
-  --md-accent-fg-color: #{colors.$siemens-bold-green};
-  --md-accent-fg-color--transparent: #{colors.$siemens-dark-bold-green};
+  // Code blocks - base-1-hover (#333353) matches old dark code bg exactly
+  --md-code-bg-color:         #{semantic-tokens.$element-base-1-hover};
+  --md-code-bg-color--light:  #{semantic-tokens.$element-base-1-hover};
+  --md-code-bg-color--lighter: #{semantic-tokens.$element-base-1-selected};
+  --md-opblock-code-bg:       #{semantic-tokens.$element-base-1-hover};
+  --md-swagger-model-bg:      #{semantic-tokens.$element-base-1-hover};
+  --async-api-box-elevation-1-bg-color: #{semantic-tokens.$element-base-1};
+  --async-api-box-elevation-2-bg-color: #{semantic-tokens.$element-base-1-selected};
 
-  // Typeset color shades
-  --md-typeset-a-color: #{colors.$siemens-interactive-coral};
-  --md-code-bg-color: #{$siemens-deep-blue-80};
-  --md-code-fg-color: #{colors.$siemens-light-sand};
-
-  // Table colors
-  --md-table-bg-color: #{colors.$siemens-deep-blue-800};
-  --md-table-border-color: #{colors.$siemens-deep-blue-700};
-  --md-typeset-table-color--light: #{colors.$siemens-grayish-navy};
-
-  // Admonition color shades
-  --md-admonition-fg-color: var(--md-default-fg-color);
-  --md-admonition-bg-color: #{colors.$siemens-deep-blue-800};
-  --md-admonition-note-color: #{colors.$siemens-blue-500};
-  --md-admonition-abstract-color: var(--md-default-fg-color);
-  --md-admonition-info-color: #{colors.$siemens-blue-500};
-  --md-admonition-tip-color: #{colors.$siemens-blue-500};
-  --md-admonition-success-color: #{colors.$siemens-green-500};
-  --md-admonition-question-color: var(--md-default-fg-color);
-  --md-admonition-warning-color: #{colors.$siemens-orange-500};
-  --md-admonition-failure-color: #{colors.$siemens-red-500};
-  --md-admonition-danger-color: #{colors.$siemens-red-700};
-  --md-admonition-bug-color: #{colors.$siemens-red-700};
-  --md-admonition-example-color: var(--md-default-fg-color);
-  --md-admonition-quote-color: var(--md-default-fg-color);
-
-  // Code colors
-  --md-opblock-code-fg: #{colors.$siemens-white};
-  --md-opblock-code-bg: #{$siemens-deep-blue-80};
-  --md-opblock: #{colors.$siemens-deep-blue-300};
-  --md-opblock-bg: #{$siemens-deep-blue-80};
-  --md-opblock-disabled: #{$siemens-deep-blue-55};
-  --md-opblock-disabled-bg: #{$siemens-interactive-coral-12};
-  --md-opblock-section-head-bg: #{$siemens-deep-blue-85};
-  --md-code-hl-operator-color: var(--md-default-fg-color--light);
-  --md-code-hl-punctuation-color: var(--md-default-fg-color--light);
-  --md-code-hl-comment-color: var(--md-default-fg-color--light);
-  --md-code-hl-generic-color: var(--md-default-fg-color--light);
-  --md-code-hl-color: hsl(218 100% 63% / 0.15);
-  --md-code-hl-number-color: #{colors.$siemens-orange-500};
-  --md-code-hl-special-color: #{$siemens-dark-feedback-red};
-  --md-code-hl-function-color: #{$siemens-dark-feedback-green};
-  --md-code-hl-constant-color: #{$siemens-dark-feedback-blue};
-  --md-code-hl-keyword-color: #{colors.$siemens-interactive-coral};
-  --md-code-hl-string-color: #{$siemens-light-green};
-  --md-code-hl-name-color: var(--md-code-fg-color);
-  --md-code-hl-variable-color: #{colors.$siemens-red-100};
-
-  // Navigation
-  --md-nav-fg-color: #{colors.$siemens-white};
-  --md-nav-bg-color: #{colors.$siemens-deep-blue-800};
-  --md-nav-underline-color: #{$siemens-soft-green};
-  --md-nav-focus-border-color: #{$siemens-interactive-focus-border};
-
-  // Back-to-top button colors
-  --md-top-hover-color: #{colors.$siemens-bold-green};
-  --md-top-hover-bg-color: #{colors.$siemens-dark-bold-green};
-
-  // Search
-  --md-search-icon-color: #{colors.$siemens-deep-blue-900};
-  --md-search-icon-bg-color: #{colors.$siemens-gradient-bold-dynamic};
-  --md-search-input-placeholder-color: #{colors.$siemens-deep-blue-300};
-  --md-search-input-fg-color: #{colors.$siemens-white};
-  --md-search-input-bg-color: #{colors.$siemens-dark-bold-green};
-  --md-search-input-bg-color-hover: #{colors.$siemens-dark-bold-green};
-  --md-input-border-color: #{colors.$siemens-deep-blue-300};
-
-  // Footer color shades
-  --md-footer-fg-color: #{colors.$siemens-white};
-  --md-footer-fg-color--light: #{colors.$siemens-light-sand};
-  --md-footer-fg-color--lighter: #{$siemens-bright-sand};
-  --md-footer-bg-color: #{colors.$siemens-deep-blue-900};
-  --md-footer-bg-color--dark: #{colors.$siemens-deep-blue-900}; // Same color for both footer and elements in dark mode
-
-  // AsyncAPI colors
-  --async-api-box-elevation-1-bg-color: #{colors.$siemens-deep-blue-800};
-  --async-api-box-elevation-2-bg-color: #{colors.$siemens-grayish-navy};
-  --async-api-text-soft: #{colors.$siemens-deep-blue-400};
-
-  // Keyboard keys extension colors
-  --md-typeset-kbd-color: #{colors.$siemens-grayish-navy};
-  --md-typeset-kbd-accent-color: #{$siemens-elevation-dark-3};
-  --md-typeset-kbd-border-color: #{colors.$siemens-deep-blue-400};
+  // Search input backgrounds
+  --md-search-input-bg-color:       #{semantic-tokens.$element-action-secondary-hover};
+  --md-search-input-bg-color-hover: #{semantic-tokens.$element-action-secondary-hover};
 }
 
 [data-md-color-scheme="dark"] img[src$="#only-light"],
