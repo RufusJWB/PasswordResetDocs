@@ -14,30 +14,26 @@ The repository was started from the Siemens `docs-theme-quickstart` template.
 
 GitHub Actions is the only CI.
 
-## Cloning — Git LFS caveat
+## Git LFS — why the theme snapshots are not vendored
 
-`vendor/docs-theme/.gitattributes` marks `*.snap.png` (Cypress visual-regression snapshots) as Git LFS
-files, but **those LFS objects are not available on the server**. A normal clone or pull therefore dies
-with:
+Upstream's `vendor/docs-theme/.gitattributes` marks the Cypress/Playwright visual-regression
+snapshots (`*.snap.png`, `playwright/e2e/**/*.png`) as Git LFS files, but **those LFS objects are not
+available on the server** — they return HTTP 404. That caused two separate failures:
 
-```text
-Object does not exist on the server: [404]
-error: external filter 'git-lfs filter-process' failed
-fatal: ...snap.png: smudge filter lfs failed
-```
+- `git clone` / `git pull` aborting with `smudge filter lfs failed`;
+- `git push` rejected by GitHub with `GH008: Your push referenced at least N unknown Git LFS objects`,
+  which no client-side setting can bypass.
 
-The snapshots are test fixtures — nothing in the docs or theme build reads them — so simply skip the
-LFS smudge:
+So `vendor/docs-theme/cypress/` and `vendor/docs-theme/playwright/` are **deliberately excluded** from
+the vendored subtree. They are test fixtures; nothing in the docs or theme build reads them. The
+update script re-removes them after every `git subtree pull`.
+
+A normal `git clone` now works with no special flags. Only if you check out a commit from before this
+change do you still need to skip the smudge filter:
 
 ```bash
-# when cloning
-GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/RufusJWB/PasswordResetDocs.git
-
-# in an existing clone (writes to .git/config only)
-git lfs install --local --skip-smudge
+git lfs install --local --skip-smudge   # writes to .git/config only
 ```
-
-The `*.snap.png` files are then checked out as small LFS pointer text files, which is harmless.
 
 ## Repository layout
 
@@ -47,8 +43,9 @@ docs/                        Markdown content and screenshots
   index.md                   The entire site content (single page)
   SUMMARY.md                 Navigation, read by mkdocs-literate-nav (not published)
   *.png                      Screenshots referenced from index.md
-scripts/bootstrap-docs-theme.sh   Rebuilds the vendored theme from source (bash/WSL, Node + Yarn)
-vendor/docs-theme/           Siemens theme, vendored via git subtree (~2500 files)
+scripts/update-docs-theme.ps1     Full theme update: subtree pull, Linux rebuild, cleanup
+scripts/bootstrap-docs-theme.sh   Rebuilds the vendored theme from source (Linux/WSL only)
+vendor/docs-theme/           Siemens theme, vendored via git subtree
   mkdocs_siemens/            Prebuilt theme package — committed, this is what CI installs
 mkdocs.yml                   Site config: theme, nav, markdown extensions
 pyproject.toml / uv.lock     Python dependencies, managed with uv
@@ -102,37 +99,41 @@ uv run mkdocs build --strict                  # what CI runs; output in site/
 
 ## Updating the vendored theme
 
-Only needed when bumping the theme.
+Use the script — it handles every quirk documented below:
 
-> **Build on Linux, not Windows.** The theme's yarn scripts are POSIX-only — e.g.
-> `cpy . '!**/*.html' '!**/*.scss' '../mkdocs_siemens' --dot --cwd=src`. Yarn 1.x spawns `cmd.exe` on
-> Windows (even when launched from Git Bash), which does not strip single quotes, so the glob
-> exclusions are ignored and the output lands in a literal directory named `'..`. The result is a
-> silently corrupt theme. Use WSL with Node installed, or a container:
->
-> ```bash
-> docker run --rm -v "$PWD/vendor/docs-theme:/work" -v docstheme_nm:/work/node_modules \
->   -w /work node:20-bookworm bash -c "apt-get update -qq && apt-get install -y -qq jq && \
->   yarn --frozen-lockfile --ignore-engines && yarn src:compile && yarn src:postcss && \
->   yarn dist:cpy:src && yarn dist:cpy:vendor && yarn dist:cpy:html && yarn src:hash"
-> ```
+```powershell
+./scripts/update-docs-theme.ps1              # newest tag on the docs-theme remote
+./scripts/update-docs-theme.ps1 -Tag v8.4.0  # a specific tag
+```
 
-1. Check the [changelog](https://code-ops.code.siemens.io/docs-theme/changelog/) and
-   [upgrade guide](https://code-ops.code.siemens.io/docs-theme/upgrade/) for breaking changes.
-   `git fetch docs-theme --tags` then `git show <tag>:CHANGELOG.md` works offline.
-2. `git subtree pull --prefix=vendor/docs-theme docs-theme <tag> --squash`
-3. Rebuild `mkdocs_siemens/` — `./scripts/bootstrap-docs-theme.sh` on Linux/WSL, or the container
-   command above followed by `uv pip install --no-deps ./vendor/docs-theme`.
-4. Clean up two things the build leaves behind:
-   - **Superseded hashed stylesheets.** `postcss-hash` writes `code-main.<hash>.css` but never deletes
-     the previous one, so `git rm` the old pair once `base-siemens.html` points at the new hash.
-   - **`sed` backups.** `src:hash` leaves `*.html.bak` under `mkdocs_siemens/templates/`. The root
-     `.gitignore` rule for these is **dead** — `vendor/docs-theme/.gitignore` contains
-     `!/mkdocs_siemens/templates/**`, and a nested `.gitignore` overrides the root — so delete them
-     manually or they will be committed.
-5. Sync the `mkdocs-material` pin (see above), then `uv lock`.
-6. Commit the updated sources **together with** the regenerated `vendor/docs-theme/mkdocs_siemens/`.
-   CI only checks that the directory *exists*, so a stale prebuilt package would ship unnoticed.
+It requires a clean working tree, plus `git`, a running Docker daemon, and `uv`. It pulls the tag,
+drops the LFS snapshot directories, rebuilds `mkdocs_siemens/` in a Linux container, removes the build
+byproducts, warns on `mkdocs-material` drift, and finishes with a strict build. Changes are left
+staged but **uncommitted** for review.
+
+Commit the updated sources **together with** the regenerated `vendor/docs-theme/mkdocs_siemens/`.
+CI only checks that the directory *exists*, so a stale prebuilt package would ship unnoticed.
+
+### What the script works around
+
+If you ever need to do this by hand:
+
+- **Build on Linux, not Windows.** The theme's yarn scripts are POSIX-only — e.g.
+  `cpy . '!**/*.html' '!**/*.scss' '../mkdocs_siemens' --dot --cwd=src`. Yarn 1.x spawns `cmd.exe` on
+  Windows (even when launched from Git Bash), which does not strip single quotes, so the glob
+  exclusions are ignored and output lands in a literal directory named `'..`. The result is a silently
+  corrupt theme. `jq` is also required by `src:hash`.
+- **Drop `cypress/` and `playwright/` after every pull** — see the Git LFS section above.
+- **Superseded hashed stylesheets.** `postcss-hash` writes `code-<name>.<hash>.css` but never deletes
+  the previous one, so `git rm` the old pair once the templates point at the new hash.
+- **`sed` backups.** `src:hash` leaves `*.html.bak` under `mkdocs_siemens/templates/`. The root
+  `.gitignore` rule for these is **dead** — `vendor/docs-theme/.gitignore` contains
+  `!/mkdocs_siemens/templates/**`, and a nested `.gitignore` overrides the root — so delete them
+  manually or they will be committed.
+- **`mkdocs-material` pin.** Match the theme's exact pin, then `uv lock`.
+- Read the changelog offline with `git fetch docs-theme --tags` then `git show <tag>:CHANGELOG.md`;
+  the [changelog](https://code-ops.code.siemens.io/docs-theme/changelog/) and
+  [upgrade guide](https://code-ops.code.siemens.io/docs-theme/upgrade/) are on the intranet.
 
 ## CI/CD — `.github/workflows/docs.yml`
 
