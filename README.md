@@ -45,6 +45,7 @@ The `*.snap.png` files are then checked out as small LFS pointer text files, whi
 .github/workflows/docs.yml   GitHub Actions pipeline (build + GitHub Pages)
 docs/                        Markdown content and screenshots
   index.md                   The entire site content (single page)
+  SUMMARY.md                 Navigation, read by mkdocs-literate-nav (not published)
   *.png                      Screenshots referenced from index.md
 scripts/bootstrap-docs-theme.sh   Rebuilds the vendored theme from source (bash/WSL, Node + Yarn)
 vendor/docs-theme/           Siemens theme, vendored via git subtree (~2500 files)
@@ -58,9 +59,19 @@ site/                        Build output — git-ignored
 ## Content
 
 All content lives in [docs/index.md](docs/index.md). Images use relative paths
-(`./EnterPassword2.png`, `./Act%20on%20behalf%201.png`, …). Navigation is declared explicitly in
-`mkdocs.yml`; `mkdocs-literate-nav` is installed but **not** enabled as a plugin, so `SUMMARY.md`
-files have no effect.
+(`./EnterPassword2.png`, `./Act%20on%20behalf%201.png`, …).
+
+Navigation comes from [docs/SUMMARY.md](docs/SUMMARY.md) via the `mkdocs-literate-nav` plugin, so
+`mkdocs.yml` has no `nav:` key. Two things to know when editing it:
+
+- Nested entries need **4-space** indentation — that is Python-Markdown's requirement and the
+  plugin's `tab_length` default. Two spaces silently fails with
+  `Did not find any item/section content specified`.
+- `SUMMARY.md` is listed under `exclude_docs` so it defines the nav without being published as a page.
+
+`mkdocs.yml` also lists `search` explicitly: declaring any `plugins:` block replaces the MkDocs
+default of `['search']`, so omitting it would silently disable site search. The theme additionally
+ships a `licenses` plugin (enabled on the theme's own site) that this project does not use.
 
 ## The theme
 

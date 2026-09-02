@@ -18,9 +18,14 @@ theme:
         icon: siemens/element/element-economy
         name: Switch to system theme
 
-nav:
-  - Home:
-    - Password reset: index.md
+# Listing plugins overrides the MkDocs default, so `search` must stay explicit.
+plugins:
+  - search
+  - literate-nav
+
+# SUMMARY.md only defines the nav; keep it out of the rendered site.
+exclude_docs: |
+  SUMMARY.md
 
 markdown_extensions:
   - pymdownx.highlight:
