@@ -91,18 +91,21 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Docker daemon is not reachable. Start Docker Desktop and rerun.' }
 
     # POSIX shell required: yarn 1.x uses cmd.exe on Windows and mangles the single-quoted globs.
-    $steps = 'src:compile src:postcss dist:cpy:src dist:cpy:vendor dist:cpy:html src:hash'
-    $script = @"
-set -euo pipefail
-apt-get update -qq >/dev/null 2>&1
-apt-get install -y -qq jq >/dev/null 2>&1
-cd /work
-yarn --frozen-lockfile --ignore-engines 2>&1 | tail -2
-for s in $steps; do echo "--- yarn \$s"; yarn "\$s" 2>&1 | tail -1; done
-"@
+    $steps = @('src:compile', 'src:postcss', 'dist:cpy:src', 'dist:cpy:vendor', 'dist:cpy:html', 'src:hash')
+    $lines = @(
+        'set -euo pipefail'
+        'apt-get update -qq >/dev/null 2>&1'
+        'apt-get install -y -qq jq >/dev/null 2>&1'
+        'cd /work'
+        'yarn --frozen-lockfile --ignore-engines 2>&1 | tail -2'
+    )
+    foreach ($s in $steps) {
+        $lines += "echo '--- yarn $s'"
+        $lines += "yarn $s 2>&1 | tail -1"
+    }
     $scriptDir = Join-Path ([IO.Path]::GetTempPath()) 'docs-theme-build'
     New-Item -ItemType Directory -Force -Path $scriptDir | Out-Null
-    [IO.File]::WriteAllText((Join-Path $scriptDir 'build.sh'), ($script -replace "`r`n", "`n"))
+    [IO.File]::WriteAllText((Join-Path $scriptDir 'build.sh'), (($lines -join "`n") + "`n"))
 
     docker run --rm `
         -v "${ThemeDir}:/work" `
@@ -119,14 +122,19 @@ for s in $steps; do echo "--- yarn \$s"; yarn "\$s" 2>&1 | tail -1; done
 
     # postcss-hash writes code-<name>.<hash>.css but never deletes the previous hash.
     $styleDir = Join-Path $ThemeDir 'mkdocs_siemens/templates/assets/stylesheets'
-    $baseHtml = Get-Content (Join-Path $ThemeDir 'mkdocs_siemens/templates/base-siemens.html') -Raw
-    $searchHtml = Get-Content (Join-Path $ThemeDir 'mkdocs_siemens/templates/partials/search-zensical.html') -Raw -ErrorAction SilentlyContinue
-    Get-ChildItem $styleDir -Filter 'code-*.css' | ForEach-Object {
-        if (($baseHtml -notmatch [regex]::Escape($_.Name)) -and ($searchHtml -notmatch [regex]::Escape($_.Name))) {
-            foreach ($f in @($_.FullName, "$($_.FullName).map")) {
-                if (Test-Path $f) { git rm -q --ignore-unmatch $f; Remove-Item $f -Force -ErrorAction SilentlyContinue }
+    $templateText = (Get-ChildItem (Join-Path $ThemeDir 'mkdocs_siemens/templates') -Recurse -Filter '*.html' |
+        ForEach-Object { Get-Content $_.FullName -Raw }) -join "`n"
+    $stylesheets = @(Get-ChildItem $styleDir -Filter 'code-*.css')
+    $referenced = @($stylesheets | Where-Object { $templateText -match [regex]::Escape($_.Name) })
+    if ($referenced.Count -eq 0) {
+        Write-Warning "No stylesheet is referenced by any template - skipping prune to avoid deleting the whole theme."
+    }
+    else {
+        foreach ($css in $stylesheets | Where-Object { $referenced.Name -notcontains $_.Name }) {
+            foreach ($f in @($css.FullName, "$($css.FullName).map")) {
+                if (Test-Path $f) { git rm -q --ignore-unmatch -- $f; Remove-Item $f -Force -ErrorAction SilentlyContinue }
             }
-            Write-Host "  removed superseded $($_.Name)"
+            Write-Host "  removed superseded $($css.Name)"
         }
     }
 
