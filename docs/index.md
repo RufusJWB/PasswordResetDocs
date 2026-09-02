@@ -93,8 +93,6 @@ If your manager (or an myIT Expert Requestor) cannot be reached, two *internal* 
 1. **Obtain both halves securely:** The initiator (and the approver, if applicable) will share their password half with you via a secure method (e.g. phone call, in person).
 1. **Sign in and change your password:** Once you have both halves, sign in with the temporary password. You will be prompted to create a new password during your first login.
 
-![Change password](./Change%20Password.png "Change password")
-
 /// tip | Please note
 To avoid forgetting your password or using it in the future, please [setup passwordless (requires authentication)](https://www.siemens.com/passwordless).
 ///
