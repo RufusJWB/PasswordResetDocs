@@ -12,8 +12,7 @@ The repository was started from the Siemens `docs-theme-quickstart` template.
 | `GitHubOrigin` | `https://github.com/RufusJWB/PasswordResetDocs.git` | The repository — runs `.github/workflows/docs.yml`. Tracked by local `main`. |
 | `docs-theme` | `https://code.siemens.com/code-ops/docs-theme.git` | Upstream source for the vendored theme (`git subtree`) |
 
-The project previously also lived on Siemens GitLab and carried a `.gitlab-ci.yml`; both were removed.
-GitHub Actions is now the only CI.
+GitHub Actions is the only CI.
 
 ## Cloning — Git LFS caveat
 
@@ -59,9 +58,9 @@ site/                        Build output — git-ignored
 ## Content
 
 All content lives in [docs/index.md](docs/index.md). Images use relative paths
-(`./EnterPassword2.png`, `./Act%20on%20behalf%201.png`, …). A few PNGs in `docs/` are unreferenced
-leftovers. Navigation is declared explicitly in `mkdocs.yml`; `mkdocs-literate-nav` is installed but
-**not** enabled as a plugin, so `SUMMARY.md` files have no effect.
+(`./EnterPassword2.png`, `./Act%20on%20behalf%201.png`, …). Navigation is declared explicitly in
+`mkdocs.yml`; `mkdocs-literate-nav` is installed but **not** enabled as a plugin, so `SUMMARY.md`
+files have no effect.
 
 ## The theme
 
