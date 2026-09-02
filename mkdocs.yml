@@ -18,14 +18,11 @@ theme:
         icon: siemens/element/element-economy
         name: Switch to system theme
 
-# Listing plugins overrides the MkDocs default, so `search` must stay explicit.
-plugins:
-  - search
-  - literate-nav
+nav:
+  - Home:
+    - Password reset: index.md
 
-# SUMMARY.md only defines the nav; keep it out of the rendered site.
-exclude_docs: |
-  SUMMARY.md
+plugins: []
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -33,13 +30,15 @@ markdown_extensions:
       linenums_style: pymdownx-inline
       guess_lang: true
   - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_index: !!python/name:mkdocs_siemens.icons.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-
-  - pymdownx.blocks.admonition
   - footnotes
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.admonition
   - pymdownx.blocks.details
   - pymdownx.snippets
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist
   - pymdownx.tilde

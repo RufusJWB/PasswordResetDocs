@@ -1,91 +1,104 @@
-# How to reset my Siemens account password?
-
-/// admonition | Please don't call the MyIT help desk
-    type: warning
-
+/// warning | Please don't call the MyIT help desk
 Avoid calling or submitting a ticket to the MyIT help desk if you've forgotten your password, as they are unable to assist and doing so will incur significant costs for Siemens.
 ///
 
-There are two ways for resetting your password, one via self-service (recommended) and one which needs to be done by your manager or two colleagues.
-
-/// admonition | Setup passwordless after your password reset (recommended)
-    type: tip
-
-After resetting your password, in order to avoid forgetting or using your password in the future, please [setup passwordless as described here (requires authentication)](https://www.siemens.com/passwordless).
+/// tip | Setup passwordless after your password reset
+To avoid forgetting your password or using it in the future, please [setup passwordless (requires authentication)](https://www.siemens.com/passwordless).
 ///
 
-## Self-service password reset process (recommended)
+# How to reset my Siemens account password?
 
-If you're reading this, there's a good chance you've forgotten your Siemens account password.
+Did you forget your Siemens account password?
 
-![Forgot my password](./EnterPassword2.png "What's my password?")
+Start with the recommended self-service process below!
 
-The best way to proceed, which works in most cases, is to click on `Sign in another way`. If you have Windows Hello for Business on your Windows device, a Siemens Smartcard (company badge) with PKI/certificates on it, a Passkey on your smartphone, or a MacOS client, you will be able to sign in without a password.
+## Self-service password reset process
+
+### Step 1. Try to authenticate using another available sign-in method
+
+On the Microsoft sign-in screen, select `Sign in another way`.
 
 ![Sign in another way](./Signinanotherway.png "Alternative sign in")
 
-This will bring you to this page where you can select passwordless methods to authenticate:
+Available alternative sign-in methods:
 
-- Select `Face, fingerprint, PIN or security key` if you have:
-    - Windows Hello for Business on your managed Windows device
-    - Hello for Mac (automatically rolled out on all managed macOS devices)
-    - A passkey on your smartphone
-    - A physical passkey / FIDO2 security key (e.g. YubiKey)
+- `Face, fingerprint, PIN or security key`
+If you have one of the following: Windows Hello for Business, Hello for Mac,a passkey on your smartphone or a physical passkey / FIDO2 security key (e.g. YubiKey)
 
-- Select `Approve a request on my Microsoft Authenticator app` if you have set up passwordless sign-in in your `Microsoft Authenticator` mobile app.
+- `Microsoft Authenticator app`
+If you have set up passwordless sign-in in your `Microsoft Authenticator` mobile app.
 
-- Select `Use a certificate or smart card` if you have a company badge / smart card with a golden chip and valid PKI certificates on it. Please note: Virtual Smart Card (VSC) is not supported.
+- `Certificate or Smart Card`
+If you have a company badge / smart card with a golden chip and valid PKI certificates on it. Please note: *Virtual Smart Card (VSC) is not supported.*
 
-![Choose another method to signin](./methods.png "Go passwordless")
+### Step 2: Were you able to authenticate?
 
-If you are successfully able to sign-in, then [request a new password in MyIT (requires authentication)](https://myit.siemens.com/myitportal?id=sc_cat_item&table=sc_cat_item&sys_id=29738742c3025ad423c3dc4c0501311c). The necessary steps are documented in [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit).
+=== "Yes"
 
-/// admonition | Done
-    type: success
+    Great! Authentication was successful. You can now [reset your password via myIT](https://myit.siemens.com/myitportal?id=sc_cat_item&table=sc_cat_item&sys_id=29738742c3025ad423c3dc4c0501311c).
 
-You should now be able to get a new password.
-///
+    Or follow these steps:
+
+    1. Go to the [myIT Portal](https://www.siemens.com/myIT).
+    1. Click on `My Services`.
+    1. Under `Services & Products`, select your Corporate Microsoft account.
+    1. Click on `Manage Service` on the left menu.
+    1. Select the `Reset Account Password` option.
+    1. Confirm that your account is pre-filled in the first field.
+    1. Select the mailbox where you want the new password to be sent.
+    1. Click Order Now.
+
+    /// tip | Please note
+    To avoid forgetting your password or using it in the future, please [setup passwordless (requires authentication)](https://www.siemens.com/passwordless).
+    ///
+
+=== "No"
+
+    Unable to authenticate using any available method? Contact your manager (or an myIT Expert Requester if your unit has implemented this concept) for support. Your manager (or myIT Expert Requester) can start the password reset process as described below on your behalf.
 
 ## Assisted password reset processes
 
+Use the following options only when self-service authentication is not possible.
+
 ### The Manager driven password reset process
 
-In the rare case the self-service isn't working, please reach out to your manager directly (or super-requester if your unit has implemented this concept). The manager (or super-requester) must open MyIT and select the menu item `Act on Behalf of`.
+Contact your manager (or an myIT Expert Requester if your unit has implemented this concept). They can open the myIT portal, select the `Act on Behalf of` option to impersonate you, and order the password reset (here) on your behalf.
 
-![Act on behalf](./Act%20on%20behalf%201.png "Select `Act on Behalf of`")
-
-In the following dialog your manager (or super-requester) must select you by clicking on your name.
-
-![Select employee](./Act%20on%20behalf%202.png "Click on name")
-
-If successful, the manager (or super-requester) should see the MyIT landing page with a banner informing them about a successful impersonation.
-
-![Success](./Act%20on%20behalf%203.png "Banner shown")
-
-/// admonition | Done
-    type: success
-
-Now the manager can follow [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit) to reset your password.
-///
-
-/// admonition | Setup passwordless (recommended)
-    type: tip
-
-In order to avoid forgetting or using your password in the future, please [setup passwordless as described here (requires authentication)](https://www.siemens.com/passwordless).
+/// tip
+Ask the myIT Digital Assistant for guidance! Your manager can ask the myIT chatbot: **"How do I act on behalf of an employee in myIT?"**
 ///
 
 ### The Emergency password reset process
 
-If the manager can't be reached, there is an emergency process that can be performed by two colleagues in your department. This process is documented in [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/agm/en/emergency-password-reset).
+If your manager (or an myIT Expert Requestor) cannot be reached, two *internal* colleagues in your department can perform the emergency process.
 
-/// admonition | Setup passwordless (recommended)
-    type: tip
+#### Pre-requisites
 
-In order to avoid forgetting or using your password in the future, please [setup passwordless as described here (requires authentication)](https://www.siemens.com/passwordless).
+- Only internal employees can perform an emergency password reset.
+- You can only reset passwords for people in your part of the organization, such as your department.
+
+#### Roles involved
+
+- Requester: the person who needs a password reset.
+- Initiator: the person responsible for starting the reset process.
+- Approver: the person who approves the reset request (only if the requester has no mobile phone number or personal email address stored in the SCD).
+
+#### Step-by-step guidance (requester prespective)
+
+1. **Contact an authorized colleague:** Ask your manager, direct report, or a colleague from your department to initiate the password reset using this link.
+1. **Verify your identity:** Once the process has been initiated, you will be contacted and asked to confirm your identity.
+1. **Receive both halves of your password:**
+    - **If your alternative contact details are stored in SCD,** the first half is sent to the initiator and the second half is sent to you via your registered email or mobile number.
+    - **If no alternative contact details are available,** the first half is sent to the initiator and the second half to an approver selected by the initiator.
+1. **Obtain both halves securely:** The initiator (and the approver, if applicable) will share their password half with you via a secure method (e.g. phone call, in person).
+1. **Sign in and change your password:** Once you have both halves, sign in with the temporary password. You will be prompted to create a new password during your first login.
+
+![Change password](./Change%20Password.png "Change password")
+
+/// tip | Please note
+To avoid forgetting your password or using it in the future, please [setup passwordless (requires authentication)](https://www.siemens.com/passwordless).
 ///
 
-/// admonition | Please don't call the MyIT help desk
-    type: warning
-
+/// warning | Please don't call the MyIT help desk
 Avoid calling or submitting a ticket to the MyIT help desk if you've forgotten your password, as they are unable to assist and doing so will incur significant costs for Siemens.
 ///
