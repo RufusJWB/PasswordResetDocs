@@ -20,7 +20,7 @@ If you're reading this, there's a good chance you've forgotten your Siemens acco
 
 ![Forgot my password](./EnterPassword2.png "What's my password?")
 
-The best way to proceed, which works in most cases, is to click on `Sign in another way`. If you have Windows Hello for Business on your Windows device, a Siemens Smartcard (company badge) with PKI/certifcates on it, a Passkey on your smartphone, or a MacOS client, you will be able to sign in without a password.
+The best way to proceed, which works in most cases, is to click on `Sign in another way`. If you have Windows Hello for Business on your Windows device, a Siemens Smartcard (company badge) with PKI/certificates on it, a Passkey on your smartphone, or a MacOS client, you will be able to sign in without a password.
 
 ![Sign in another way](./Signinanotherway.png "Alternative sign in")
 
@@ -36,17 +36,17 @@ This will bring you to this page where you can select passwordless methods to au
 
 - Select `Use a certificate or smart card` if you have a company badge / smart card with a golden chip and valid PKI certificates on it. Please note: Virtual Smart Card (VSC) is not supported.
 
-![Chose another method to signin](./methods.png "Go passwordless")
+![Choose another method to signin](./methods.png "Go passwordless")
 
-If you are sucessfully able to sign-in, then [request a new password in MyIT (requires authentication)](https://myit.siemens.com/myitportal?id=sc_cat_item&table=sc_cat_item&sys_id=29738742c3025ad423c3dc4c0501311c). The necessary steps are documented in [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit).
+If you are successfully able to sign-in, then [request a new password in MyIT (requires authentication)](https://myit.siemens.com/myitportal?id=sc_cat_item&table=sc_cat_item&sys_id=29738742c3025ad423c3dc4c0501311c). The necessary steps are documented in [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit).
 
 /// admonition | Done
     type: success
 
-You should now be able get a new password.
+You should now be able to get a new password.
 ///
 
-## Assisted password reset procesess
+## Assisted password reset processes
 
 ### The Manager driven password reset process
 
@@ -68,7 +68,7 @@ If successful, the manager (or super-requester) should see the MyIT landing page
 Now the manager can follow [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/useit/en/how-to-reset-your-user-account-password-via-myit) to reset your password.
 ///
 
-/// admonition | Ssetup passwordless (recommended)
+/// admonition | Setup passwordless (recommended)
     type: tip
 
 In order to avoid forgetting or using your password in the future, please [setup passwordless as described here (requires authentication)](https://www.siemens.com/passwordless).
@@ -76,7 +76,7 @@ In order to avoid forgetting or using your password in the future, please [setup
 
 ### The Emergency password reset process
 
-If the manager can't be reached, there is an emergency process that can be performed by two colleagues in your department. This process is documented in this [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/agm/en/emergency-password-reset).
+If the manager can't be reached, there is an emergency process that can be performed by two colleagues in your department. This process is documented in [this manual (requires authentication)](https://manuals.siemens.com/useit/manual/agm/en/emergency-password-reset).
 
 /// admonition | Setup passwordless (recommended)
     type: tip
