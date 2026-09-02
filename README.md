@@ -85,10 +85,6 @@ uv pip install --no-deps ./vendor/docs-theme    # installs mkdocs-code-siemens-c
 The build output (`vendor/docs-theme/mkdocs_siemens/`) is **committed**, so neither CI nor a normal
 local build needs Node.js, Yarn, or access to the Siemens npm registry.
 
-Earlier revisions pulled the theme as a wheel from the Siemens internal GitLab PyPI index
-(`code.siemens.com/api/v4/projects/64538/packages/pypi/simple/`, `authenticate = "always"`). That
-worked on Siemens runners but not on GitHub-hosted ones, which is why the vendored copy exists.
-
 ## Building locally
 
 ```bash
