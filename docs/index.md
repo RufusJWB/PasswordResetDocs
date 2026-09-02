@@ -18,7 +18,7 @@ Start with the recommended self-service process below!
 
 On the Microsoft sign-in screen, select `Sign in another way`.
 
-![Sign in another way](./Signinanotherway.png "Alternative sign in")
+![Sign in another way](./Signinanotherway.png "Alternative sign in"){width=320px}
 
 Available alternative sign-in methods:
 
