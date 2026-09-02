@@ -1,7 +1,7 @@
 [project]
-name = "docs-theme-demo"
+name = "password-reset-docs"
 version = "0.1.0"
-description = "Demonstrate how to use MkDocs and Siemens docs-theme"
+description = "Documentation on how to reset a Siemens account password"
 authors = [{ name = "code.siemens.com team", email = "ops.code.ch@siemens.com" }]
 requires-python = ">=3.10,<4"
 license = "LicenseRef-Siemens-Inner-Source-License-1.4"

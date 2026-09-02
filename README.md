@@ -3,8 +3,7 @@
 An [MkDocs](https://www.mkdocs.org/) site that documents **how to reset a Siemens account password**
 (self-service, manager-driven, and emergency processes).
 
-The repository was started from the Siemens `docs-theme-quickstart` template, so a few leftovers are
-still visible — e.g. the project is still named `docs-theme-demo` in `pyproject.toml`.
+The repository was started from the Siemens `docs-theme-quickstart` template.
 
 ## Where this repo lives
 
