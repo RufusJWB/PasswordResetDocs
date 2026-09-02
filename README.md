@@ -1,93 +1,138 @@
-# The docs-theme quickstart template
+# Password reset docs
 
-This project provides a minimal template for code.siemens.io websites using the Siemens MkDocs theme:
+An [MkDocs](https://www.mkdocs.org/) site that documents **how to reset a Siemens account password**
+(self-service, manager-driven, and emergency processes).
 
-* Basic MkDocs configuration including the Siemens `docs-theme`
-* Website deployment using Gitlab Pages
-* Review deployment for visual feedback in Merge Requests
-* _(optional)_: basic [renovate](https://docs.renovatebot.com/) configuration to keep your project fresh (requires setup)
-* _(optional)_: comes with pre-installed plugins commonly used at Siemens (e.g. `plantuml-markdown`, `mkdocs-literate-nav`)
+The repository was started from the Siemens `docs-theme-quickstart` template, so a few leftovers are
+still visible — e.g. the project is still named `docs-theme-demo` in `pyproject.toml`.
 
-## Create a new project
+## Where this repo lives
 
-Follow the link below to create a new MkDocs project based on this template:
+| Remote | URL | Purpose |
+| --- | --- | --- |
+| `GitHubOrigin` | `https://github.com/RufusJWB/PasswordResetDocs.git` | The repository — runs `.github/workflows/docs.yml`. Tracked by local `main`. |
+| `docs-theme` | `https://code.siemens.com/code-ops/docs-theme.git` | Upstream source for the vendored theme (`git subtree`) |
 
-1. [Fork this repository](https://code.siemens.com/code-examples/docs-theme-quickstart/-/forks/new).
+The project previously also lived on Siemens GitLab and carried a `.gitlab-ci.yml`; both were removed.
+GitHub Actions is now the only CI.
 
-1. Once you've created the project, go to your project settings to
-   [remove the fork relationship](https://docs.gitlab.com/ee/user/project/settings/#removing-a-fork-relationship).
+## Cloning — Git LFS caveat
 
-   In your project's left sidebar, go **Settings > General > Advanced** and expand the section:
+`vendor/docs-theme/.gitattributes` marks `*.snap.png` (Cypress visual-regression snapshots) as Git LFS
+files, but **those LFS objects are not available on the server**. A normal clone or pull therefore dies
+with:
 
-   <!-- We use uploads here so that assets don't end up in the users' repo -->
-   ![Project advanced settings](https://code.siemens.com/code-examples/docs-theme-quickstart/uploads/964e5ec32dd4d610a7d93b392b591773/project-settings-advanced.png)
+```text
+Object does not exist on the server: [404]
+error: external filter 'git-lfs filter-process' failed
+fatal: ...snap.png: smudge filter lfs failed
+```
 
-1. Scroll down and click on **Remove fork relationship**:
+The snapshots are test fixtures — nothing in the docs or theme build reads them — so simply skip the
+LFS smudge:
 
-   ![Remove fork](https://code.siemens.com/code-examples/docs-theme-quickstart/uploads/b55141bb592d043352a66183068aab21/project-settings-remove-fork.png)
+```bash
+# when cloning
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/RufusJWB/PasswordResetDocs.git
 
-   > **Note**: You must have Owner permissions of the forked project to be able to remove the fork
-   > relationship. If someone else forked the project and you are doing this after the fact, you
-   > might not be able to see this option in your project settings.
+# in an existing clone (writes to .git/config only)
+git lfs install --local --skip-smudge
+```
 
-## First use
+The `*.snap.png` files are then checked out as small LFS pointer text files, which is harmless.
 
-If you want to see your GitLab Pages before making any changes, you need to trigger the pipeline one time to get it deployed.
-In your project's left sidebar, go to **CI/CD > Pipelines** and press the `Run pipeline` button.
+## Repository layout
 
-If the pipeline passed with `Job succeeded`, you can find the URL under **Deploy > Pages**  in the `Access pages` field.
+```text
+.github/workflows/docs.yml   GitHub Actions pipeline (build + GitHub Pages)
+docs/                        Markdown content and screenshots
+  index.md                   The entire site content (single page)
+  *.png                      Screenshots referenced from index.md
+scripts/bootstrap-docs-theme.sh   Rebuilds the vendored theme from source (bash/WSL, Node + Yarn)
+vendor/docs-theme/           Siemens theme, vendored via git subtree (~2500 files)
+  mkdocs_siemens/            Prebuilt theme package — committed, this is what CI installs
+mkdocs.yml                   Site config: theme, nav, markdown extensions
+pyproject.toml / uv.lock     Python dependencies, managed with uv
+renovate.json5               Dependency update automation
+site/                        Build output — git-ignored
+```
 
-From now on, you can start editing your documentation and deploy your site using Siemens branding.
+## Content
+
+All content lives in [docs/index.md](docs/index.md). Images use relative paths
+(`./EnterPassword2.png`, `./Act%20on%20behalf%201.png`, …). A few PNGs in `docs/` are unreferenced
+leftovers. Navigation is declared explicitly in `mkdocs.yml`; `mkdocs-literate-nav` is installed but
+**not** enabled as a plugin, so `SUMMARY.md` files have no effect.
+
+## The theme
+
+`mkdocs.yml` selects `theme.name: code-siemens-code-docs-theme`. That theme is not on PyPI and is not a
+declared dependency in `pyproject.toml`/`uv.lock` — it is installed from the vendored subtree:
+
+```bash
+uv pip install --no-deps ./vendor/docs-theme    # installs mkdocs-code-siemens-code-docs-theme 8.0.1
+```
+
+The build output (`vendor/docs-theme/mkdocs_siemens/`) is **committed**, so neither CI nor a normal
+local build needs Node.js, Yarn, or access to the Siemens npm registry.
+
+Earlier revisions pulled the theme as a wheel from the Siemens internal GitLab PyPI index
+(`code.siemens.com/api/v4/projects/64538/packages/pypi/simple/`, `authenticate = "always"`). That
+worked on Siemens runners but not on GitHub-hosted ones, which is why the vendored copy exists.
 
 ## Building locally
 
-To work locally with this project, you'll have to follow the steps below:
+```bash
+uv sync --locked                              # install locked Python deps
+uv pip install --no-deps ./vendor/docs-theme  # install the prebuilt vendored theme
+uv run mkdocs serve                           # http://127.0.0.1:8000, live reload
+uv run mkdocs build --strict                  # what CI runs; output in site/
+```
 
-1. Fork, clone or download this project
-1. Install [uv](https://docs.astral.sh/uv/)
-1. Install Node.js 20 or newer (required to build the Siemens `docs-theme` from source)
-1. Ensure the vendored Siemens theme sources are present under `vendor/docs-theme` (managed via `git subtree`; if the directory is missing, restore it from git or re-import `https://code.siemens.com/code-ops/docs-theme.git` into `vendor/docs-theme` with `git subtree`)
-1. Install the locked Python dependencies: `uv sync --locked`
-1. Build and install the Siemens theme locally:
-   * Run `./scripts/bootstrap-docs-theme.sh` (this can be executed in WSL)
-   * After updating the vendored theme, commit the generated `vendor/docs-theme/mkdocs_siemens/` files so CI can install the prebuilt theme package without reaching the Siemens npm registry.
-1. Preview your project: `uv run mkdocs serve`, then available at `http://127.0.0.1:8000`
-1. Modify content, live reloading will reflect your changes immediately
-1. Generate the website: `uv run mkdocs build` (optional)
-1. (Optional) Remember to keep your theme dependencies up to date.
-   Use `uv lock --upgrade` to get patches and minor version upgrades.
-   To update the vendored theme sources to the latest upstream changes:
-   * Check the latest docs-theme release or tag in the upstream changelog and releases: `https://code-ops.code.siemens.io/docs-theme/changelog/`
-   * Review the upgrade guide for breaking changes before updating: `https://code-ops.code.siemens.io/docs-theme/upgrade/`
-   * Pull the selected upstream tag into `vendor/docs-theme` with `git subtree`, for example: `git subtree pull --prefix=vendor/docs-theme https://code.siemens.com/code-ops/docs-theme.git <tag> --squash`
-   * Rerun `./scripts/bootstrap-docs-theme.sh` to regenerate the built theme files
-   * Commit the updated vendored sources together with the regenerated `vendor/docs-theme/mkdocs_siemens/` files
-   or automate all updates via [renovate-bot](https://code.siemens.io/ci/renovate-bot/).
+`site/`, `.cache/`, and the theme's `node_modules/` are git-ignored.
 
-## Recommendations
+## Updating the vendored theme
 
-### Navigation
+Only needed when bumping the theme; requires bash (WSL/Git Bash), Node.js 20+, and network access to
+the Siemens npm registry.
 
-When building large sites or aggregating multiple sites together, as an alternative to standard MkDocs navigation configured in `mkdocs.yml`
-we recommend using the [mkdocs-literate-nav plugin](https://github.com/oprypin/mkdocs-literate-nav), which is installed with this quickstart template by default.
+1. Check the [changelog](https://code-ops.code.siemens.io/docs-theme/changelog/) and
+   [upgrade guide](https://code-ops.code.siemens.io/docs-theme/upgrade/) for breaking changes.
+2. `git subtree pull --prefix=vendor/docs-theme docs-theme <tag> --squash`
+3. `./scripts/bootstrap-docs-theme.sh` — enables corepack, runs the Yarn build
+   (`src:compile`, `src:postcss`, `dist:cpy:*`, `src:hash`), then `uv pip install --no-deps` the result.
+4. Commit the updated sources **together with** the regenerated `vendor/docs-theme/mkdocs_siemens/`,
+   otherwise CI's prebuilt-theme check fails.
 
-This plugin will make your life easier by defining your navigation in Markdown rather than in the YAML configuration file.
-It also distributes navigation to the corresponding documentation folders and allows specifying it in a more granular way.
-**Using this plugin is highly recommended if you want to push your content to the [Siemens Developer Portal](https://developer.internal.siemens.com/).**
+## CI/CD — `.github/workflows/docs.yml`
 
-You can find more details on configuring navigation this way in the documentation for the [mkdocs-literate-nav plugin](https://github.com/oprypin/mkdocs-literate-nav).
+Workflow **Docs CI/CD**, triggered on `pull_request` and on `push` to any branch. Concurrency group
+`docs-<workflow>-<ref>` with `cancel-in-progress`. Permissions: `contents: read`, `pages: write`,
+`id-token: write`. Env: `UV_LINK_MODE=copy`.
 
-## Learn more
+**`build`** (ubuntu-latest):
 
-Visit [Siemens docs-theme](https://code.siemens.com/code-ops/docs-theme/) for the full documentation
-and the [MkDocs documentation](https://www.mkdocs.org/) if you'd like to learn more about the technology
-behind our theme.
+1. `actions/checkout@v6`
+2. `astral-sh/setup-uv@v8.0.0`, `actions/setup-python@v6` (Python 3.12)
+3. `uv sync --locked`
+4. Assert `vendor/docs-theme/mkdocs_siemens/` is present, then `uv pip install --no-deps ./vendor/docs-theme`
+5. `uv run mkdocs build --strict`, plus `--no-directory-urls` for pull requests
+6. Uploads `site/` as the `site` artifact (`actions/upload-artifact@v7`, 1 day retention)
+7. On a push to the default branch only: `actions/upload-pages-artifact@v3`
 
-### Contributing
+**`deploy`**: needs `build`, runs only on a push to the default branch, uses the `github-pages`
+environment and `actions/deploy-pages@v4`.
 
-We love :heart: contributions!
+## Dependency updates
 
-Use the issue tracker to document bugs or missing features.
+`renovate.json5` extends `config:recommended` and `group:allNonMajor`. It does not cover the vendored
+theme — update that manually with `git subtree` as described above.
 
-Contribute by using the [merge request
-workflow](https://docs.gitlab.com/ce/development/contributing/merge_request_workflow.html).
+## Contributing
+
+Use the GitHub issue tracker to report problems, and contribute through pull requests. Every pull
+request builds the site with `--strict` and uploads the rendered `site/` as a workflow artifact.
+
+## License
+
+[Siemens Inner Source License v1.4](LICENSE.md).
