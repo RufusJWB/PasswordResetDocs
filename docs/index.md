@@ -85,7 +85,7 @@ If your manager (or an myIT Expert Requestor) cannot be reached, two *internal* 
 
 #### Step-by-step guidance (requester prespective)
 
-1. **Contact an authorized colleague:** Ask your manager, direct report, or a colleague from your department to initiate the password reset using this link.
+1. **Contact an authorized colleague:** Ask your manager, direct report, or a colleague from your department to initiate the [password reset using this link](https://prod.ad-pro.siemens.com/ui/#w/SiemensPasswordResetV2).
 1. **Verify your identity:** Once the process has been initiated, you will be contacted and asked to confirm your identity.
 1. **Receive both halves of your password:**
     - **If your alternative contact details are stored in SCD,** the first half is sent to the initiator and the second half is sent to you via your registered email or mobile number.
