@@ -2,6 +2,8 @@ site_name: Password reset
 
 theme:
   name: 'code-siemens-code-docs-theme'
+  features:
+    - navigation.tabs
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -19,8 +21,8 @@ theme:
         name: Switch to system theme
 
 nav:
-  - Home:
-    - Password reset: index.md
+  - Windows: index.md
+  - MacBook: macbook.md
 
 plugins: []
 
